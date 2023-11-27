@@ -6,6 +6,7 @@ import Page404 from './pages/Page404'
 import Dashboard from './pages/Admin/Dashboard'
 import TipoEstagio from './pages/Admin/TipoEstagio';
 import Documento from './pages/Admin/Documento'
+import TipoDocumento from './pages/Admin/TipoDocumento'
 import Coordenador from './pages/Admin/Coordenador'
 import SideBar from "./pages/Admin/Components/SideBar";
 import Navbar from "./pages/Admin/Components/NavBar";
@@ -33,8 +34,9 @@ function App() {
           <Route path='/adm/admin' element={<Admin/>}/>
           <Route element={<Layout/>}>
           <Route path='/adm/dashboard' element={<Dashboard/>}/>
-          <Route path='/adm/tipoestagio' element={<TipoEstagio/>}/>
-          <Route path='/adm/documento' element={<Documento/>}/>
+          <Route path='/adm/tipoestagio' element={<TipoEstagio/>}/>          
+          <Route path='/adm/documento' element={<Documento/>}/>  
+          <Route path='/adm/tipodocumento' element={<TipoDocumento/>}/>       
           <Route path='/adm/coordenador' element={<Coordenador/>}/>
           </Route>
           <Route path='/*' element={<Page404/>}/>

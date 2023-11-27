@@ -28,7 +28,7 @@ const TipoEstagio = () => {
               <p>id: {x.idTipoEstagio}</p>
               <p>descição: {x.descricaoTipoEstagio}</p>
             </li>))
-          }
+        }
       </ul>
     </div>
   )

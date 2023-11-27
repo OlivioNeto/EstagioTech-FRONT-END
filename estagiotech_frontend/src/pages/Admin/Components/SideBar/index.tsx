@@ -7,6 +7,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import FindInPageIcon from '@mui/icons-material/FindInPage';
 
 const SideBar = () => {
   return (
@@ -34,6 +35,14 @@ const SideBar = () => {
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Documento</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/adm/tipodocumento">
+            <FindInPageIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Tipo Documento</span>
           </NavLink>
         </li>
         <li>
