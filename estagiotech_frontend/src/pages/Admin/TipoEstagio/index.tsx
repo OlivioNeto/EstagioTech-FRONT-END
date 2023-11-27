@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect, useState } from "react";
 import { tipoEstagioProps } from '../TipoEstagio/TableTipoEstagio/data/schema';
 
@@ -6,7 +5,7 @@ import { tipoEstagioProps } from '../TipoEstagio/TableTipoEstagio/data/schema';
 import api from "../../../service/api"
 
 const TipoEstagio = () => {
-    const [tipoestagio, setTipoEstagio] = useState<tipoEstagioProps[]>([]);
+  const [tipoestagio, setTipoEstagio] = useState<tipoEstagioProps[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -14,9 +13,24 @@ const TipoEstagio = () => {
       setTipoEstagio(tipoestagioData);
     })();
   }, []);
-console.log(tipoestagio);
+
+  useEffect(() => {
+    console.log(tipoestagio)
+  }, []);
+
   return (
-    <div>Tipo Estagio</div>
+    <div>
+      <div>Tipo Estagio</div>
+      <ul>
+        {
+          tipoestagio.length > 0 && tipoestagio.map(x =>
+            (<li key={x.idTipoEstagio}>
+              <p>id: {x.idTipoEstagio}</p>
+              <p>descição: {x.descricaoTipoEstagio}</p>
+            </li>))
+          }
+      </ul>
+    </div>
   )
 }
 
