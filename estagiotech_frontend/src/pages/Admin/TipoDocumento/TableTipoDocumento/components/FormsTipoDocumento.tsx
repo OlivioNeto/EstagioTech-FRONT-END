@@ -11,15 +11,10 @@ const FormsTipoDocumento = () => {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const data = {
-        descricaoTipoDocumento
-    };
 
-    await api.post("/TipoDocumento", data).then((resp)=> {
+    await api.post("/TipoDocumento", descricaoTipoDocumento, {headers: {"Content-Type": "application/json" }}).then((resp)=> {
         console.log(resp)
     }).catch((error) => console.log(error));
-
-      console.log(data)
   }
 
   return (
