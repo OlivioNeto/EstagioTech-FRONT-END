@@ -3,6 +3,7 @@ import { tipoDocumentoProps} from "../TipoDocumento/TableTipoDocumento/data/sche
 
 // import dataTasks from "./data/tasks.json";
 import api from "../../../service/api";
+import FormsTipoDocumento from "./TableTipoDocumento/components/FormsTipoDocumento";
 
 const TipoDocumento = () => {
   const [ tipodocumento, setTipoDocumento] = useState<tipoDocumentoProps[]>([]);
@@ -31,6 +32,7 @@ const TipoDocumento = () => {
             </li>
           ))}
       </ul>
+      <FormsTipoDocumento/>
     </div>
   );
 };
