@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { tipoDocumentoProps} from "../TipoDocumento/TableTipoDocumento/data/schema"
+import { tipoDocumentoProps} from "../TipoDocumento/TableTipoDocumento/data/schema";
 
 // import dataTasks from "./data/tasks.json";
 import api from "../../../service/api";
