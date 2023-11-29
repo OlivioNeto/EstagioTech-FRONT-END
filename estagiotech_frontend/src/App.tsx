@@ -6,10 +6,10 @@ import Page404 from './pages/Page404'
 import Dashboard from './pages/Admin/Dashboard'
 import TipoEstagio from './pages/Admin/TipoEstagio';
 import Documento from './pages/Admin/Documento'
-import TipoDocumento from './pages/Admin/TipoDocumento'
 import Coordenador from './pages/Admin/Coordenador'
 import SideBar from "./pages/Admin/Components/SideBar";
 import Navbar from "./pages/Admin/Components/NavBar";
+import TipoDocumento from './pages/Admin/TipoDocumento'
 
 
 function App() {
