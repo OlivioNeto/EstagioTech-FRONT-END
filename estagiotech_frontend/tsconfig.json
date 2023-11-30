@@ -27,6 +27,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["data-table.d.ts","src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
