@@ -18,7 +18,7 @@ export default function TipoDocumentos() {
       const includeKeyData = dataTipoDocumento.map((item) => {
         return { ...item, key: item.idTipoDocumento };
       });
-
+      console.log(includeKeyData)
       setData(includeKeyData);
     })();
   }, []);

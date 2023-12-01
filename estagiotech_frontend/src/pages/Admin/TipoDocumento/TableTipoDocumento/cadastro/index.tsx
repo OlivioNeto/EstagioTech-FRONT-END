@@ -15,7 +15,9 @@ export default function CadastroTipoDocumento() {
       if (id) {
         const data = (await api.get(`/TipoDocumento/${id}`)).data;
         setTipoDocumento(data);
-      }
+      } else {setTipoDocumento({
+        idTipoDocumento:0,descricaoTipoDocumento:"",key:0
+      })}
       return;
     })();
   }, []);
@@ -23,7 +25,6 @@ export default function CadastroTipoDocumento() {
   return (
     <div>
       <p className="text-2xl mb-4">Cadastro do tipo do documento</p>
-
       <FormCadastroTipoDocumento data={tipoDocumento} />
     </div>
   );

@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { TipoDocumentoProps } from "../table/columns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const formSchema = z.object({
   descricaoTipoDocumento: z.string(),
@@ -25,7 +25,7 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 
 const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
   const navigate = useNavigate();
-  const [isEdit, setisEdit] = useState<boolean>(data.idTipoDocumento != 0); // true or false
+  const [isEdit, setisEdit] = useState<boolean>(data.idTipoDocumento != undefined && data.idTipoDocumento != 0); // true or false
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
@@ -35,8 +35,9 @@ const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
       descricaoTipoDocumento: "",
     },
   });
-
+  
   async function onSubmit(values: FormCadastroProps) {
+    console.log(isEdit)
     !isEdit?
     await api
         .post("/TipoDocumento", values.descricaoTipoDocumento, {headers: {"Content-Type": "application/json" }})
