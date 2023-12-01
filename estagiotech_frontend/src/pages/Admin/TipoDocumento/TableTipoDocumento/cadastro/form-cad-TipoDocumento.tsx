@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { TipoDocumentoProps } from "../table/columns";
-import { useEffect, useState } from "react";
 
 const formSchema = z.object({
   descricaoTipoDocumento: z.string(),
@@ -25,7 +24,7 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 
 const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
   const navigate = useNavigate();
-  const [isEdit, setisEdit] = useState<boolean>(data.idTipoDocumento != undefined && data.idTipoDocumento != 0); // true or false
+  const isEdit = !!data.idTipoDocumento;
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
@@ -73,7 +72,7 @@ const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {!isEdit ? "Cadastrar" : "Salvar alterações"}
+              {!isEdit? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"

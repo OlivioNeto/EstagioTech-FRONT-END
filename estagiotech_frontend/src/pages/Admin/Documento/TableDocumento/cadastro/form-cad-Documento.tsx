@@ -14,40 +14,43 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { TipoEstagioProps } from "../table/columns";
+import { DocumentoProps } from "../table/columns";
 
 const formSchema = z.object({
-    descricaoTipoEstagio: z.string(),
+  descricaoDocumento: z.string(),
+  situacaoDocumento: z.string(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const FormCadastroTipoEstagio = ({ data }: { data: TipoEstagioProps }) => {
+const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
   const navigate = useNavigate();
-  const isEdit = !!data.idTipoEstagio;
-
+  const isEdit = !!data.documentoId;
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-        descricaoTipoEstagio: data.descricaoTipoEstagio,
+        descricaoDocumento: data.descricaoDocumento,
+        situacaoDocumento: data.situacaoDocumento
     },
     defaultValues: {
-        descricaoTipoEstagio: "",
+      descricaoDocumento: "",
+      situacaoDocumento: "",
     },
   });
   
   async function onSubmit(values: FormCadastroProps) {
     console.log(isEdit)
-    !isEdit?
+    isEdit?
     await api
-        .post("/TipoEstagio", values.descricaoTipoEstagio, {headers: {"Content-Type": "application/json" }})
-        .finally(() => navigate("/adm/tipoestagio"))
+        .post("/Documento", values.descricaoDocumento, {headers: {"Content-Type": "application/json" }})
+        .finally(() => navigate("/adm/documento"))
       : await api
-          .put(`/TipoEstagio/${data.idTipoEstagio}`, {
+          .put(`/Documento/${data.documentoId}`, {
             ...values,
-            idTipoEstagio: data.idTipoEstagio,
+            documentoId: data.documentoId
           })
-          .finally(() => navigate("/adm/tipoestagio"));
+          .finally(() => navigate("/adm/documento"));
+
   }
 
   return (
@@ -57,12 +60,25 @@ const FormCadastroTipoEstagio = ({ data }: { data: TipoEstagioProps }) => {
           <CardContent>
             <FormField
               control={form.control}
-              name="descricaoTipoEstagio"
+              name="descricaoDocumento"
               render={({ field }) => (
                 <FormItem className="mt-5">
-                  <FormLabel>Descrição do Tipo Estágio</FormLabel>
+                  <FormLabel>Descrição do Documento</FormLabel>
                   <FormControl>
-                    <Input placeholder="Descreva o tipo do estágio" {...field} />
+                    <Input placeholder="Descreva o tipo do documento" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="situacaoDocumento"
+              render={({ field }) => (
+                <FormItem className="mt-5">
+                  <FormLabel>Descrição do Documento</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Descreva a situação do documento" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -72,12 +88,12 @@ const FormCadastroTipoEstagio = ({ data }: { data: TipoEstagioProps }) => {
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {!isEdit? "Cadastrar" : "Salvar alterações"}
+              {isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/adm/tipoestagio")}
+              onClick={() => navigate("/adm/documento")}
             >
               Voltar
             </Button>
@@ -88,4 +104,4 @@ const FormCadastroTipoEstagio = ({ data }: { data: TipoEstagioProps }) => {
   );
 };
 
-export default FormCadastroTipoEstagio;
+export default FormCadastroDocumento;
