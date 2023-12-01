@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { TipoDocumentoProps } from "../table/columns";
+import { useState } from "react";
 
 const formSchema = z.object({
   descricaoTipoDocumento: z.string(),
@@ -24,29 +25,31 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 
 const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
   const navigate = useNavigate();
-  const isEdit = Object.keys(data).length === 0; // true or false
+  const [isEdit, setisEdit] = useState<boolean>(data.idTipoDocumento != 0); // true or false
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-      descricaoTipoDocumento: data.descricaoTipoDocumento
+      descricaoTipoDocumento: data.descricaoTipoDocumento,
     },
     defaultValues: {
-      descricaoTipoDocumento: ""
+      descricaoTipoDocumento: "",
     },
   });
 
   async function onSubmit(values: FormCadastroProps) {
-    isEdit
-      ? await api
-          .post("/tipodocumento", values)
-          .finally(() => navigate("/adm/tipodocumento"))
+    !isEdit?
+    await api
+        .post("/TipoDocumento", values.descricaoTipoDocumento, {headers: {"Content-Type": "application/json" }})
+        .finally(() => navigate("/adm/tipodocumento"))
       : await api
-          .put(`/tipodocumento/${data.idTipoDocumento}`, {
+          .put(`/TipoDocumento/${data.idTipoDocumento}`, {
             ...values,
             idTipoDocumento: data.idTipoDocumento,
           })
           .finally(() => navigate("/adm/tipodocumento"));
+
   }
+
   return (
     <Card className="p-4">
       <Form {...form}>
@@ -69,7 +72,7 @@ const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {isEdit ? "Cadastrar" : "Salvar alterações"}
+              {!isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"

@@ -11,12 +11,12 @@ export default function TipoDocumentos() {
 
   useEffect(() => {
     (async () => {
-      const data: TipoDocumentoProps[] = await (
+      const dataTipoDocumento: TipoDocumentoProps[] = await (
         await api.get("/TipoDocumento")
       ).data;
 
-      const includeKeyData = data.map((item, idx) => {
-        return { ...item, key: idx };
+      const includeKeyData = dataTipoDocumento.map((item) => {
+        return { ...item, key: item.idTipoDocumento };
       });
 
       setData(includeKeyData);

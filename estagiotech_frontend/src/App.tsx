@@ -11,6 +11,7 @@ import SideBar from "./pages/Admin/Components/SideBar";
 import Navbar from "./pages/Admin/Components/NavBar";
 import TipoDocumento from './pages/Admin/TipoDocumento'
 import Cadastro from "./pages/Admin/TipoDocumento/TableTipoDocumento/cadastro"
+import CadastroTipoDocumento from './pages/Admin/TipoDocumento/TableTipoDocumento/cadastro'
 
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
           <Route path='/adm/tipodocumento' element={<TipoDocumento/>}/>       
           <Route path='/adm/coordenador' element={<Coordenador/>}/>
           <Route path='/adm/tipodocumento/cadastro' element={<Cadastro/>}/>
+          <Route
+          path="/adm/tipodocumento/cadastro/:id?"
+          element={<CadastroTipoDocumento/>}
+        />
           </Route>
           <Route path='/*' element={<Page404/>}/>
           

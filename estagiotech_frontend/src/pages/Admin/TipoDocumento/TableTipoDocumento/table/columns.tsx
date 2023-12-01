@@ -45,6 +45,10 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "idTipoDocumento",
+    header: "Código do tipo documento",
+  },
+  {
     accessorKey: "descricaoTipoDocumento",
     header: "Descrição do tipo documento",
   },
