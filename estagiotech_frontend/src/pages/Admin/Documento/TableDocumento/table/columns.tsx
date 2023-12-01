@@ -58,7 +58,7 @@ export const columns: ColumnDef<DocumentoProps>[] = [
     header: "Situação do documento",
   },
   {
-    accessorKey: "descricaoDocumento",
+    accessorKey: "situacaoDocumento",
     header: ({ column }) => {
       return (
         <Button

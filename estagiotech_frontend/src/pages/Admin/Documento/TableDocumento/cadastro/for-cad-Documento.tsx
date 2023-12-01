@@ -29,8 +29,8 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-        descricaoDocumento: data.descricaoDocumento,
-        situacaoDocumento: data.situacaoDocumento
+      descricaoDocumento: data.descricaoDocumento,
+      situacaoDocumento: data.situacaoDocumento,
     },
     defaultValues: {
       descricaoDocumento: "",
@@ -40,14 +40,14 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
   
   async function onSubmit(values: FormCadastroProps) {
     console.log(isEdit)
-    isEdit?
+    !isEdit?
     await api
         .post("/Documento", values.descricaoDocumento, {headers: {"Content-Type": "application/json" }})
         .finally(() => navigate("/adm/documento"))
       : await api
           .put(`/Documento/${data.documentoId}`, {
             ...values,
-            documentoId: data.documentoId
+            documentoId: data.documentoId,
           })
           .finally(() => navigate("/adm/documento"));
 
@@ -63,9 +63,9 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
               name="descricaoDocumento"
               render={({ field }) => (
                 <FormItem className="mt-5">
-                  <FormLabel>Descrição do Documento</FormLabel>
+                  <FormLabel>Descrição do documento</FormLabel>
                   <FormControl>
-                    <Input placeholder="Descreva o tipo do documento" {...field} />
+                    <Input placeholder="Descreva o documento" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -76,9 +76,9 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
               name="situacaoDocumento"
               render={({ field }) => (
                 <FormItem className="mt-5">
-                  <FormLabel>Descrição do Documento</FormLabel>
+                  <FormLabel>Situação do documento</FormLabel>
                   <FormControl>
-                    <Input placeholder="Descreva a situação do documento" {...field} />
+                    <Input placeholder="Qual a situação do documento" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -88,7 +88,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {isEdit ? "Cadastrar" : "Salvar alterações"}
+              {!isEdit? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"

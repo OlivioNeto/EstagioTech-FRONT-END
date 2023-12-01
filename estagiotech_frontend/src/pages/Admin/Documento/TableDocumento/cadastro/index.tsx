@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import FormCadastroDocumento from "./form-cad-Documento";
+import FormCadastroDocumento from "./for-cad-Documento";
 import { DocumentoProps } from "../table/columns";
 import api from "@/service/api";
 
@@ -13,7 +13,7 @@ export default function CadastroDocumento() {
   useEffect(() => {
     (async () => {
       if (id) {
-        const data = (await api.get(`/Documento/${id}`)).data;
+        const data = (await api.get(`/documento/${id}`)).data;
         setDocumento(data);
       } else {setDocumento({
         documentoId:0,descricaoDocumento:"",situacaoDocumento:"",key:0
@@ -24,7 +24,7 @@ export default function CadastroDocumento() {
 
   return (
     <div>
-      <p className="text-2xl mb-4">Cadastro do documento</p>
+      <p className="text-2xl mb-4">Cadastro dos documentos</p>
       <FormCadastroDocumento data={documento} />
     </div>
   );
