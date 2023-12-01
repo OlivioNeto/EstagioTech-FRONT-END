@@ -1,5 +1,5 @@
 import style from "./SideBar.module.css";
-//import LogoImg from "../../../../Image/Logo.png";
+import LogoImg from "../../../../assets/images/LOGO.svg";
 import { NavLink } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -13,7 +13,7 @@ const SideBar = () => {
   return (
     <nav className={style.container}>
       <div className={style.image}>
-        {/* <img src={LogoImg} alt="Logo" /> */}
+        <img src={LogoImg} alt="Logo" />
       </div>
       <hr style={{ margin: "20px 0px", borderColor: "#C7C7C7" }} />
       <ul className={style.sidebar}>
