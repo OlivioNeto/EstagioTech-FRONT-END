@@ -42,12 +42,13 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
     console.log(isEdit)
     !isEdit?
     await api
-        .post("/Documento", values.descricaoDocumento, {headers: {"Content-Type": "application/json" }})
+        .post("/Documento", values)
         .finally(() => navigate("/adm/documento"))
       : await api
-          .put(`/Documento/${data.documentoId}`, {
-            ...values,
+          .put(`/Documento`, {
             documentoId: data.documentoId,
+            descricaoDocumento: values.descricaoDocumento,
+            situacaoDocumento: values.situacaoDocumento, 
           })
           .finally(() => navigate("/adm/documento"));
 
