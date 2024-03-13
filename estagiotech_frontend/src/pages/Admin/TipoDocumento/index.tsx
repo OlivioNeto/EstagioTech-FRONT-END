@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TipoDocumentoProps, columns} from "./TableTipoDocumento/table/columns";
+import { TipoDocumentoProps, columns } from "./TableTipoDocumento/table/columns";
 import { DataTable } from "../../../components/data-table";
 import api from "@/service/api";
 import { Button } from "@/components/ui/button";
