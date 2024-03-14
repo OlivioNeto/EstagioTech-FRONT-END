@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import FormCadastroDocumentoNecessario from "./form-cad-DocumentoNecessario";
+import FormCadastroDocumentoNecessario from "./e";
 import { DocumentoNecessarioProps } from "../table/columns";
 import api from "@/service/api";
 

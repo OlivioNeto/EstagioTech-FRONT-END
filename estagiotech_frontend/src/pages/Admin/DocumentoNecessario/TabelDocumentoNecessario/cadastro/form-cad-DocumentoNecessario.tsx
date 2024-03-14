@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
     Form,
     FormControl,
@@ -10,12 +13,10 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import api from "../../../../../service/api";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { DocumentoNecessarioProps } from "../table/columns";
+import { useEffect, useState } from "react";
+import { Combobox, ComboboxProps } from "../../../../../components/ui/combobox";
 import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
 import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
 
@@ -26,12 +27,13 @@ const formSchema = z.object({
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const FormCadastroDocumentoNecessario = ({ data }: { data: DocumentoNecessarioProps }) => {
+const FormCadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
     const navigate = useNavigate();
-    // const [isEdit, setIsEdit] = !!data.DocumentoNecessarioId;
     const [isEdit, setIsEdit] = useState(false);
-    const [valueComboBox, setValueComboBox] = useState("");
     const [dataComboBox, setDataComboBox] = useState<ComboboxProps[]>([]);
+
+    const [valueComboBox, setValueComboBox] = useState("");
+
     const form = useForm<FormCadastroProps>({
         resolver: zodResolver(formSchema),
         values: {
@@ -43,64 +45,73 @@ const FormCadastroDocumentoNecessario = ({ data }: { data: DocumentoNecessarioPr
             idTipoEstagio: 0,
         },
     });
-    //transformando o id em string
+
     useEffect(() => {
         (async () => {
-          const tipoDocumentoSelecionado = data.idTipoDocumento;
-          const checkIsedit = Object.keys(data).length;
-          if (checkIsedit > 0) setIsEdit(true);
-          if (tipoDocumentoSelecionado) {
-            setValueComboBox(tipoDocumentoSelecionado.toString());
-          }
-          const tipoEstagioSelecionado = data.idTipoEstagio;
-          const checkIsEdit = Object.keys(data).length;
-          if (checkIsEdit > 0) setIsEdit(true);
-          if (tipoEstagioSelecionado) {
-            setValueComboBox(tipoEstagioSelecionado.toString());
-          }
-    
-          const resp: TipoDocumentoProps[] = (await api.get("tipodocumento")).data;
-          const respe: TipoEstagioProps[] = (await api.get("tipoestagio")).data;
-    
-          setDataComboBox(
-            resp.map((item) => {
-              return {
-                value: item.concedenteId.toString(),
-                label: item.razaoSocial,
-              };
-            })
-          );
+            const tipoDocumentoSelecionado = data.idTipoDocumento;
+            const tipoEstagioSelecionado = data.idTipoEstagio;
+            const checkIsedit = Object.keys(data).length;
+            if (checkIsedit > 0) setIsEdit(true);
+            if (tipoDocumentoSelecionado && tipoEstagioSelecionado) {
+                setValueComboBox(tipoDocumentoSelecionado.toString());
+                setValueComboBox(tipoEstagioSelecionado.toString());
+            }
+
+            const resp: TipoDocumentoProps[] = (await api.get("tipodocumento")).data;
+            const resptypeEstagio: TipoEstagioProps[] = (await api.get("tipoestagio")).data;
+
+            setDataComboBox([
+                ...resp.map((item) => ({
+                    value: item.idTipoDocumento.toString(),
+                    label: item.descricaoTipoDocumento,
+                })),
+                ...resptypeEstagio.map((item) => ({
+                    value: item.idTipoEstagio.toString(),
+                    label: item.descricaoTipoEstagio,
+                })),
+            ]);
         })();
-      }, [data]);
+    }, [data]);
+
     async function onSubmit(values: FormCadastroProps) {
-        console.log(isEdit)
-        !isEdit ?
-            await api
-                .post("/DocumentoNecessario", values.idTipoDocumento, { headers: { "Content-Type": "application/json" } })
-                .finally(() => navigate("/adm/documentonecessario"))
-            : await api
-                .put(`/TipoNecessario/${data.DocumentoNecessarioId}`, {
+        const dataVagas = { ...values, concedenteId: Number(valueComboBox) };
+        isEdit
+            ? await api
+                .put(`/documentonecessario/${data.idTipoDocumento}`, {
                     ...values,
-                    DocumentoNecessarioId: data.DocumentoNecessarioId,
                     idTipoDocumento: data.idTipoDocumento,
                     idTipoEstagio: data.idTipoEstagio,
                 })
-                .finally(() => navigate("/adm/documentonecessario"));
-
+                .finally(() => navigate("/dashboard/vagas"))
+            : await api
+                .post("/vagas", dataVagas)
+                .finally(() => navigate("/dashboard/vagas"));
     }
     return (
         <Card className="p-4">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    <CardContent>
+                    <CardContent className="grid grid-cols-2 gap-x-7">
                         <FormField
                             control={form.control}
-                            name="idTipoDocumento"
+                            name="concedenteId"
                             render={({ field }) => (
-                                <FormItem className="mt-5">
-                                    <FormLabel>ID DO TIPO DOCUMENTO</FormLabel>
+                                <FormItem className="mt-5 flex flex-col">
+                                    <FormLabel>Codigo da Empresa</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Descreva o código do tipo documento" {...field} />
+                                        <Combobox
+                                            data={dataComboBox}
+                                            value={valueComboBox}
+                                            setValue={setValueComboBox}
+                                        />
+
+                                        {/* <Input
+                      placeholder="Codigo da Empresa"
+                      {...field}
+                      onChange={(event) =>
+                        field.onChange(Number(event.target.value))
+                      }
+                    /> */}
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -108,26 +119,161 @@ const FormCadastroDocumentoNecessario = ({ data }: { data: DocumentoNecessarioPr
                         />
                         <FormField
                             control={form.control}
-                            name="idTipoEstagio"
+                            name="quantidade"
                             render={({ field }) => (
                                 <FormItem className="mt-5">
-                                    <FormLabel>ID DO TIPO ESTÁGIO</FormLabel>
+                                    <FormLabel>Quantidade de Vagas</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Descreva o código do tipo estágio" {...field} />
+                                        <Input
+                                            type="text"
+                                            placeholder="Quantidade de Vagas"
+                                            {...field}
+                                        />
+                                    </FormControl>
+
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="dataPublicacao"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Data da publicação</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Data da publicação" {...field} />
+                                    </FormControl>
+
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="dataLimite"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Data limite</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Data limite" {...field} />
+                                    </FormControl>
+
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="localidade"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Localidade</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Qual a cidadde" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="descricao"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Descrição</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Descrição da Vaga" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="titulo"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Titulo da Vaga</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Titulo da Vaga" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="localidadeTrabalho"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Localidade do trabalho</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Localidade do trabalho" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="horarioEntrada"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Horario de Entrada</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="time"
+                                            placeholder="Horario de Entrada"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="horarioSaida"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Horario de Saida</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="time"
+                                            placeholder="Horario de Saida"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="totalHorasSemanis"
+                            render={({ field }) => (
+                                <FormItem className="mt-5">
+                                    <FormLabel>Total horas Semanais</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Total horas Semanais" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                     </CardContent>
+
                     <CardFooter className="flex gap-4">
                         <Button type="submit">
-                            {!isEdit ? "Cadastrar" : "Salvar alterações"}
+                            {isEdit ? "Salvar alterações" : "Cadastrar"}
                         </Button>
                         <Button
                             type="button"
                             variant="secondary"
-                            onClick={() => navigate("/adm/documentonecessario")}
+                            onClick={() => navigate("/dashboard/vagas")}
                         >
                             Voltar
                         </Button>
@@ -138,4 +284,4 @@ const FormCadastroDocumentoNecessario = ({ data }: { data: DocumentoNecessarioPr
     );
 };
 
-export default FormCadastroDocumentoNecessario;
+export default FormCadastroVagas;
