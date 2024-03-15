@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import FormCadastroDocumentoNecessario from "./e";
+import CadastroDocumentoNecessario from "./form-cad-DocumentoNecessario";
 import { DocumentoNecessarioProps } from "../table/columns";
 import api from "@/service/api";
 
-export default function CadastroDocumentoNecessario() {
+export default function CadDocumentoNecessario() {
     const [documentoNecessario, setdocumentoNecessario] = useState<DocumentoNecessarioProps>(
         {} as DocumentoNecessarioProps
     );
@@ -30,7 +30,7 @@ export default function CadastroDocumentoNecessario() {
     return (
         <div>
             <p className="text-2xl mb-4">Cadastro do Documento Necessário</p>
-            <FormCadastroDocumentoNecessario data={documentoNecessario} />
+            <CadastroDocumentoNecessario data={documentoNecessario} />
         </div>
     );
 }

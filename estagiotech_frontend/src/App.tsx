@@ -10,7 +10,7 @@ import Coordenador from './pages/Admin/Coordenador'
 import SideBar from "./pages/Admin/Components/SideBar";
 import Navbar from "./pages/Admin/Components/NavBar";
 import TipoDocumento from './pages/Admin/TipoDocumento';
-import DocumentoNecessario from './pages/Admin/DocumentoNecessario';
+import DocumentoNecessario from './pages/Admin/DocumentoNecessario'
 import CadastroTipoDocumento from "./pages/Admin/TipoDocumento/TableTipoDocumento/cadastro";
 import CadastroTipoEstagio from "./pages/Admin/TipoEstagio/TableTipoEstagio/cadastro";
 import CadastroDocumento from "./pages/Admin/Documento/TableDocumento/cadastro";
@@ -44,7 +44,7 @@ function App() {
           <Route path='/adm/tipodocumento' element={<TipoDocumento/>}/>       
           <Route path='/adm/documento' element={<Documento/>}/>       
           <Route path='/adm/coordenador' element={<Coordenador/>}/>
-          <Route path='/adm/documentonecessario' element={<DocumentoNecessario/>}/>
+          <Route path='/adm/documentonecessario' element={<DocumentoNecessario/>}></Route>
           <Route path='/adm/tipodocumento/cadastro' element={<CadastroTipoDocumento/>}/>
           <Route path='/adm/tipoestagio/cadastro' element={<CadastroTipoEstagio/>}/>
           <Route path='/adm/documento/cadastro' element={<CadastroDocumento/>}/>

@@ -20,13 +20,14 @@ import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumen
 import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
 
 const formSchema = z.object({
+    // DocumentoNecessarioId: z.number(),
     idTipoDocumento: z.number(),
     idTipoEstagio: z.number(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const FormCadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
+const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
     const navigate = useNavigate();
     const [isEdit, setIsEdit] = useState(false);
     const [dataComboBox, setDataComboBox] = useState<ComboboxProps[]>([]);
@@ -36,10 +37,12 @@ const FormCadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) 
     const form = useForm<FormCadastroProps>({
         resolver: zodResolver(formSchema),
         values: {
+            // DocumentoNecessarioId: data.DocumentoNecessarioId,
             idTipoDocumento: data.idTipoDocumento,
             idTipoEstagio: data.idTipoEstagio,
         },
         defaultValues: {
+            // DocumentoNecessarioId: 0,
             idTipoDocumento: 0,
             idTipoEstagio: 0,
         },
@@ -73,18 +76,19 @@ const FormCadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) 
     }, [data]);
 
     async function onSubmit(values: FormCadastroProps) {
-        const dataVagas = { ...values, concedenteId: Number(valueComboBox) };
+        const dataTipoDocumento = { ...values, idTipoDocumento: Number(valueComboBox) };
+        const dataTipoEstagio = { ...values, idTipoEstagio: Number(valueComboBox) };
         isEdit
             ? await api
-                .put(`/documentonecessario/${data.idTipoDocumento}`, {
+                .put(`/documentonecessario/${data.idTipoDocumento, data.idTipoEstagio}`, {
                     ...values,
                     idTipoDocumento: data.idTipoDocumento,
                     idTipoEstagio: data.idTipoEstagio,
                 })
-                .finally(() => navigate("/dashboard/vagas"))
+                .finally(() => navigate("/dashboard/documentonecessario"))
             : await api
-                .post("/vagas", dataVagas)
-                .finally(() => navigate("/dashboard/vagas"));
+                .post("/documentonecessario", { dataTipoDocumento, dataTipoEstagio })
+                .finally(() => navigate("/dashboard/documentonecessario"));
     }
     return (
         <Card className="p-4">
@@ -144,4 +148,4 @@ const FormCadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) 
     );
 };
 
-export default FormCadastroDocumentoNecessario;
+export default CadastroDocumentoNecessario;
