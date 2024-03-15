@@ -89,7 +89,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {!isEdit ? "Salvar alterações" : "Cadastrar"}
+            {!isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"
