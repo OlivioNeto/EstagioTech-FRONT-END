@@ -29,7 +29,7 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 
 const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
     const navigate = useNavigate();
-    const [isEdit, setIsEdit] = useState(false);
+    const [isEdit, setIsEdit] = useState(true);
     const [dataComboBox, setDataComboBox] = useState<ComboboxProps[]>([]);
 
     const [valueComboBox, setValueComboBox] = useState("");
@@ -132,7 +132,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                     </CardContent>
                     <CardFooter className="flex gap-4">
                         <Button type="submit">
-                            {!isEdit ? "Cadastrar" : "Salvar alterações"}
+                            {!isEdit ? "Salvar alterações" : "Cadastrar"}
                         </Button>
                         <Button
                             type="button"

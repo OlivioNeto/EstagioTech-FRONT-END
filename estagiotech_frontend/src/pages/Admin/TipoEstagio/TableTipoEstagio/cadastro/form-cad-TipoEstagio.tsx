@@ -17,7 +17,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { TipoEstagioProps } from "../table/columns";
 
 const formSchema = z.object({
-    descricaoTipoEstagio: z.string(),
+  descricaoTipoEstagio: z.string(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
@@ -29,25 +29,25 @@ const FormCadastroTipoEstagio = ({ data }: { data: TipoEstagioProps }) => {
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-        descricaoTipoEstagio: data.descricaoTipoEstagio,
+      descricaoTipoEstagio: data.descricaoTipoEstagio,
     },
     defaultValues: {
-        descricaoTipoEstagio: "",
+      descricaoTipoEstagio: "",
     },
   });
-  
+
   async function onSubmit(values: FormCadastroProps) {
     console.log(isEdit)
-    !isEdit?
-    await api
-        .post("/TipoEstagio", values.descricaoTipoEstagio, {headers: {"Content-Type": "application/json" }})
+    !isEdit ?
+      await api
+        .post("/TipoEstagio", values.descricaoTipoEstagio, { headers: { "Content-Type": "application/json" } })
         .finally(() => navigate("/adm/tipoestagio"))
       : await api
-          .put(`/TipoEstagio/${data.idTipoEstagio}`, {
-            ...values,
-            idTipoEstagio: data.idTipoEstagio,
-          })
-          .finally(() => navigate("/adm/tipoestagio"));
+        .put(`/TipoEstagio/${data.idTipoEstagio}`, {
+          ...values,
+          idTipoEstagio: data.idTipoEstagio,
+        })
+        .finally(() => navigate("/adm/tipoestagio"));
   }
 
   return (
@@ -72,7 +72,7 @@ const FormCadastroTipoEstagio = ({ data }: { data: TipoEstagioProps }) => {
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {!isEdit? "Cadastrar" : "Salvar alterações"}
+              {!isEdit ? "Salvar alterações" : "Cadastrar"}
             </Button>
             <Button
               type="button"

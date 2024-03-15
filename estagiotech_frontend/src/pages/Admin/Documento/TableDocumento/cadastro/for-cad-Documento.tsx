@@ -37,20 +37,20 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
       situacaoDocumento: "",
     },
   });
-  
+
   async function onSubmit(values: FormCadastroProps) {
     console.log(isEdit)
-    !isEdit?
-    await api
+    !isEdit ?
+      await api
         .post("/Documento", values)
         .finally(() => navigate("/adm/documento"))
       : await api
-          .put(`/Documento`, {
-            documentoId: data.documentoId,
-            descricaoDocumento: values.descricaoDocumento,
-            situacaoDocumento: values.situacaoDocumento, 
-          })
-          .finally(() => navigate("/adm/documento"));
+        .put(`/Documento`, {
+          documentoId: data.documentoId,
+          descricaoDocumento: values.descricaoDocumento,
+          situacaoDocumento: values.situacaoDocumento,
+        })
+        .finally(() => navigate("/adm/documento"));
 
   }
 
@@ -89,7 +89,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {!isEdit? "Cadastrar" : "Salvar alterações"}
+              {!isEdit ? "Salvar alterações" : "Cadastrar"}
             </Button>
             <Button
               type="button"

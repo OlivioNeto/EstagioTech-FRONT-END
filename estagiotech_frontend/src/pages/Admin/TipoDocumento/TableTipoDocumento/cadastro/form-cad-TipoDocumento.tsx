@@ -34,19 +34,19 @@ const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
       descricaoTipoDocumento: "",
     },
   });
-  
+
   async function onSubmit(values: FormCadastroProps) {
     console.log(isEdit)
-    !isEdit?
-    await api
-        .post("/TipoDocumento", values.descricaoTipoDocumento, {headers: {"Content-Type": "application/json" }})
+    !isEdit ?
+      await api
+        .post("/TipoDocumento", values.descricaoTipoDocumento, { headers: { "Content-Type": "application/json" } })
         .finally(() => navigate("/adm/tipodocumento"))
       : await api
-          .put(`/TipoDocumento/${data.idTipoDocumento}`, {
-            ...values,
-            idTipoDocumento: data.idTipoDocumento,
-          })
-          .finally(() => navigate("/adm/tipodocumento"));
+        .put(`/TipoDocumento/${data.idTipoDocumento}`, {
+          ...values,
+          idTipoDocumento: data.idTipoDocumento,
+        })
+        .finally(() => navigate("/adm/tipodocumento"));
 
   }
 
@@ -72,7 +72,7 @@ const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {!isEdit? "Cadastrar" : "Salvar alterações"}
+              {!isEdit ? "Salvar alterações" : "Cadastrar"}
             </Button>
             <Button
               type="button"
