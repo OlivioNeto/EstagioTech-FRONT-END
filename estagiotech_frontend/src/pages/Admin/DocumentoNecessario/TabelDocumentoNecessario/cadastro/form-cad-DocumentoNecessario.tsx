@@ -126,7 +126,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                                     <FormLabel>ID DO TIPO ESTÁGIO</FormLabel>
                                     <FormControl>
                                         <Combobox
-                                            data={dataComboBoxD}
+                                            data={dataComboBoxE}
                                             value={valueComboBoxE}
                                             setValue={setValueComboBoxE}
                                         />
