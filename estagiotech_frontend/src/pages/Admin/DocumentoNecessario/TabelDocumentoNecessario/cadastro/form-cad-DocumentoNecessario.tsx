@@ -20,7 +20,6 @@ import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumen
 import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
 
 const formSchema = z.object({
-    // DocumentoNecessarioId: z.number(),
     idTipoDocumento: z.number(),
     idTipoEstagio: z.number(),
 });
@@ -29,20 +28,20 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 
 const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
     const navigate = useNavigate();
-    const [isEdit, setIsEdit] = useState(true);
-    const [dataComboBox, setDataComboBox] = useState<ComboboxProps[]>([]);
+    const [isEdit, setIsEdit] = useState(false);
+    const [dataComboBoxD, setDataComboBoxD] = useState<ComboboxProps[]>([]);
+    const [dataComboBoxE, setDataComboBoxE] = useState<ComboboxProps[]>([]);
 
-    const [valueComboBox, setValueComboBox] = useState("");
+    const [valueComboBoxD, setValueComboBoxD] = useState("");
+    const [valueComboBoxE, setValueComboBoxE] = useState("");
 
     const form = useForm<FormCadastroProps>({
         resolver: zodResolver(formSchema),
         values: {
-            // DocumentoNecessarioId: data.DocumentoNecessarioId,
             idTipoDocumento: data.idTipoDocumento,
             idTipoEstagio: data.idTipoEstagio,
         },
         defaultValues: {
-            // DocumentoNecessarioId: 0,
             idTipoDocumento: 0,
             idTipoEstagio: 0,
         },
@@ -55,29 +54,36 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
             const checkIsedit = Object.keys(data).length;
             if (checkIsedit > 0) setIsEdit(true);
             if (tipoDocumentoSelecionado && tipoEstagioSelecionado) {
-                setValueComboBox(tipoDocumentoSelecionado.toString());
-                setValueComboBox(tipoEstagioSelecionado.toString());
+                setValueComboBoxD(tipoDocumentoSelecionado.toString());
+                setValueComboBoxE(tipoEstagioSelecionado.toString());
             }
 
             const resp: TipoDocumentoProps[] = (await api.get("tipodocumento")).data;
             const resptypeEstagio: TipoEstagioProps[] = (await api.get("tipoestagio")).data;
 
-            setDataComboBox([
-                ...resp.map((item) => ({
-                    value: item.idTipoDocumento.toString(),
-                    label: item.descricaoTipoDocumento,
-                })),
-                ...resptypeEstagio.map((item) => ({
-                    value: item.idTipoEstagio.toString(),
-                    label: item.descricaoTipoEstagio,
-                })),
-            ]);
+            setDataComboBoxD(
+                resp.map((item) => {
+                    return {
+                        value: item.descricaoTipoDocumento.toString(),
+                        label: item.descricaoTipoDocumento,
+                    };
+                })
+            );
+            setDataComboBoxE(
+                resptypeEstagio.map((item) => {
+                    return {
+                        value: item.idTipoEstagio.toString(),
+                        label: item.descricaoTipoEstagio,
+                    };
+                })
+            );
         })();
     }, [data]);
 
+
     async function onSubmit(values: FormCadastroProps) {
-        const dataTipoDocumento = { ...values, idTipoDocumento: Number(valueComboBox) };
-        const dataTipoEstagio = { ...values, idTipoEstagio: Number(valueComboBox) };
+        const dataTipoDocumento = { ...values, idTipoDocumento: Number(valueComboBoxD) };
+        const dataTipoEstagio = { ...values, idTipoEstagio: Number(valueComboBoxE) };
         isEdit
             ? await api
                 .put(`/documentonecessario/${data.idTipoDocumento, data.idTipoEstagio}`, {
@@ -103,9 +109,9 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                                     <FormLabel>ID DO TIPO DOCUMENTO</FormLabel>
                                     <FormControl>
                                         <Combobox
-                                            data={dataComboBox}
-                                            value={valueComboBox}
-                                            setValue={setValueComboBox}
+                                            data={dataComboBoxD}
+                                            value={valueComboBoxD}
+                                            setValue={setValueComboBoxD}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -120,9 +126,9 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                                     <FormLabel>ID DO TIPO ESTÁGIO</FormLabel>
                                     <FormControl>
                                         <Combobox
-                                            data={dataComboBox}
-                                            value={valueComboBox}
-                                            setValue={setValueComboBox}
+                                            data={dataComboBoxD}
+                                            value={valueComboBoxE}
+                                            setValue={setValueComboBoxE}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -132,7 +138,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                     </CardContent>
                     <CardFooter className="flex gap-4">
                         <Button type="submit">
-                        {!isEdit ? "Cadastrar" : "Salvar alterações"}
+                            {!isEdit ? "Salvar alterações" : "Cadastrar"}
                         </Button>
                         <Button
                             type="button"
