@@ -61,14 +61,18 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
             const resp: TipoDocumentoProps[] = (await api.get("tipodocumento")).data;
             const resptypeEstagio: TipoEstagioProps[] = (await api.get("tipoestagio")).data;
 
+            if(!resp || resp.length == 0)
+            return;
             setDataComboBoxD(
                 resp.map((item) => {
                     return {
-                        value: item.descricaoTipoDocumento.toString(),
+                        value: item.idTipoDocumento.toString(),
                         label: item.descricaoTipoDocumento,
                     };
                 })
             );
+            if(!resptypeEstagio || resptypeEstagio.length == 0)
+            return;
             setDataComboBoxE(
                 resptypeEstagio.map((item) => {
                     return {

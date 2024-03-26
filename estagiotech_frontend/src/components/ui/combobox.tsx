@@ -43,9 +43,9 @@ export function Combobox({
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
+          {/* {value
             ? data.find((empresa) => empresa.value === value)?.label
-            : "Selecione a emrpesa..."}
+            : "Selecione a emrpesa..."} */}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -54,7 +54,7 @@ export function Combobox({
           <CommandInput placeholder="Pesquisar empresa..." />
           <CommandEmpty>Ops! Não localizado</CommandEmpty>
           <CommandGroup>
-            {data.map((empresa) => (
+            {/* {data.map((empresa) => (
               <CommandItem
                 key={empresa.value}
                 value={empresa.value}
@@ -71,7 +71,7 @@ export function Combobox({
                 />
                 {empresa.label}
               </CommandItem>
-            ))}
+            ))} */}
           </CommandGroup>
         </Command>
       </PopoverContent>
