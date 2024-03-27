@@ -13,14 +13,22 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export type DocumentoNecessarioProps = {
-    DocumentoNecessarioId: number;
-    idTipoDocumento: number;
-    idTipoEstagio: number;
+export type ContratoEstagioProps = {
+    contratoestagioId: number;
+    statusContratoEstagio: string;
+    notaFinal: string;
+    situacao: string;
+    horarioEntrada: string;
+    horarioSaida: string;
+    dataInicio: string;
+    dataFim: string;
+    salario: string;
+    cargaSemanal: string;
+    cargaTotal: string;
     key: number;
 };
 
-export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
+export const columns: ColumnDef<ContratoEstagioProps>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -46,26 +54,58 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "DocumentoNecessarioId",
-        header: "Código do documento necessário",
+        accessorKey: "contratoestagioId",
+        header: "Código do contrato estágio",
     },
     {
-        accessorKey: "idTipoDocumento",
-        header: "Código do tipo documento",
+        accessorKey: "statusContratoEstagio",
+        header: "Qual o status do contrato estágio",
     },
     {
-        accessorKey: "idTipoEstagio",
-        header: "Código do tipo estágio",
+        accessorKey: "notaFinal",
+        header: "Nota final do contrato estágio",
     },
     {
-        accessorKey: "idTipoDocumento",
+        accessorKey: "situacao",
+        header: "Situação do contrato estágio",
+    },
+    {
+        accessorKey: "horarioEntrada",
+        header: "Qual o horário de entrada desse contrato",
+    },
+    {
+        accessorKey: "horarioSaida",
+        header: "Qual o horário de saída desse contrato",
+    },
+    {
+        accessorKey: "dataInicio",
+        header: "Quando começa esse contrato",
+    },
+    {
+        accessorKey: "dataFim",
+        header: "Quando termina esse contrato",
+    },
+    {
+        accessorKey: "salario",
+        header: "Qual o salário do estagiário deste contrato",
+    },
+    {
+        accessorKey: "cargaSemanal",
+        header: "Qual a carga semanal do estagiário deste contrato",
+    },
+    {
+        accessorKey: "cargaTotal",
+        header: "Qual a carga total do estagiário deste contrato",
+    },
+    {
+        accessorKey: "contratoestagioId",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Código Documento Necessario
+                    Código Contrato Estágio
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             );
@@ -88,14 +128,14 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <Link to={`/adm/documentonecessario/cadastro/${dataRow.DocumentoNecessarioId}`}>
+                        <Link to={`/adm/contratoestagio/cadastro/${dataRow.contratoestagioId}`}>
                             <DropdownMenuItem>📝 Editar</DropdownMenuItem>
                         </Link>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             onClick={async () => {
                                 meta?.removeRow(dataRow.key);
-                                await api.delete(`/DocumentoNecessario/${dataRow.DocumentoNecessarioId}`);
+                                await api.delete(`/ContratoEstagio/${dataRow.contratoestagioId}`);
                             }}
                         >
                             🗑️ delete

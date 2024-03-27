@@ -9,6 +9,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 const SideBar = () => {
   return (
@@ -60,6 +61,14 @@ const SideBar = () => {
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Documento Necessário</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/adm/contratoestagio">
+            <ReceiptIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Contrato Estágio</span>
           </NavLink>
         </li>
         <li>
