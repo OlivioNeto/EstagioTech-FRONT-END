@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Ghost } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,7 @@ export type ComboboxProps = {
 };
 
 export function Combobox({
-  data,
+  data = [],
   value,
   setValue,
 }: {
@@ -31,8 +31,6 @@ export function Combobox({
   setValue: Function;
 }) {
   const [open, setOpen] = React.useState(false);
-
-  if (data.length <= 0) return;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -43,36 +41,48 @@ export function Combobox({
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {/* {value
-            ? data.find((empresa) => empresa.value === value)?.label
-            : "Selecione a emrpesa..."} */}
+          {value
+            ? data.find((item) => item.value === value)?.label
+            : "Selecione..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Pesquisar empresa..." />
+          <CommandInput placeholder="Pesquisar..." />
+          {/* <CommandList> */}
           <CommandEmpty>Ops! Não localizado</CommandEmpty>
           <CommandGroup>
-            {/* {data.map((empresa) => (
-              <CommandItem
-                key={empresa.value}
-                value={empresa.value}
-                onSelect={() => {
-                  setValue(empresa.value);
-                  setOpen(false);
+            <div className="flex flex-col">
+              {data.length && data.map((item) => (
+                // {data.map((item) => (
+                //   <CommandItem
+                //   key={item.value}
+                //   value={item.value}
+                //   onSelect={(currentValue) => {
+                //     setValue(currentValue === value ? "" : currentValue);
+                //     setOpen(false);
+                //   }}
+                // >
+                //   <Check
+                //     className={cn(
+                //       "mr-2 h-4 w-4",
+                //       value === item.value ? "opacity-100" : "opacity-0"
+                //     )}
+                //   />
+                //   {item.label}
+                // </CommandItem>
+                <Button variant="ghost" key={item.value} onClick={() => {
+                  setValue(item.value)
+                  setOpen(false)
                 }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === empresa.value ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                {empresa.label}
-              </CommandItem>
-            ))} */}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </div>
           </CommandGroup>
+          {/* </CommandList> */}
         </Command>
       </PopoverContent>
     </Popover>

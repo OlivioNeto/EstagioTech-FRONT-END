@@ -90,7 +90,7 @@ const CadastroContratoEstagio = ({ data }: { data: ContratoEstagioProps }) => {
         <Card className="p-4">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    <CardContent>
+                    <CardContent className="grid grid-cols-2 gap-x-7">
                         <FormField
                             control={form.control}
                             name="statusContratoEstagio"

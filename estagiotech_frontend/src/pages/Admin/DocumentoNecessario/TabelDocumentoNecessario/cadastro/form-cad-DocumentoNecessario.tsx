@@ -61,8 +61,8 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
             const resp: TipoDocumentoProps[] = (await api.get("tipodocumento")).data;
             const resptypeEstagio: TipoEstagioProps[] = (await api.get("tipoestagio")).data;
 
-            if(!resp || resp.length == 0)
-            return;
+            if (!resp || resp.length == 0)
+                return;
             setDataComboBoxD(
                 resp.map((item) => {
                     return {
@@ -71,8 +71,8 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                     };
                 })
             );
-            if(!resptypeEstagio || resptypeEstagio.length == 0)
-            return;
+            if (!resptypeEstagio || resptypeEstagio.length == 0)
+                return;
             setDataComboBoxE(
                 resptypeEstagio.map((item) => {
                     return {
@@ -108,7 +108,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                         <FormField
                             control={form.control}
                             name="idTipoDocumento"
-                            render={({ field }) => (
+                            render={() => (
                                 <FormItem className="mt-5">
                                     <FormLabel>ID DO TIPO DOCUMENTO</FormLabel>
                                     <FormControl>
