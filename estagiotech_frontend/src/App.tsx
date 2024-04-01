@@ -76,11 +76,11 @@ function App() {
               element={<CadastroDocumento />}
             />
             <Route
-              path="/adm/contratoestagio/cadastro/:id?"
+              path="/adm/documentonecessario/cadastro/:id?"
               element={<CadastroDocumentoNecessario />}
             />
             <Route
-              path="/adm/documentonecessario/cadastro/:id?"
+              path="/adm/contratoestagio/cadastro/:id?"
               element={<CadastroContratoEstagio />}
             />
           </Route>

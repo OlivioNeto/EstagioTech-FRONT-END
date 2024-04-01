@@ -47,18 +47,6 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
     },
     {
         accessorKey: "DocumentoNecessarioId",
-        header: "Código do documento necessário",
-    },
-    {
-        accessorKey: "idTipoDocumento",
-        header: "Código do tipo documento",
-    },
-    {
-        accessorKey: "idTipoEstagio",
-        header: "Código do tipo estágio",
-    },
-    {
-        accessorKey: "idTipoDocumento",
         header: ({ column }) => {
             return (
                 <Button
@@ -70,6 +58,14 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
                 </Button>
             );
         },
+    },
+    {
+        accessorKey: "idTipoDocumento",
+        header: "Código do tipo documento",
+    },
+    {
+        accessorKey: "idTipoEstagio",
+        header: "Código do tipo estágio",
     },
     {
         id: "actions",

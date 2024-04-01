@@ -85,21 +85,38 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
     }, [data]);
 
 
-    async function onSubmit(values: FormCadastroProps) {
-        const dataTipoDocumento = { ...values, idTipoDocumento: Number(valueComboBoxD) };
-        const dataTipoEstagio = { ...values, idTipoEstagio: Number(valueComboBoxE) };
-        isEdit
+    // async function onSubmit(values: FormCadastroProps) {
+    //     const dataTipoDocumento = { ...values, idTipoDocumento: Number(valueComboBoxD) };
+    //     const dataTipoEstagio = { ...values, idTipoEstagio: Number(valueComboBoxE) };
+    //     isEdit
+    //         ? await api
+    //             // .put(`/documentonecessario/${data.idTipoDocumento, data.idTipoEstagio}`, {
+    //             .put(`/documentonecessario/${data.idTipoDocumento}/${data.idTipoEstagio}`, {
+    //                 ...values,
+    //                 idTipoDocumento: data.idTipoDocumento,
+    //                 idTipoEstagio: data.idTipoEstagio,
+    //             })
+    //             .finally(() => navigate("/adm/documentonecessario"))
+    //         : await api
+    //             .post("/documentonecessario", { dataTipoDocumento, dataTipoEstagio })
+    //             .finally(() => navigate("/adm/documentonecessario"));
+    // }
+    const onSubmit = async (values: FormCadastroProps) => {
+        const dataTipoDocumento = { idTipoDocumento: Number(valueComboBoxD) };
+        const dataTipoEstagio = { idTipoEstagio: Number(valueComboBoxE) };
+        !isEdit
             ? await api
-                .put(`/documentonecessario/${data.idTipoDocumento, data.idTipoEstagio}`, {
+                .put(`/documentonecessario/${data.idTipoDocumento}/${data.idTipoEstagio}`, {
                     ...values,
-                    idTipoDocumento: data.idTipoDocumento,
-                    idTipoEstagio: data.idTipoEstagio,
+                    ...dataTipoDocumento,
+                    ...dataTipoEstagio,
                 })
-                .finally(() => navigate("/dashboard/documentonecessario"))
+                .finally(() => navigate("/adm/documentonecessario"))
             : await api
-                .post("/documentonecessario", { dataTipoDocumento, dataTipoEstagio })
-                .finally(() => navigate("/dashboard/documentonecessario"));
-    }
+                .post("/documentonecessario", { ...values, ...dataTipoDocumento, ...dataTipoEstagio })
+                .finally(() => navigate("/adm/documentonecessario"));
+    };
+    
     return (
         <Card className="p-4">
             <Form {...form}>
