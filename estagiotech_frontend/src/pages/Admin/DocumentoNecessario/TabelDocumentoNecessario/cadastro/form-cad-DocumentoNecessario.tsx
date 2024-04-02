@@ -20,8 +20,8 @@ import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumen
 import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
 
 const formSchema = z.object({
-    idTipoDocumento: z.number(),
-    idTipoEstagio: z.number(),
+    descricaoTipoDocumento: z.string(),
+    descricaoTipoEstagio: z.string(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
@@ -38,19 +38,19 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
     const form = useForm<FormCadastroProps>({
         resolver: zodResolver(formSchema),
         values: {
-            idTipoDocumento: data.idTipoDocumento,
-            idTipoEstagio: data.idTipoEstagio,
+            descricaoTipoDocumento: data.descricaoTipoDocumento,
+            descricaoTipoEstagio: data.descricaoTipoEstagio,
         },
         defaultValues: {
-            idTipoDocumento: 0,
-            idTipoEstagio: 0,
+            descricaoTipoDocumento: "",
+            descricaoTipoEstagio: "",
         },
     });
 
     useEffect(() => {
         (async () => {
-            const tipoDocumentoSelecionado = data.idTipoDocumento;
-            const tipoEstagioSelecionado = data.idTipoEstagio;
+            const tipoDocumentoSelecionado = data.descricaoTipoDocumento;
+            const tipoEstagioSelecionado = data.descricaoTipoEstagio;
             const checkIsedit = Object.keys(data).length;
             if (checkIsedit > 0) setIsEdit(true);
             if (tipoDocumentoSelecionado && tipoEstagioSelecionado) {
@@ -106,7 +106,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
         const dataTipoEstagio = { idTipoEstagio: Number(valueComboBoxE) };
         !isEdit
             ? await api
-                .put(`/documentonecessario/${data.idTipoDocumento}/${data.idTipoEstagio}`, {
+                .put(`/documentonecessario/${data.descricaoTipoDocumento}/${data.descricaoTipoEstagio}`, {
                     ...values,
                     ...dataTipoDocumento,
                     ...dataTipoEstagio,
@@ -116,7 +116,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                 .post("/documentonecessario", { ...values, ...dataTipoDocumento, ...dataTipoEstagio })
                 .finally(() => navigate("/adm/documentonecessario"));
     };
-    
+
     return (
         <Card className="p-4">
             <Form {...form}>
@@ -124,7 +124,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                     <CardContent>
                         <FormField
                             control={form.control}
-                            name="idTipoDocumento"
+                            name="descricaoTipoDocumento"
                             render={() => (
                                 <FormItem className="mt-5">
                                     <FormLabel>ID DO TIPO DOCUMENTO</FormLabel>
@@ -141,7 +141,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                         />
                         <FormField
                             control={form.control}
-                            name="idTipoEstagio"
+                            name="descricaoTipoEstagio"
                             render={({ field }) => (
                                 <FormItem className="mt-5">
                                     <FormLabel>ID DO TIPO ESTÁGIO</FormLabel>

@@ -19,8 +19,8 @@ export default function CadDocumentoNecessario() {
             } else {
                 setdocumentoNecessario({
                     DocumentoNecessarioId: 0,
-                    idTipoDocumento: 0,
-                    idTipoEstagio: 0,
+                    descricaoTipoDocumento: "",
+                    descricaoTipoEstagio: "",
                     key: 0
                 })
             }
