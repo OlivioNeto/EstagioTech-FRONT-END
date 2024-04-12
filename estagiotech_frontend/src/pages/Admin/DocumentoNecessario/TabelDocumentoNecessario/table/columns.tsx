@@ -15,8 +15,8 @@ import { Link } from "react-router-dom";
 
 export type DocumentoNecessarioProps = {
     DocumentoNecessarioId: number;
-    descricaoTipoDocumento: string;
-    descricaoTipoEstagio: string;
+    idTipoDocumento: number;
+    idTipoEstagio: number;
     key: number;
 };
 
@@ -50,27 +50,27 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
         header: "Código do documento necessário",
     },
     {
-        accessorKey: "descricaoTipoDocumento",
-        header: "Descrição do tipo documento",
+        accessorKey: "idTipoDocumento",
+        header: "Código do tipo documento",
     },
     {
-        accessorKey: "descricaoTipoEstagio",
-        header: "Descrição do tipo estágio",
+        accessorKey: "idTipoEstagio",
+        header: "Código do tipo estágio",
     },
-    // {
-    //     accessorKey: "DocumentoNecessarioId",
-    //     header: ({ column }) => {
-    //         return (
-    //             <Button
-    //                 variant="ghost"
-    //                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //             >
-    //                 Código Documento Necessario
-    //                 <ArrowUpDown className="ml-2 h-4 w-4" />
-    //             </Button>
-    //         );
-    //     },
-    // },
+    {
+        accessorKey: "idTipoDocumento",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Código Documento Necessario
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+    },
     {
         id: "actions",
         header: "Ação",
@@ -98,7 +98,7 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
                                 await api.delete(`/DocumentoNecessario/${dataRow.DocumentoNecessarioId}`);
                             }}
                         >
-                            🗑️ Delete
+                            🗑️ delete
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

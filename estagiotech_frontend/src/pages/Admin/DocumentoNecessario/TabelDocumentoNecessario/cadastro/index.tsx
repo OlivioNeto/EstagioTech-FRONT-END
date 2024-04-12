@@ -15,12 +15,11 @@ export default function CadDocumentoNecessario() {
             if (id) {
                 const data = (await api.get(`/DocumentoNecessario/${id}`)).data;
                 setdocumentoNecessario(data);
-                console.log(data)
             } else {
                 setdocumentoNecessario({
                     DocumentoNecessarioId: 0,
-                    descricaoTipoDocumento: "",
-                    descricaoTipoEstagio: "",
+                    idTipoDocumento: 0,
+                    idTipoEstagio: 0,
                     key: 0
                 })
             }
