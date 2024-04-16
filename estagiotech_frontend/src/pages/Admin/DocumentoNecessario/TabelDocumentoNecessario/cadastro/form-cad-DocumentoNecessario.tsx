@@ -19,14 +19,16 @@ import { Combobox, ComboboxProps } from "../../../../../components/ui/combobox";
 import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
 import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
 
+
 const formSchema = z.object({
+    documentoNecessarioId: z.number(),
     idTipoDocumento: z.number(),
     idTipoEstagio: z.number(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
+const CadastroDocumentoNecessario = ({ documentoNecessarioId, idTipoDocumento, idTipoEstagio }: FormCadastroProps) => {
     const navigate = useNavigate();
     const [isEdit, setIsEdit] = useState(false);
     const [dataComboBoxD, setDataComboBoxD] = useState<ComboboxProps[]>([]);
@@ -38,10 +40,12 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
     const form = useForm<FormCadastroProps>({
         resolver: zodResolver(formSchema),
         values: {
-            idTipoDocumento: data.idTipoDocumento,
-            idTipoEstagio: data.idTipoEstagio,
+            documentoNecessarioId: documentoNecessarioId,
+            idTipoDocumento: idTipoDocumento,
+            idTipoEstagio: idTipoEstagio,
         },
         defaultValues: {
+            documentoNecessarioId: 0,
             idTipoDocumento: 0,
             idTipoEstagio: 0,
         },
@@ -49,10 +53,9 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
 
     useEffect(() => {
         (async () => {
-            const tipoDocumentoSelecionado = data.idTipoDocumento;
-            const tipoEstagioSelecionado = data.idTipoEstagio;
-            const checkIsedit = Object.keys(data).length;
-            if (checkIsedit > 0) setIsEdit(true);
+            const tipoDocumentoSelecionado = idTipoDocumento;
+            const tipoEstagioSelecionado = idTipoEstagio;
+            setIsEdit(idTipoDocumento !== 0);
             if (tipoDocumentoSelecionado && tipoEstagioSelecionado) {
                 setValueComboBoxD(tipoDocumentoSelecionado.toString());
                 setValueComboBoxE(tipoEstagioSelecionado.toString());
@@ -82,23 +85,23 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                 })
             );
         })();
-    }, [data]);
+    }, [idTipoDocumento]);
 
 
     async function onSubmit(values: FormCadastroProps) {
-        const dataTipoDocumento = { ...values, idTipoDocumento: Number(valueComboBoxD) };
-        const dataTipoEstagio = { ...values, idTipoEstagio: Number(valueComboBoxE) };
+        const dataTipoDocumento = Number(valueComboBoxD);
+        const dataTipoEstagio = Number(valueComboBoxE);
         isEdit
             ? await api
-                .put(`/documentonecessario/${data.idTipoDocumento, data.idTipoEstagio}`, {
+                .put(`/documentonecessario/${documentoNecessarioId}`, {
                     ...values,
-                    idTipoDocumento: data.idTipoDocumento,
-                    idTipoEstagio: data.idTipoEstagio,
+                    idTipoDocumento: dataTipoDocumento,
+                    idTipoEstagio: dataTipoEstagio,
                 })
-                .finally(() => navigate("/dashboard/documentonecessario"))
+                .finally(() => navigate("/adm/documentonecessario"))
             : await api
-                .post("/documentonecessario", { dataTipoDocumento, dataTipoEstagio })
-                .finally(() => navigate("/dashboard/documentonecessario"));
+                .post("/documentonecessario", { idTipoDocumento: dataTipoDocumento, idTipoEstagio: dataTipoEstagio })
+                .finally(() => navigate("/adm/documentonecessario"));
     }
     return (
         <Card className="p-4">
@@ -106,6 +109,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <CardContent>
                         <FormField
+                            key="idTipoDocumento" // Adicionando chave única aqui
                             control={form.control}
                             name="idTipoDocumento"
                             render={() => (
@@ -123,6 +127,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                             )}
                         />
                         <FormField
+                            key="idTipoEstagio" // Adicionando chave única aqui
                             control={form.control}
                             name="idTipoEstagio"
                             render={({ field }) => (
@@ -142,7 +147,7 @@ const CadastroDocumentoNecessario = ({ data }: { data: FormCadastroProps }) => {
                     </CardContent>
                     <CardFooter className="flex gap-4">
                         <Button type="submit">
-                            {!isEdit ? "Salvar alterações" : "Cadastrar"}
+                            {isEdit ? "Salvar alterações" : "Cadastrar"}
                         </Button>
                         <Button
                             type="button"

@@ -5,11 +5,12 @@ import { DocumentoNecessarioProps } from "../table/columns";
 import api from "@/service/api";
 
 export default function CadDocumentoNecessario() {
-    const [documentoNecessario, setdocumentoNecessario] = useState<DocumentoNecessarioProps>(
-        {} as DocumentoNecessarioProps
-    );
+    const [documentoNecessario, setdocumentoNecessario] = useState<DocumentoNecessarioProps>();
     const { id } = useParams();
-
+    useEffect(() => {
+      console.log(id)
+    }, [id])
+    
     useEffect(() => {
         (async () => {
             if (id) {
@@ -17,7 +18,7 @@ export default function CadDocumentoNecessario() {
                 setdocumentoNecessario(data);
             } else {
                 setdocumentoNecessario({
-                    DocumentoNecessarioId: 0,
+                    documentoNecessarioId: 0,
                     idTipoDocumento: 0,
                     idTipoEstagio: 0,
                     key: 0
@@ -30,7 +31,9 @@ export default function CadDocumentoNecessario() {
     return (
         <div>
             <p className="text-2xl mb-4">Cadastro do Documento Necessário</p>
-            <CadastroDocumentoNecessario data={documentoNecessario} />
+            <CadastroDocumentoNecessario documentoNecessarioId={documentoNecessario?.documentoNecessarioId??0}
+            idTipoDocumento={documentoNecessario?.idTipoDocumento??0} 
+            idTipoEstagio={documentoNecessario?.idTipoEstagio??0}/>
         </div>
     );
 }

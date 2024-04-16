@@ -16,7 +16,7 @@ export default function DocumentoNecessario() {
             ).data;
 
             const includeKeyData = dataDocumentoNecessario.map((item) => {
-                return { ...item, key: item.DocumentoNecessarioId };
+                return { ...item, key: item.documentoNecessarioId };
             });
             console.log(includeKeyData)
             setData(includeKeyData);
