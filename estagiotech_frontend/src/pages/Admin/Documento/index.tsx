@@ -16,7 +16,7 @@ export default function Documento() {
       ).data;
 
       const includeKeyData = dataDocumento.map((item) => {
-        return { ...item, key: item.documentoId };
+        return { ...item, key: item.idDocumento };
       });
       console.log(includeKeyData)
       setData(includeKeyData);

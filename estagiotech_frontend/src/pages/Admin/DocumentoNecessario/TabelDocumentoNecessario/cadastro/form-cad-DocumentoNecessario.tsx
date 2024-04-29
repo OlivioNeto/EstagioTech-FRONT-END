@@ -21,14 +21,14 @@ import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/tab
 
 
 const formSchema = z.object({
-    documentoNecessarioId: z.number(),
+    idDocumentoNecessario: z.number(),
     idTipoDocumento: z.number(),
     idTipoEstagio: z.number(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const CadastroDocumentoNecessario = ({ documentoNecessarioId, idTipoDocumento, idTipoEstagio }: FormCadastroProps) => {
+const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoDocumento, idTipoEstagio }: FormCadastroProps) => {
     const navigate = useNavigate();
     const [isEdit, setIsEdit] = useState(false);
     const [dataComboBoxD, setDataComboBoxD] = useState<ComboboxProps[]>([]);
@@ -40,12 +40,12 @@ const CadastroDocumentoNecessario = ({ documentoNecessarioId, idTipoDocumento, i
     const form = useForm<FormCadastroProps>({
         resolver: zodResolver(formSchema),
         values: {
-            documentoNecessarioId: documentoNecessarioId,
+            idDocumentoNecessario: idDocumentoNecessario,
             idTipoDocumento: idTipoDocumento,
             idTipoEstagio: idTipoEstagio,
         },
         defaultValues: {
-            documentoNecessarioId: 0,
+            idDocumentoNecessario: 0,
             idTipoDocumento: 0,
             idTipoEstagio: 0,
         },
@@ -93,7 +93,7 @@ const CadastroDocumentoNecessario = ({ documentoNecessarioId, idTipoDocumento, i
         const dataTipoEstagio = Number(valueComboBoxE);
         isEdit
             ? await api
-                .put(`/documentonecessario/${documentoNecessarioId}`, {
+                .put(`/documentonecessario/${idDocumentoNecessario}`, {
                     ...values,
                     idTipoDocumento: dataTipoDocumento,
                     idTipoEstagio: dataTipoEstagio,

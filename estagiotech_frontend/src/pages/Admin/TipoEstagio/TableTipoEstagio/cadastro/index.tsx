@@ -15,16 +15,18 @@ export default function CadastroTipoEstagio() {
       if (id) {
         const data = (await api.get(`/TipoEstagio/${id}`)).data;
         setTipoEstagio(data);
-      } else {setTipoEstagio({
-        idTipoEstagio:0,descricaoTipoEstagio:"",key:0
-      })}
+      } else {
+        setTipoEstagio({
+          idTipoEstagio: 0, descricaoTipoEstagio: "", key: 0
+        })
+      }
       return;
     })();
   }, []);
 
   return (
     <div>
-      <p className="text-2xl mb-4">Cadastro do tipo do documento</p>
+      <p className="text-2xl mb-4">Cadastro do tipo estágio</p>
       <FormCadastroTipoEstagio data={tipoEstagio} />
     </div>
   );

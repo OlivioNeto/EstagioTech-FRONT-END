@@ -14,7 +14,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export type DocumentoNecessarioProps = {
-    documentoNecessarioId: number;
+    idDocumentoNecessario: number;
     idTipoDocumento: number;
     idTipoEstagio: number;
     key: number;
@@ -46,7 +46,7 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "documentoNecessarioId",
+        accessorKey: "idDocumentoNecessario",
         header: "Código do documento necessário",
     },
     {
@@ -58,7 +58,7 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
         header: "Código do tipo estágio",
     },
     {
-        accessorKey: "documentoNecessarioId",
+        accessorKey: "idDocumentoNecessario",
         header: ({ column }) => {
             return (
                 <Button
@@ -88,14 +88,14 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <Link to={`/adm/documentonecessario/cadastro/${dataRow.documentoNecessarioId}`}>
+                        <Link to={`/adm/documentonecessario/cadastro/${dataRow.idDocumentoNecessario}`}>
                             <DropdownMenuItem>📝 Editar</DropdownMenuItem>
                         </Link>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             onClick={async () => {
                                 meta?.removeRow(dataRow.key);
-                                await api.delete(`/DocumentoNecessario/${dataRow.documentoNecessarioId}`);
+                                await api.delete(`/DocumentoNecessario/${dataRow.idDocumentoNecessario}`);
                             }}
                         >
                             🗑️ delete

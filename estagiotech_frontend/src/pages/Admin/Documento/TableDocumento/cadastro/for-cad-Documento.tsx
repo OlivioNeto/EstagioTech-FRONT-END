@@ -25,7 +25,7 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 
 const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
   const navigate = useNavigate();
-  const isEdit = !!data.documentoId;
+  const isEdit = !!data.idDocumento;
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
@@ -46,7 +46,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
         .finally(() => navigate("/adm/documento"))
       : await api
         .put(`/Documento`, {
-          documentoId: data.documentoId,
+          idDocumento: data.idDocumento,
           descricaoDocumento: values.descricaoDocumento,
           situacaoDocumento: values.situacaoDocumento,
         })
