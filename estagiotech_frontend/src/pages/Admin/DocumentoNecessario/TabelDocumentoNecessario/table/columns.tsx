@@ -50,11 +50,11 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
         header: "Código do documento necessário",
     },
     {
-        accessorKey: "descricaoTipoEstagio",
+        accessorKey: "tipoEstagio.descricaoTipoEstagio",
         header: "Descrição do tipo estágio",
     },
     {
-        accessorKey: "descricaoTipoDocumento",
+        accessorKey: "tipoDocumento.descricaoTipoDocumento",
         header: "Descrição do tipo documento",
     },
     {
