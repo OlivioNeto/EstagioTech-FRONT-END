@@ -19,8 +19,8 @@ export default function CadDocumentoNecessario() {
             } else {
                 setdocumentoNecessario({
                     idDocumentoNecessario: 0,
-                    idTipoDocumento: 0,
-                    idTipoEstagio: 0,
+                    descricaoTipoEstagio: "",
+                    descricaoTipoDocumento: "",
                     key: 0
                 })
             }
@@ -32,8 +32,8 @@ export default function CadDocumentoNecessario() {
         <div>
             <p className="text-2xl mb-4">Cadastro do Documento Necessário</p>
             <CadastroDocumentoNecessario idDocumentoNecessario={documentoNecessario?.idDocumentoNecessario??0}
-            idTipoDocumento={documentoNecessario?.idTipoDocumento??0} 
-            idTipoEstagio={documentoNecessario?.idTipoEstagio??0}/>
+            descricaoTipoEstagio={documentoNecessario?.descricaoTipoEstagio??""}
+            descricaoTipoDocumento={documentoNecessario?.descricaoTipoDocumento??""}/> 
         </div>
     );
 }

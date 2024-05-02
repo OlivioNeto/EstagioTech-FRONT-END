@@ -22,13 +22,13 @@ import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/tab
 
 const formSchema = z.object({
     idDocumentoNecessario: z.number(),
-    idTipoDocumento: z.number(),
-    idTipoEstagio: z.number(),
+    descricaoTipoEstagio: z.string(),
+    descricaoTipoDocumento: z.string(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoDocumento, idTipoEstagio }: FormCadastroProps) => {
+const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstagio, descricaoTipoDocumento }: FormCadastroProps) => {
     const navigate = useNavigate();
     const [isEdit, setIsEdit] = useState(false);
     const [dataComboBoxD, setDataComboBoxD] = useState<ComboboxProps[]>([]);
@@ -41,21 +41,21 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoDocumento, i
         resolver: zodResolver(formSchema),
         values: {
             idDocumentoNecessario: idDocumentoNecessario,
-            idTipoDocumento: idTipoDocumento,
-            idTipoEstagio: idTipoEstagio,
+            descricaoTipoEstagio: descricaoTipoEstagio,
+            descricaoTipoDocumento: descricaoTipoDocumento,
         },
         defaultValues: {
             idDocumentoNecessario: 0,
-            idTipoDocumento: 0,
-            idTipoEstagio: 0,
+            descricaoTipoEstagio: "",
+            descricaoTipoDocumento: "",
         },
     });
 
     useEffect(() => {
         (async () => {
-            const tipoDocumentoSelecionado = idTipoDocumento;
-            const tipoEstagioSelecionado = idTipoEstagio;
-            setIsEdit(idTipoDocumento !== 0);
+            const tipoEstagioSelecionado = descricaoTipoDocumento;
+            const tipoDocumentoSelecionado = descricaoTipoEstagio;
+            setIsEdit(descricaoTipoEstagio !== "");
             if (tipoDocumentoSelecionado && tipoEstagioSelecionado) {
                 setValueComboBoxD(tipoDocumentoSelecionado.toString());
                 setValueComboBoxE(tipoEstagioSelecionado.toString());
@@ -64,16 +64,6 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoDocumento, i
             const resp: TipoDocumentoProps[] = (await api.get("tipodocumento")).data;
             const resptypeEstagio: TipoEstagioProps[] = (await api.get("tipoestagio")).data;
 
-            if (!resp || resp.length == 0)
-                return;
-            setDataComboBoxD(
-                resp.map((item) => {
-                    return {
-                        value: item.idTipoDocumento.toString(),
-                        label: item.descricaoTipoDocumento,
-                    };
-                })
-            );
             if (!resptypeEstagio || resptypeEstagio.length == 0)
                 return;
             setDataComboBoxE(
@@ -84,8 +74,18 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoDocumento, i
                     };
                 })
             );
+            if (!resp || resp.length == 0)
+                return;
+            setDataComboBoxD(
+                resp.map((item) => {
+                    return {
+                        value: item.idTipoDocumento.toString(),
+                        label: item.descricaoTipoDocumento,
+                    };
+                })
+            );
         })();
-    }, [idTipoDocumento]);
+    }, [descricaoTipoEstagio]);
 
 
     async function onSubmit(values: FormCadastroProps) {
@@ -95,12 +95,12 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoDocumento, i
             ? await api
                 .put(`/documentonecessario/${idDocumentoNecessario}`, {
                     ...values,
-                    idTipoDocumento: dataTipoDocumento,
-                    idTipoEstagio: dataTipoEstagio,
+                    descricaoTipoEstagio: dataTipoEstagio,
+                    descricaoTipoDocumento: dataTipoDocumento,
                 })
                 .finally(() => navigate("/adm/documentonecessario"))
             : await api
-                .post("/documentonecessario", { idTipoDocumento: dataTipoDocumento, idTipoEstagio: dataTipoEstagio })
+                .post("/documentonecessario", { descricaoTipoEstagio: dataTipoEstagio, descricaoTipoDocumento: dataTipoDocumento })
                 .finally(() => navigate("/adm/documentonecessario"));
     }
     return (
@@ -109,17 +109,17 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoDocumento, i
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <CardContent>
                         <FormField
-                            key="idTipoDocumento" // Adicionando chave única aqui
+                            key="descricaoTipoEstagio" // Adicionando chave única aqui
                             control={form.control}
-                            name="idTipoDocumento"
+                            name="descricaoTipoEstagio"
                             render={() => (
                                 <FormItem className="mt-5">
-                                    <FormLabel>ID DO TIPO DOCUMENTO</FormLabel>
+                                    <FormLabel>Descrição do tipo estágio</FormLabel>
                                     <FormControl>
                                         <Combobox
-                                            data={dataComboBoxD}
-                                            value={valueComboBoxD}
-                                            setValue={setValueComboBoxD}
+                                            data={dataComboBoxE}
+                                            value={valueComboBoxE}
+                                            setValue={setValueComboBoxE}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -127,17 +127,17 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoDocumento, i
                             )}
                         />
                         <FormField
-                            key="idTipoEstagio" // Adicionando chave única aqui
+                            key="descricaoTipoDocumento" // Adicionando chave única aqui
                             control={form.control}
-                            name="idTipoEstagio"
+                            name="descricaoTipoDocumento"
                             render={({ field }) => (
                                 <FormItem className="mt-5">
-                                    <FormLabel>ID DO TIPO ESTÁGIO</FormLabel>
+                                    <FormLabel>Descrição do tipo documento</FormLabel>
                                     <FormControl>
                                         <Combobox
-                                            data={dataComboBoxE}
-                                            value={valueComboBoxE}
-                                            setValue={setValueComboBoxE}
+                                            data={dataComboBoxD}
+                                            value={valueComboBoxD}
+                                            setValue={setValueComboBoxD}
                                         />
                                     </FormControl>
                                     <FormMessage />
