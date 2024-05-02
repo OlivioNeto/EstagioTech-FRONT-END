@@ -61,23 +61,23 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
                 setValueComboBoxE(tipoEstagioSelecionado.toString());
             }
 
-            const resp: TipoDocumentoProps[] = (await api.get("tipodocumento")).data;
-            const resptypeEstagio: TipoEstagioProps[] = (await api.get("tipoestagio")).data;
+            const respTypeDocumento: TipoDocumentoProps[] = (await api.get("tipodocumento")).data;
+            const respTypeEstagio: TipoEstagioProps[] = (await api.get("tipoestagio")).data;
 
-            if (!resptypeEstagio || resptypeEstagio.length == 0)
+            if (!respTypeEstagio || respTypeEstagio.length == 0)
                 return;
             setDataComboBoxE(
-                resptypeEstagio.map((item) => {
+                respTypeEstagio.map((item) => {
                     return {
                         value: item.idTipoEstagio.toString(),
                         label: item.descricaoTipoEstagio,
                     };
                 })
             );
-            if (!resp || resp.length == 0)
+            if (!respTypeDocumento || respTypeDocumento.length == 0)
                 return;
             setDataComboBoxD(
-                resp.map((item) => {
+                respTypeDocumento.map((item) => {
                     return {
                         value: item.idTipoDocumento.toString(),
                         label: item.descricaoTipoDocumento,
@@ -86,7 +86,6 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
             );
         })();
     }, [descricaoTipoEstagio]);
-
 
     async function onSubmit(values: FormCadastroProps) {
         const dataTipoDocumento = Number(valueComboBoxD);
@@ -103,6 +102,7 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
                 .post("/documentonecessario", { descricaoTipoEstagio: dataTipoEstagio, descricaoTipoDocumento: dataTipoDocumento })
                 .finally(() => navigate("/adm/documentonecessario"));
     }
+    
     return (
         <Card className="p-4">
             <Form {...form}>

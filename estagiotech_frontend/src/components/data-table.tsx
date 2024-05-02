@@ -78,10 +78,10 @@ export function DataTable<TData, TValue>({
           <Input
             placeholder="Pesquisar..."
             value={
-              (table.getColumn("descricaoTipoDocumento")?.getFilterValue() as string) ?? ""
+              (table.getColumn("tipoDocumento.descricaoTipoDocumento")?.getFilterValue() as string) ?? ""
             }
             onChange={(event) =>
-              table.getColumn("descricaoTipoDocumento")?.setFilterValue(event.target.value)
+              table.getColumn("tipoDocumento.descricaoTipoDocumento")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
