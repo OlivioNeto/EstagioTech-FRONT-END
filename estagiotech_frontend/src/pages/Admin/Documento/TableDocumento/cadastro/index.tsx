@@ -24,7 +24,7 @@ export default function CadastroDocumento() {
 
   return (
     <div>
-      <p className="text-2xl mb-4">Cadastro dos documentos</p>
+      <p className="text-2xl mb-4">Cadastro do documento</p>
       <FormCadastroDocumento data={documento} />
     </div>
   );

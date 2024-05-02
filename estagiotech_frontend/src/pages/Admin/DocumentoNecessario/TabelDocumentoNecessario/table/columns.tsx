@@ -15,8 +15,8 @@ import { Link } from "react-router-dom";
 
 export type DocumentoNecessarioProps = {
     idDocumentoNecessario: number;
-    idTipoDocumento: number;
-    idTipoEstagio: number;
+    descricaoTipoEstagio: string;
+    descricaoTipoDocumento: string;
     key: number;
 };
 
@@ -50,12 +50,12 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
         header: "Código do documento necessário",
     },
     {
-        accessorKey: "idTipoDocumento",
-        header: "Código do tipo documento",
+        accessorKey: "descricaoTipoEstagio",
+        header: "Descrição do tipo estágio",
     },
     {
-        accessorKey: "idTipoEstagio",
-        header: "Código do tipo estágio",
+        accessorKey: "descricaoTipoDocumento",
+        header: "Descrição do tipo documento",
     },
     {
         accessorKey: "idDocumentoNecessario",
