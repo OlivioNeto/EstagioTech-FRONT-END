@@ -90,16 +90,17 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
     async function onSubmit(values: FormCadastroProps) {
         const dataTipoDocumento = Number(valueComboBoxD);
         const dataTipoEstagio = Number(valueComboBoxE);
+
         isEdit
             ? await api
                 .put(`/documentonecessario/${idDocumentoNecessario}`, {
                     ...values,
-                    descricaoTipoEstagio: dataTipoEstagio,
-                    descricaoTipoDocumento: dataTipoDocumento,
+                    idTipoEstagio: dataTipoEstagio,
+                    idTipoDocumento: dataTipoDocumento,
                 })
                 .finally(() => navigate("/adm/documentonecessario"))
             : await api
-                .post("/documentonecessario", { descricaoTipoEstagio: dataTipoEstagio, descricaoTipoDocumento: dataTipoDocumento })
+                .post("/documentonecessario", { idTipoEstagio: dataTipoEstagio, idTipoDocumento: dataTipoDocumento })
                 .finally(() => navigate("/adm/documentonecessario"));
     }
     
