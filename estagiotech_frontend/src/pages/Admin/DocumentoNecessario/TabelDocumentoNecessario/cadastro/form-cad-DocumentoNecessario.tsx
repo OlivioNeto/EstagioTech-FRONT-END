@@ -22,13 +22,13 @@ import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/tab
 
 const formSchema = z.object({
     idDocumentoNecessario: z.number(),
-    descricaoTipoEstagio: z.string(),
-    descricaoTipoDocumento: z.string(),
+    idTipoEstagio: z.number(),
+    idTipoDocumento: z.number(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstagio, descricaoTipoDocumento }: FormCadastroProps) => {
+const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idTipoDocumento }: FormCadastroProps) => {
     const navigate = useNavigate();
     const [isEdit, setIsEdit] = useState(false);
     const [dataComboBoxD, setDataComboBoxD] = useState<ComboboxProps[]>([]);
@@ -41,21 +41,21 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
         resolver: zodResolver(formSchema),
         values: {
             idDocumentoNecessario: idDocumentoNecessario,
-            descricaoTipoEstagio: descricaoTipoEstagio,
-            descricaoTipoDocumento: descricaoTipoDocumento,
+            idTipoEstagio: idTipoEstagio,
+            idTipoDocumento: idTipoDocumento,
         },
         defaultValues: {
             idDocumentoNecessario: 0,
-            descricaoTipoEstagio: "",
-            descricaoTipoDocumento: "",
+            idTipoEstagio: 0,
+            idTipoDocumento: 0,
         },
     });
 
     useEffect(() => {
         (async () => {
-            const tipoEstagioSelecionado = descricaoTipoDocumento;
-            const tipoDocumentoSelecionado = descricaoTipoEstagio;
-            setIsEdit(descricaoTipoEstagio !== "");
+            const tipoEstagioSelecionado = idTipoDocumento;
+            const tipoDocumentoSelecionado = idTipoEstagio;
+            setIsEdit(idTipoEstagio !== 0);
             if (tipoDocumentoSelecionado && tipoEstagioSelecionado) {
                 setValueComboBoxD(tipoDocumentoSelecionado.toString());
                 setValueComboBoxE(tipoEstagioSelecionado.toString());
@@ -85,7 +85,7 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
                 })
             );
         })();
-    }, [descricaoTipoEstagio]);
+    }, [idTipoEstagio]);
 
     async function onSubmit(values: FormCadastroProps) {
         const dataTipoDocumento = Number(valueComboBoxD);
@@ -110,9 +110,9 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <CardContent>
                         <FormField
-                            key="descricaoTipoEstagio" // Adicionando chave única aqui
+                            key="idTipoEstagio" // Adicionando chave única aqui
                             control={form.control}
-                            name="descricaoTipoEstagio"
+                            name="idTipoEstagio"
                             render={() => (
                                 <FormItem className="mt-5">
                                     <FormLabel>Descrição do tipo estágio</FormLabel>
@@ -128,10 +128,10 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
                             )}
                         />
                         <FormField
-                            key="descricaoTipoDocumento" // Adicionando chave única aqui
+                            key="idTipoDocumento" // Adicionando chave única aqui
                             control={form.control}
-                            name="descricaoTipoDocumento"
-                            render={({ field }) => (
+                            name="idTipoDocumento"
+                            render={() => (
                                 <FormItem className="mt-5">
                                     <FormLabel>Descrição do tipo documento</FormLabel>
                                     <FormControl>
@@ -148,7 +148,7 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, descricaoTipoEstag
                     </CardContent>
                     <CardFooter className="flex gap-4">
                         <Button type="submit">
-                            {isEdit ? "Salvar alterações" : "Cadastrar"}
+                            {isEdit ? "Salvar" : "Cadastrar"}
                         </Button>
                         <Button
                             type="button"
