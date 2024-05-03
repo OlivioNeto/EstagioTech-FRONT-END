@@ -10,6 +10,7 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 
 const SideBar = () => {
   return (
@@ -37,6 +38,14 @@ const SideBar = () => {
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Documento</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/adm/empresa">
+            <ApartmentIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Empresa</span>
           </NavLink>
         </li>
         <li>
