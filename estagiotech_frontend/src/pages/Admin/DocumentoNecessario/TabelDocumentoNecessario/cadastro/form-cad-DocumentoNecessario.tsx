@@ -18,6 +18,8 @@ import { useEffect, useState } from "react";
 import { Combobox, ComboboxProps } from "../../../../../components/ui/combobox";
 import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
 import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
+import { TableDocs } from "@/components/table-docs";
+
 
 
 const formSchema = z.object({
@@ -37,6 +39,7 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idT
     const [valueComboBoxD, setValueComboBoxD] = useState("");
     const [valueComboBoxE, setValueComboBoxE] = useState("");
 
+   
     const form = useForm<FormCadastroProps>({
         resolver: zodResolver(formSchema),
         values: {
@@ -103,7 +106,7 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idT
                 .post("/documentonecessario", { idTipoEstagio: dataTipoEstagio, idTipoDocumento: dataTipoDocumento })
                 .finally(() => navigate("/adm/documentonecessario"));
     }
-    
+
     return (
         <Card className="p-4">
             <Form {...form}>
@@ -146,6 +149,8 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idT
                             )}
                         />
                     </CardContent>
+                   <TableDocs
+                   />
                     <CardFooter className="flex gap-4">
                         <Button type="submit">
                             {isEdit ? "Salvar" : "Cadastrar"}

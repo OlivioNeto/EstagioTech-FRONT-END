@@ -50,8 +50,8 @@ export function Combobox({
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder="Pesquisar..." />
-          {/* <CommandList> */}
-          <CommandEmpty>Ops! Não localizado</CommandEmpty>
+          {/* <CommandList> 
+          <CommandEmpty>Ops! Não localizado</CommandEmpty>*/}
           <CommandGroup>
             <div className="flex flex-col">
               {data.length && data.map((item) => (

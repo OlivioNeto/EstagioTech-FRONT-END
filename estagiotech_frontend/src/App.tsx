@@ -27,7 +27,7 @@ import CadastroEmpresa from './pages/Admin/Concedente/TableConcedente/cadastro'
 function App() {
   function Layout() {
     return (
-      <div className="flex overflow-hidden">
+      <div className="flex">
         <SideBar />
         <div className="flex flex-col w-full h-screen">
           <Navbar />
@@ -63,7 +63,7 @@ function App() {
             <Route path='/adm/documento/cadastro' element={<CadastroDocumento />} />
             <Route path='/adm/documentonecessario/cadastro' element={<CadastroDocumentoNecessario />} />
             <Route path='/adm/contratoestagio/cadastro' element={<CadastroContratoEstagio />} />
-            <Route path='/adm/empresa/cadastro' element={<CadastroEmpresa/>}/>
+            <Route path='/adm/empresa/cadastro' element={<CadastroEmpresa />} />
 
 
             {/* rotas de edição */}
