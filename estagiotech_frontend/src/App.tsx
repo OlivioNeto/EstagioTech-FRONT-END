@@ -27,9 +27,9 @@ import CadastroEmpresa from './pages/Admin/Concedente/TableConcedente/cadastro'
 function App() {
   function Layout() {
     return (
-      <div className="flex">
+      <div className="flex min-h-screen">
         <SideBar />
-        <div className="flex flex-col w-full h-screen">
+        <div className="flex flex-col w-full">
           <Navbar />
           <Outlet />
         </div>
