@@ -39,7 +39,9 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idT
     const [valueComboBoxD, setValueComboBoxD] = useState("");
     const [valueComboBoxE, setValueComboBoxE] = useState("");
 
-   
+    const [selectedTipoEstagio, setSelectedTipoEstagio] = useState<string>("");
+
+
     const form = useForm<FormCadastroProps>({
         resolver: zodResolver(formSchema),
         values: {
@@ -88,7 +90,7 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idT
                 })
             );
         })();
-    }, [idTipoEstagio]);
+    }, [idTipoEstagio, selectedTipoEstagio]);
 
     async function onSubmit(values: FormCadastroProps) {
         const dataTipoDocumento = Number(valueComboBoxD);
@@ -107,6 +109,10 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idT
                 .finally(() => navigate("/adm/documentonecessario"));
     }
 
+    const handleTipoEstagioChange = (value: string) => {
+        setSelectedTipoEstagio(value);
+    };
+
     return (
         <Card className="p-4">
             <Form {...form}>
@@ -122,8 +128,10 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idT
                                     <FormControl>
                                         <Combobox
                                             data={dataComboBoxE}
-                                            value={valueComboBoxE}
-                                            setValue={setValueComboBoxE}
+                                            // value={valueComboBoxE}
+                                            // setValue={setValueComboBoxE}
+                                            value={selectedTipoEstagio}
+                                            setValue={handleTipoEstagioChange}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -149,8 +157,8 @@ const CadastroDocumentoNecessario = ({ idDocumentoNecessario, idTipoEstagio, idT
                             )}
                         />
                     </CardContent>
-                   <TableDocs
-                   />
+                    <TableDocs selectedTipoEstagio={selectedTipoEstagio} />
+
                     <CardFooter className="flex gap-4">
                         <Button type="submit">
                             {isEdit ? "Salvar" : "Cadastrar"}

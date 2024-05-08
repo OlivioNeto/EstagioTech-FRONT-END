@@ -8,80 +8,73 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { DocumentoNecessarioProps } from "@/pages/Admin/DocumentoNecessario/TabelDocumentoNecessario/table/columns";
+import api from "@/service/api";
+import { useEffect, useState } from "react";
 
-const invoices = [
-    {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV005",
-        paymentStatus: "Paid",
-        totalAmount: "$550.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV006",
-        paymentStatus: "Pending",
-        totalAmount: "$200.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV007",
-        paymentStatus: "Unpaid",
-        totalAmount: "$300.00",
-        paymentMethod: "Credit Card",
-    },
-]
+interface TableDocsProps {
+    selectedTipoEstagio: string;
+}
 
-export function TableDocs() {
+export function TableDocs({ selectedTipoEstagio }: TableDocsProps) {
+
+    const [data, setData] = useState<DocumentoNecessarioProps[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await api.get("/TipoDocumento");
+                let fetchedData: DocumentoNecessarioProps[] = response.data;
+
+                // Filtro baseado no tipo de estágio selecionado
+                if (selectedTipoEstagio !== "") {
+                    fetchedData = fetchedData.filter(
+                        (item) => item.idTipoDocumento === parseInt(selectedTipoEstagio)
+                    );
+                }
+
+                // Add 'key' property to each item for rendering purposes
+                const dataWithKeys = fetchedData.map((item, idx) => ({
+                    ...item,
+                    key: idx,
+                }));
+
+                setData(dataWithKeys);
+            } catch (error) {
+                console.error("Erro ao puxar os dados:", error);
+            }
+        };
+
+        fetchData();
+    }, [selectedTipoEstagio]);
+    console.log(selectedTipoEstagio)
     return (
         <Table>
             <TableCaption>Documentos Necessários</TableCaption>
             <TableHeader>
                 <TableRow>
-                    <TableHead className="w-[100px]">Invoice</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Method</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
+                    <TableHead className="w-[100px]">ID do tipo documeto</TableHead>
+                    <TableHead>Descrição tipo documento</TableHead>
+                    {/* <TableHead>ID do tipo estagio</TableHead>
+                    <TableHead>Descrição tipo estagio</TableHead> */}
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {invoices.map((invoice) => (
-                    <TableRow key={invoice.invoice}>
-                        <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                        <TableCell>{invoice.paymentStatus}</TableCell>
-                        <TableCell>{invoice.paymentMethod}</TableCell>
-                        <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+                {data.map((data) => (
+                    <TableRow key={data.idTipoDocumento}>
+                        <TableCell className="font-medium">{data.idTipoDocumento}</TableCell>
+                        <TableCell>{data.descricaoTipoDocumento}</TableCell>
+                        {/* <TableCell>{data.idTipoEstagio}</TableCell>
+                        <TableCell>{data.descricaoTipoEstagio}</TableCell> */}
                     </TableRow>
                 ))}
             </TableBody>
-            <TableFooter>
+            {/* <TableFooter>
                 <TableRow>
                     <TableCell colSpan={3}>Total</TableCell>
                     <TableCell className="text-right">$2,500.00</TableCell>
-                </TableRow>
-            </TableFooter>
+                </TableRow> 
+            </TableFooter> */}
         </Table>
     )
 }

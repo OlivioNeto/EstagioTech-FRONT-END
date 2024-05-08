@@ -65,7 +65,7 @@ const SideBar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/adm/documentonecessario">
+          <NavLink to="/adm/documentonecessario/cadastro">
             <DocumentScannerIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
