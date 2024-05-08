@@ -7,47 +7,15 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import { DocumentoNecessarioProps } from "@/pages/Admin/DocumentoNecessario/TabelDocumentoNecessario/table/columns";
-import api from "@/service/api";
-import { useEffect, useState } from "react";
+} from "@/components/ui/table";
+import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
 
 interface TableDocsProps {
-    selectedTipoEstagio: string;
+    data: TipoDocumentoProps[];
 }
 
-export function TableDocs({ selectedTipoEstagio }: TableDocsProps) {
-
-    const [data, setData] = useState<DocumentoNecessarioProps[]>([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await api.get("/TipoDocumento");
-                let fetchedData: DocumentoNecessarioProps[] = response.data;
-
-                // Filtro baseado no tipo de estágio selecionado
-                if (selectedTipoEstagio !== "") {
-                    fetchedData = fetchedData.filter(
-                        (item) => item.idTipoDocumento === parseInt(selectedTipoEstagio)
-                    );
-                }
-
-                // Add 'key' property to each item for rendering purposes
-                const dataWithKeys = fetchedData.map((item, idx) => ({
-                    ...item,
-                    key: idx,
-                }));
-
-                setData(dataWithKeys);
-            } catch (error) {
-                console.error("Erro ao puxar os dados:", error);
-            }
-        };
-
-        fetchData();
-    }, [selectedTipoEstagio]);
-    console.log(selectedTipoEstagio)
+export function TableDocs({ data }: TableDocsProps) {
+    
     return (
         <Table>
             <TableCaption>Documentos Necessários</TableCaption>
