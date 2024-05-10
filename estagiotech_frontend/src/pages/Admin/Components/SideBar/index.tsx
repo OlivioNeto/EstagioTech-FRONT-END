@@ -87,7 +87,7 @@ const SideBar = () => {
           <span>Adiministrador</span>
         </li>
         <li>
-          <NavLink to="/adm/coordenador">
+          <NavLink to="/adm/coordenadorestagio">
             <ManageAccountsIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
