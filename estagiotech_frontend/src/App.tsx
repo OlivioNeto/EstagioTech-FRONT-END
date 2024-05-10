@@ -7,7 +7,7 @@ import Page404 from './pages/Page404'
 import Dashboard from './pages/Admin/Dashboard'
 import TipoEstagio from './pages/Admin/TipoEstagio';
 import Documento from './pages/Admin/Documento';
-import Coordenador from './pages/Admin/Coordenador'
+import CoordenadorEstagio from './pages/Admin/CoordenadorEstagio'
 import SideBar from "./pages/Admin/Components/SideBar";
 import Navbar from "./pages/Admin/Components/NavBar";
 import TipoDocumento from './pages/Admin/TipoDocumento';
@@ -21,6 +21,7 @@ import CadastroDocumento from "./pages/Admin/Documento/TableDocumento/cadastro";
 import CadastroDocumentoNecessario from './pages/Admin/DocumentoNecessario/TabelDocumentoNecessario/cadastro';
 import CadastroContratoEstagio from './pages/Admin/ContratoEstagio/TableContratoEstagio/cadastro';
 import CadastroEmpresa from './pages/Admin/Concedente/TableConcedente/cadastro'
+import CadastroCoordenadorEstagio from './pages/Admin/CoordenadorEstagio/TableCoordenadorEstagio/cadastro'
 
 
 
@@ -51,7 +52,7 @@ function App() {
             <Route path='/adm/tipoestagio' element={<TipoEstagio />} />
             <Route path='/adm/tipodocumento' element={<TipoDocumento />} />
             <Route path='/adm/documento' element={<Documento />} />
-            <Route path='/adm/coordenador' element={<Coordenador />} />
+            <Route path='/adm/coordenadorestagio' element={<CoordenadorEstagio />} />
             <Route path='/adm/documentonecessario' element={<DocumentoNecessario />}></Route>
             <Route path='/adm/contratoestagio' element={<ContratoEstagio />}></Route>
             <Route path='adm/empresa' element={<Empresas />}></Route>
@@ -64,6 +65,7 @@ function App() {
             <Route path='/adm/documentonecessario/cadastro' element={<CadastroDocumentoNecessario />} />
             <Route path='/adm/contratoestagio/cadastro' element={<CadastroContratoEstagio />} />
             <Route path='/adm/empresa/cadastro' element={<CadastroEmpresa />} />
+            <Route path='/adm/coordenadorestagio/cadastro' element={<CadastroCoordenadorEstagio />} />
 
 
             {/* rotas de edição */}
@@ -90,6 +92,10 @@ function App() {
             <Route
               path="/adm/empresa/cadastro/:id?"
               element={<CadastroEmpresa />}
+            />
+            <Route
+              path="/adm/coordenadorestagio/cadastro/:id?"
+              element={<CadastroCoordenadorEstagio />}
             />
           </Route>
           <Route path='/*' element={<Page404 />} />
