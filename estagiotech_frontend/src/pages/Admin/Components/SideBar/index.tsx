@@ -11,6 +11,7 @@ import FindInPageIcon from '@mui/icons-material/FindInPage';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 
 const SideBar = () => {
   return (
@@ -94,6 +95,15 @@ const SideBar = () => {
             <span>Coordenador</span>
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/adm/supervisorestagio">
+            <SupervisedUserCircleIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Supervisor Estagio</span>
+          </NavLink>
+        </li>
+        
       </ul>
     </nav>
   );
