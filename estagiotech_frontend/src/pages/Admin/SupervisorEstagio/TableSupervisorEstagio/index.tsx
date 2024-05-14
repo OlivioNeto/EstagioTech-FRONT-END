@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { DocumentoProps } from "./TableDocumento/table/columns";
 import { DataTable } from "../../../components/data-table";
+import { SupervisorEstagioProps } from "./table/columns";
 import api from "@/service/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-export default function Documento() {
-  const [data, setData] = useState<DocumentoProps[]>([]);
+export default function SupervisorEstagio() {
+  const [data, setData] = useState<SupervisorEstagioProps[]>([]);
 
   useEffect(() => {
     (async () => {
-      const dataDocumento: DocumentoProps[] = await (
-        await api.get("/Documento")
+      const data: SupervisorEstagioProps[] = await (
+        await api.get("/SupervisorEstagio")
       ).data;
 
-      const includeKeyData = dataDocumento.map((item) => {
-        return { ...item, key: item.idDocumento };
+      const includeKeyData = data.map((item) => {
+        return { ...item, key: item.idSupervisorEstagio };
       });
       console.log(includeKeyData)
       setData(includeKeyData);
@@ -26,12 +26,12 @@ export default function Documento() {
   return (
     <div>
       <div className="mb-8">
-        <span className="font-bold text-3xl">Documentos cadastrados</span>
+        <span className="font-bold text-3xl">Supervisores cadastrados</span>
       </div>
       <div className="flex gap-2">
-        <NavLink to="/adm/documento/cadastro">
+        <NavLink to="/adm/supervisorestagio/cadastro">
           <Button variant="secondary" className="gap-2">
-            <PlusCircleIcon /> Novo Documento
+            <PlusCircleIcon /> Novo Supervisor
           </Button>
         </NavLink>
         <Button variant="secondary" className="gap-2">
