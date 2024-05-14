@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,9 +18,23 @@ import { useEffect, useState } from "react";
 import { Combobox, ComboboxProps } from "../../../../../components/ui/combobox";
 import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
 import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
-import { TableDocs } from "@/components/table-docs";
-import { DocumentoNecessarioProps } from "../table/columns";
+// import { TableDocs } from "@/components/table-docs";
+
 import { useParams } from "react-router-dom";
+import { DataTable } from "@/components/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+export type DocumentoNecessarioProps = {
+  idDocumentoNecessario: number;
+  idTipoEstagio: number;
+  descricaoTipoEstagio: string;
+  idTipoDocumento: number;
+  descricaoTipoDocumento: string;
+  key: number;
+};
 
 const formSchema = z.object({
   idDocumentoNecessario: z.number(),
@@ -70,16 +84,16 @@ const CadastroDocumentoNecessario = () => {
       const respTypeEstagio: TipoEstagioProps[] = (await api.get("tipoestagio"))
         .data;
 
-    if (selectId() === 0) {
-      setDataComboBoxE(
-        respTypeEstagio.map((item) => {
-          return {
-            value: item.idTipoEstagio.toString(),
-            label: item.descricaoTipoEstagio,
-          };
-        })
-      );
-    } else {
+      if (selectId() === 0) {
+        setDataComboBoxE(
+          respTypeEstagio.map((item) => {
+            return {
+              value: item.idTipoEstagio.toString(),
+              label: item.descricaoTipoEstagio,
+            };
+          })
+        );
+      } else {
         setIsEdit(true);
 
         const respDocumentNecessary: DocumentoNecessarioProps[] = (
@@ -88,8 +102,8 @@ const CadastroDocumentoNecessario = () => {
 
         const idTipoEstagio = respDocumentNecessary.find((item) => item.idDocumentoNecessario === selectId())?.idTipoEstagio;
 
-          setDataComboBoxE(
-            respTypeEstagio
+        setDataComboBoxE(
+          respTypeEstagio
             .filter((item) => item.idTipoEstagio === idTipoEstagio)
             .map((item) => {
               return {
@@ -97,10 +111,10 @@ const CadastroDocumentoNecessario = () => {
                 label: item.descricaoTipoEstagio,
               };
             })
-          );
+        );
 
-        setValueComboBoxE(idTipoEstagio !== undefined? idTipoEstagio.toString() : "");
-        setSelectedTipoEstagio(idTipoEstagio !== undefined? idTipoEstagio.toString() : "");
+        setValueComboBoxE(idTipoEstagio !== undefined ? idTipoEstagio.toString() : "");
+        setSelectedTipoEstagio(idTipoEstagio !== undefined ? idTipoEstagio.toString() : "");
       }
     })();
   }, []);
@@ -135,13 +149,13 @@ const CadastroDocumentoNecessario = () => {
         const noRelatedTypeDocument =
           selectId() === 0
             ? respTypeDocument.filter(
-                (item) => !idsTipoDocumento.includes(item.idTipoDocumento)
-              )
+              (item) => !idsTipoDocumento.includes(item.idTipoDocumento)
+            )
             : respTypeDocument.filter(
-                (item) =>
-                  item.idTipoDocumento === tipoDocumento ||
-                  !idsTipoDocumento.includes(item.idTipoDocumento)
-              );
+              (item) =>
+                item.idTipoDocumento === tipoDocumento ||
+                !idsTipoDocumento.includes(item.idTipoDocumento)
+            );
 
         if (tipoDocumento !== undefined) {
           setValueComboBoxD(tipoDocumento.toString());
@@ -169,24 +183,113 @@ const CadastroDocumentoNecessario = () => {
     }
   }, [selectedTipoEstagio, update]);
 
+
+  //chamando a tabela
+  const columns: ColumnDef<TipoDocumentoProps>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) =>
+            table.toggleAllPageRowsSelected(!!value)
+          }
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: "idTipoDocumento",
+      header: "Código do documento necessário",
+    },
+    {
+      accessorKey: "descricaoTipoEstagio",
+      header: "Descrição do tipo estágio",
+    },
+    {
+      accessorKey: "descricaoTipoDocumento",
+      header: "Descrição do tipo documento",
+    },
+    {
+      accessorKey: "idDocumentoNecessario",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Código Documento Necessario
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+    },
+    {
+      id: "actions",
+      header: "Ação",
+      cell: ({ row, table }) => {
+        const meta = table.options.meta;
+        const dataRow = row.original;
+
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <Link to={`/adm/documentonecessario/cadastro/${dataRow.idTipoDocumento}`}>
+                <DropdownMenuItem>📝 Editar</DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={async () => {
+                  meta?.removeRow(dataRow.key);
+                  await api.delete(`/DocumentoNecessario/${dataRow.idTipoDocumento}`);
+                }}
+              >
+                🗑️ delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
+
   async function onSubmit(values: FormCadastroProps) {
     const dataTipoEstagio = parseInt(selectedTipoEstagio);
     const dataTipoDocumento = parseInt(selectedTipoDocumento);
 
     isEdit
       ? await api
-          .put(`/documentonecessario/${selectId()}`, {
-            ...values,
-            idTipoEstagio: dataTipoEstagio,
-            idTipoDocumento: dataTipoDocumento,
-          })
-          .finally(() => navigate("/adm/documentonecessario"))
+        .put(`/documentonecessario/${selectId()}`, {
+          ...values,
+          idTipoEstagio: dataTipoEstagio,
+          idTipoDocumento: dataTipoDocumento,
+        })
+        .finally(() => navigate("/adm/documentonecessario"))
       : await api
-          .post("/documentonecessario", {
-            idTipoEstagio: dataTipoEstagio,
-            idTipoDocumento: dataTipoDocumento,
-          })
-          .finally(() => navigate("/adm/documentonecessario"));
+        .post("/documentonecessario", {
+          idTipoEstagio: dataTipoEstagio,
+          idTipoDocumento: dataTipoDocumento,
+        })
+        .finally(() => navigate("/adm/documentonecessario"));
     setUpdate(true);
   }
 
@@ -214,7 +317,7 @@ const CadastroDocumentoNecessario = () => {
                     <Combobox
                       data={dataComboBoxE}
                       value={selectedTipoEstagio}
-                      setValue={isEdit ? () => {} : handleTipoEstagioChange} 
+                      setValue={isEdit ? () => { } : handleTipoEstagioChange}
                     />
                   </FormControl>
                   <FormMessage />
@@ -241,7 +344,9 @@ const CadastroDocumentoNecessario = () => {
             />
           </CardContent>
 
-          <TableDocs data={data} />
+          {/* <TableDocs data={data} /> */}
+          <DataTable data={data} columns={columns} />
+
 
           <CardFooter className="flex gap-4">
             <Button type="submit">{isEdit ? "Salvar" : "Cadastrar"}</Button>
