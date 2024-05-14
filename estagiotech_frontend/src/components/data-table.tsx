@@ -156,7 +156,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  vazia
+                  Selecione o combobox. Caso não haja, cadastre um novo atributo.
                 </TableCell>
               </TableRow>
             )}
