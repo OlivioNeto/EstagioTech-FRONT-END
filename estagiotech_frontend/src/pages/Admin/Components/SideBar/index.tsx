@@ -4,12 +4,12 @@ import { NavLink } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+// import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
-import ReceiptIcon from '@mui/icons-material/Receipt';
+// import ReceiptIcon from '@mui/icons-material/Receipt';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 
@@ -73,20 +73,22 @@ const SideBar = () => {
             <span>Documento Necessário</span>
           </NavLink>
         </li>
-        <li>
+        {/*Ainda não implementado
+         <li>
           <NavLink to="/adm/contratoestagio">
             <ReceiptIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Contrato Estágio</span>
           </NavLink>
-        </li>
+        </li> */}
+        {/* Ainda não implementado
         <li>
           <SupervisorAccountIcon
             style={{ marginRight: "8px", width: "18px", height: "18px" }}
           />
           <span>Adiministrador</span>
-        </li>
+        </li> */}
         <li>
           <NavLink to="/adm/coordenadorestagio">
             <ManageAccountsIcon
@@ -103,7 +105,7 @@ const SideBar = () => {
             <span>Supervisor Estagio</span>
           </NavLink>
         </li>
-        
+
       </ul>
     </nav>
   );

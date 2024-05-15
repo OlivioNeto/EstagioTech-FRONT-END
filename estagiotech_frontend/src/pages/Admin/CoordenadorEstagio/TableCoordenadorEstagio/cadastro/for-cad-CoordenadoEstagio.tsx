@@ -17,8 +17,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { CoordenadorEstagioProps } from "../table/columns";
 
 const formSchema = z.object({
-dataCadastro: z.string(),
-StatusCoordenadorEstagio: z.string(),
+  dataCadastro: z.string(),
+  StatusCoordenadorEstagio: z.boolean(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
@@ -26,15 +26,19 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProps }) => {
   const navigate = useNavigate();
   const isEdit = !!data.idCoordenadorEstagio;
+  const convertStatusParaBooleano = (status: any) => {
+    // Mapeia os status para verdadeiro ou falso
+    return status.toLowerCase() === "ativo";
+  };
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-        dataCadastro: data.dataCadastro,
-        StatusCoordenadorEstagio: data.StatusCoordenadorEstagio,
+      dataCadastro: data.dataCadastro,
+      StatusCoordenadorEstagio: convertStatusParaBooleano(data.StatusCoordenadorEstagio)
     },
     defaultValues: {
       dataCadastro: "",
-      StatusCoordenadorEstagio: "",
+      StatusCoordenadorEstagio: false,
     },
   });
 
@@ -73,13 +77,15 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
               )}
             />
             <FormField
+              key="idCoordenadorEstagio" // Adicionando chave única aqui
               control={form.control}
               name="StatusCoordenadorEstagio"
               render={({ field }) => (
                 <FormItem className="mt-5">
                   <FormLabel>Status do Coordenador de Estagio</FormLabel>
                   <FormControl>
-                    <Input placeholder="Qual o status do coordenador" {...field} />
+                    {/* Convertendo o valor booleano para uma string */}
+                    <Input placeholder="Qual o status do coordenador" {...field} value={field.value ? 'Ativo' : 'Inativo'} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +95,7 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-            {!isEdit ? "Cadastrar" : "Salvar alterações"}
+              {!isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"

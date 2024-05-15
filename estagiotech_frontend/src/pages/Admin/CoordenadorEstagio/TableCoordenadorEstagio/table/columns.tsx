@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 export type CoordenadorEstagioProps = {
   idCoordenadorEstagio: number;
   dataCadastro: string;
-  StatusCoordenadorEstagio: string;
+  StatusCoordenadorEstagio: Boolean;
   key: number;
 };
 
