@@ -18,21 +18,21 @@ import { SupervisorEstagioProps } from "../table/columns";
 
 
 const formSchema = z.object({
-StatusSupervisorEstagio: z.string(),
+statusSupervisor: z.string(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
 const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps }) => {
   const navigate = useNavigate();
-  const isEdit = !!data.idSupervisorEstagio;
+  const isEdit = !!data.idSupervisor;
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-        StatusSupervisorEstagio: data.statusSupervisorEstagio,
+      statusSupervisor: data.statusSupervisor,
     },
     defaultValues: {
-      StatusSupervisorEstagio: "",
+      statusSupervisor: "",
     },
   });
 
@@ -43,9 +43,9 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
         .post("/SupervisorEstagio", values)
         .finally(() => navigate("/adm/supervisorestagio"))
       : await api
-        .put(`/supervisorEstagio`, {
-          idSupervisorEstagio: data.idSupervisorEstagio,
-          StatusSupervisorEstagio: values.StatusSupervisorEstagio,
+        .put(`/SupervisorEstagio`, {
+          idSupervisorEstagio: data.idSupervisor,
+          statusSupervisor: values.statusSupervisor,
         })
         .finally(() => navigate("/adm/supervisorestagio"));
 
@@ -57,8 +57,9 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <CardContent>
             <FormField
-              control={form.control}
-              name="StatusSupervisorEstagio"
+            key="idSupervisor" // Adicionando chave única aqui
+            control={form.control}
+            name="statusSupervisor"
               render={({ field }) => (
                 <FormItem className="mt-5">
                   <FormLabel>Status do Supervisor de Estagio</FormLabel>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { DataTable } from "../../../components/data-table";
-import { SupervisorEstagioProps } from "./table/columns";
+// import { DataTable } from "../../../components/data-table";
+import { DataTable } from "../../../../components/data-table";
+import { SupervisorEstagioProps, columns } from "./table/columns";
 import api from "@/service/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
@@ -16,7 +17,7 @@ export default function SupervisorEstagio() {
       ).data;
 
       const includeKeyData = data.map((item) => {
-        return { ...item, key: item.idSupervisorEstagio };
+        return { ...item, key: item.idSupervisor };
       });
       console.log(includeKeyData)
       setData(includeKeyData);
