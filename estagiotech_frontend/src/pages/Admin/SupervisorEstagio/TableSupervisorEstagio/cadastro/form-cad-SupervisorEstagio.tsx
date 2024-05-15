@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { SupervisorEstagioProps } from "../table/columns";
+import SupervisorEstagio from "..";
 
 
 const formSchema = z.object({
@@ -37,14 +38,14 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   });
 
   async function onSubmit(values: FormCadastroProps) {
-    console.log(isEdit)
+    console.log(data.idSupervisor)
     !isEdit ?
       await api
         .post("/SupervisorEstagio", values)
         .finally(() => navigate("/adm/supervisorestagio"))
       : await api
-        .put(`/SupervisorEstagio`, {
-          idSupervisorEstagio: data.idSupervisor,
+        .put("/SupervisorEstagio/"+ data.idSupervisor, {
+          idSupervisor: data.idSupervisor,
           statusSupervisor: values.statusSupervisor,
         })
         .finally(() => navigate("/adm/supervisorestagio"));
