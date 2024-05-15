@@ -57,7 +57,7 @@ function App() {
             <Route path='/adm/coordenadorestagio' element={<CoordenadorEstagio />} />
             <Route path='/adm/documentonecessario' element={<DocumentoNecessario />}></Route>
             <Route path='/adm/contratoestagio' element={<ContratoEstagio />}></Route>
-            <Route path='/adm/supervisoroestagio' element={<SupervisorEstagio />}></Route>
+            <Route path='/adm/supervisorestagio' element={<SupervisorEstagio />}></Route>
             <Route path='adm/empresa' element={<Empresas />}></Route>
 
 

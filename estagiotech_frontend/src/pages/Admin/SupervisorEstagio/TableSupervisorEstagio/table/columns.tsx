@@ -14,8 +14,8 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export type SupervisorEstagioProps = {
-  idSupervisorEstagio: number;
-  statusSupervisorEstagio: string;
+  idSupervisor: number;
+  statusSupervisor: string;
   key: number;
 };
 
@@ -45,15 +45,15 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "idSupevisorEstagio",
+    accessorKey: "idSupervisor",
     header: "Código do supervisor",
   },
   {
-    accessorKey: "statusSupervisorEstagio",
+    accessorKey: "statusSupervisor",
     header: "Status do supervisor",
   },
   {
-    accessorKey: "statusSupervisorEstagio",
+    accessorKey: "statusSupervisor",
     header: ({ column }) => {
       return (
         <Button
@@ -84,14 +84,14 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/adm/documento/cadastro/${dataRow.idSupervisorEstagio}`}>
+            <Link to={`/adm/supervisorestagio/cadastro/${dataRow.idSupervisor}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () => {
                 meta?.removeRow(dataRow.key);
-                await api.delete(`/Documento/${dataRow.idSupervisorEstagio}`);
+                await api.delete(`/SupervisorEstagio/${dataRow.idSupervisor}`);
               }}
             >
               🗑️ delete

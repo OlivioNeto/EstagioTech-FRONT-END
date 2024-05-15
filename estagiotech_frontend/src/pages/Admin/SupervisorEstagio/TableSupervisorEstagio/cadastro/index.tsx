@@ -16,7 +16,7 @@ export default function CadastroSupervisorEstagio() {
         const data = (await api.get(`/supervisorestagio/${id}`)).data;
         setSupervisorEstagio(data);
       } else {setSupervisorEstagio({
-        idSupervisorEstagio:0,statusSupervisorEstagio:"",key:0
+        idSupervisor:0,statusSupervisor:"",key:0
       })}
       return;
     })();
