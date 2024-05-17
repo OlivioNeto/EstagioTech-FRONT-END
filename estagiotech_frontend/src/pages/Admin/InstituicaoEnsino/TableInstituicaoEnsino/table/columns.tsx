@@ -15,9 +15,9 @@ import { Link } from "react-router-dom";
 
 export type InstituicaoEnsinoProps = {
   idInstituicaoEnsino: number;
-  NomeInstituicao: string;
-  LocalInstituicao: string;
-  TelefoneInstituicao: string;
+  nomeInstituicao: string;
+  localInstituicao: string;
+  telefoneInstituicao: string;
   key: number;
 };
 
@@ -51,26 +51,26 @@ export const columns: ColumnDef<InstituicaoEnsinoProps>[] = [
     header: "Código da instituição",
   },
   {
-    accessorKey: "NomeInstuicao",
+    accessorKey: "nomeInstituicao",
     header: "Nome da Instituição",
   },
   {
-    accessorKey: "LocalInstituicao",
+    accessorKey: "localInstituicao",
     header: "Local da Instituição",
   },
   {
-    accessorKey: "TelefoneInstituicao",
+    accessorKey: "telefoneInstituicao",
     header: "Telefone da Instituição",
   },
   {
-    accessorKey: "NomeInstuicao",
+    accessorKey: "nomeInstituicao",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Descrição da Instituição
+          Nome da Instituição
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
