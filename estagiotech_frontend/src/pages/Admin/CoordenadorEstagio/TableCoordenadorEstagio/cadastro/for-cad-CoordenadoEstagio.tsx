@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { CoordenadorEstagioProps } from "../table/columns";
+import { useEffect, useState } from "react";
+import { Combobox, ComboboxProps } from "@/components/ui/combobox";
 
 const formSchema = z.object({
   dataCadastro: z.string(),
@@ -25,26 +27,55 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 
 const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProps }) => {
   const navigate = useNavigate();
-  const isEdit = !!data.idCoordenadorEstagio;
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [dataComboBoxC, setDataComboBoxC] = useState<ComboboxProps[]>([]);
+  const [valueComboBoxC, setValueComboBoxC] = useState("");
+
   const convertStatusParaBooleano = (status: any) => {
-    // Mapeia os status para verdadeiro ou falso
-    return status.toLowerCase() === "ativo";
+    // Verifica se status é definido antes de chamar toLowerCase()
+    console.log("teste"+status);
+    return status && status.toLowerCase() === "ativo";
   };
+
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
       dataCadastro: data.dataCadastro,
-      StatusCoordenadorEstagio: convertStatusParaBooleano(data.StatusCoordenadorEstagio)
+      StatusCoordenadorEstagio: convertStatusParaBooleano(data.StatusCoordenadorEstagio || ''),
     },
     defaultValues: {
       dataCadastro: "",
-      StatusCoordenadorEstagio: false,
+      StatusCoordenadorEstagio: convertStatusParaBooleano(data.StatusCoordenadorEstagio || ''),
     },
   });
 
+  useEffect(() => {
+    (async () => {
+      const coordenadorestagioSelecionado = data.idCoordenadorEstagio;
+      const checkIsedit = Object.keys(data).length;
+      if (checkIsedit > 0) setIsEdit(true);
+      if (coordenadorestagioSelecionado) {
+        setValueComboBoxC(coordenadorestagioSelecionado.toString());
+      }
+ 
+      const resp: CoordenadorEstagioProps[] = (await api.get("/coordenadorestagio")).data;
+ 
+      setDataComboBoxC(
+        resp.map((item) => {
+          return {
+            value: item.idCoordenadorEstagio.toString(),
+            label: item.StatusCoordenadorEstagio,
+          };
+        })
+      );
+    })();
+  }, [data]);
+
   async function onSubmit(values: FormCadastroProps) {
     console.log(isEdit)
-    !isEdit ?
+    isEdit ?
       await api
         .post("/CoordenadorEstagio", values)
         .finally(() => navigate("/adm/coordenadorestagio"))
@@ -83,10 +114,11 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
               render={({ field }) => (
                 <FormItem className="mt-5">
                   <FormLabel>Status do Coordenador de Estagio</FormLabel>
-                  <FormControl>
-                    {/* Convertendo o valor booleano para uma string */}
-                    <Input placeholder="Qual o status do coordenador" {...field} value={field.value ? 'Ativo' : 'Inativo'} />
-                  </FormControl>
+                  <Combobox
+                      data={dataComboBoxC}
+                      value={valueComboBoxC}
+                      setValue={setValueComboBoxC}
+                    />
                   <FormMessage />
                 </FormItem>
               )}
@@ -95,7 +127,7 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {!isEdit ? "Cadastrar" : "Salvar alterações"}
+              {isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"
