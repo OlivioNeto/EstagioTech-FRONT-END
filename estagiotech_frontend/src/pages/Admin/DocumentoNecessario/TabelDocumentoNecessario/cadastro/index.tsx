@@ -5,7 +5,7 @@ import { DocumentoNecessarioProps } from "../table/columns";
 import api from "@/service/api";
 
 export default function CadDocumentoNecessario() {
-    const [documentoNecessario, setdocumentoNecessario] = useState<DocumentoNecessarioProps>();
+    const [documentoNecessario, setdocumentoNecessario] = useState<DocumentoNecessarioProps>({idDocumentoNecessario: 0, idTipoDocumento: 0, descricaoTipoEstagio: "", idTipoEstagio: 0, descricaoTipoDocumento: "", key: 0});
     const { id } = useParams();
     useEffect(() => {
       console.log(id)
@@ -20,9 +20,11 @@ export default function CadDocumentoNecessario() {
                 setdocumentoNecessario({
                     idDocumentoNecessario: 0,
                     idTipoDocumento: 0,
+                    descricaoTipoEstagio: "", 
                     idTipoEstagio: 0,
+                    descricaoTipoDocumento: "",
                     key: 0
-                })
+                });
             }
             return;
         })();
@@ -31,9 +33,9 @@ export default function CadDocumentoNecessario() {
     return (
         <div>
             <p className="text-2xl mb-4">Cadastro do Documento Necessário</p>
-            <CadastroDocumentoNecessario idDocumentoNecessario={documentoNecessario?.idDocumentoNecessario??0}
-            idTipoDocumento={documentoNecessario?.idTipoDocumento??0} 
-            idTipoEstagio={documentoNecessario?.idTipoEstagio??0}/>
+            <CadastroDocumentoNecessario idDocumentoNecessario={documentoNecessario.idDocumentoNecessario}
+            idTipoEstagio={documentoNecessario.idTipoDocumento}
+            idTipoDocumento={documentoNecessario.idTipoEstagio}/> 
         </div>
     );
 }

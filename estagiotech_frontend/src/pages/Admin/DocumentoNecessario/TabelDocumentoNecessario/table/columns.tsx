@@ -15,8 +15,10 @@ import { Link } from "react-router-dom";
 
 export type DocumentoNecessarioProps = {
     idDocumentoNecessario: number;
-    idTipoDocumento: number;
     idTipoEstagio: number;
+    descricaoTipoEstagio: string;
+    idTipoDocumento: number;
+    descricaoTipoDocumento: string;
     key: number;
 };
 
@@ -29,7 +31,7 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
                     table.getIsAllPageRowsSelected() ||
                     (table.getIsSomePageRowsSelected() && "indeterminate")
                 }
-                onCheckedChange={(value: any) =>
+                onCheckedChange={(value) =>
                     table.toggleAllPageRowsSelected(!!value)
                 }
                 aria-label="Select all"
@@ -38,7 +40,7 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
         cell: ({ row }) => (
             <Checkbox
                 checked={row.getIsSelected()}
-                onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
                 aria-label="Select row"
             />
         ),
@@ -50,12 +52,12 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
         header: "Código do documento necessário",
     },
     {
-        accessorKey: "idTipoDocumento",
-        header: "Código do tipo documento",
+        accessorKey: "descricaoTipoEstagio",
+        header: "Descrição do tipo estágio",
     },
     {
-        accessorKey: "idTipoEstagio",
-        header: "Código do tipo estágio",
+        accessorKey: "descricaoTipoDocumento",
+        header: "Descrição do tipo documento",
     },
     {
         accessorKey: "idDocumentoNecessario",
