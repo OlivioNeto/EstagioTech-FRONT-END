@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 export type SupervisorEstagioProps = {
   idSupervisor: number;
   statusSupervisor: string;
+  
   key: number;
 };
 
