@@ -263,7 +263,7 @@ const CadastroDocumentoNecessario = () => {
                   await api.delete(`/DocumentoNecessario/${dataRow.idTipoDocumento}`);
                 }}
               >
-                🗑️ delete
+                🗑️ Delete
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

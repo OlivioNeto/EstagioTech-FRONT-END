@@ -94,7 +94,7 @@ export const columns: ColumnDef<TipoEstagioProps>[] = [
                 await api.delete(`/TipoEstagio/${dataRow.idTipoEstagio}`);
               }}
             >
-              🗑️ delete
+              🗑️ Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

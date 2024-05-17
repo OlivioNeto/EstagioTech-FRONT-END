@@ -103,7 +103,7 @@ export const columns: ColumnDef<ConcendenteProps>[] = [
                 await api.delete(`/concedente/${dataRow.concedenteId}`);
               }}
             >
-              🗑️ delete
+              🗑️ Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -104,7 +104,7 @@ export const columns: ColumnDef<InstituicaoEnsinoProps>[] = [
                 await api.delete(`/InstituicaoEnsino/${dataRow.idInstituicaoEnsino}`);
               }}
             >
-              🗑️ delete
+              🗑️ Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

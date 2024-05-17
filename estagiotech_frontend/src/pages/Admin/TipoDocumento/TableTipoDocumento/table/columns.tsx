@@ -82,20 +82,46 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <Link to={`/adm/tipodocumento/cadastro/${dataRow.idTipoDocumento}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuItem
               onClick={async () => {
                 meta?.removeRow(dataRow.key);
                 await api.delete(`/TipoDocumento/${dataRow.idTipoDocumento}`);
               }}
             >
-              🗑️ delete
+              🗑️ Delete
             </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+              
+            <DropdownMenuItem
+                onClick={async () => {
+                  meta?.removeRow(dataRow.key);
+                  await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}`, { status: true });
+                }}
+              >
+                🔄 Ativa
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={async () => {
+                meta?.removeRow(dataRow.key);
+                await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}`, { status: false });
+              }}
+            >
+              🛑 Desativar
+            </DropdownMenuItem>
+
           </DropdownMenuContent>
         </DropdownMenu>
       );

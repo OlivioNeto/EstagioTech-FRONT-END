@@ -95,7 +95,7 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
                 await api.delete(`/SupervisorEstagio/${dataRow.idSupervisor}`);
               }}
             >
-              🗑️ delete
+              🗑️ Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

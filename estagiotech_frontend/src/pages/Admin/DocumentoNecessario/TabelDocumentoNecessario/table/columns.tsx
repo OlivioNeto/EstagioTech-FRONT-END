@@ -100,7 +100,7 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
                                 await api.delete(`/DocumentoNecessario/${dataRow.idDocumentoNecessario}`);
                             }}
                         >
-                            🗑️ delete
+                            🗑️ Delete
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
