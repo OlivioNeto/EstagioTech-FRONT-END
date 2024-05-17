@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 export type TipoDocumentoProps = {
   idTipoDocumento: number;
   descricaoTipoDocumento: string;
+  status: boolean
   key: number;
 };
 
@@ -51,6 +52,10 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
   {
     accessorKey: "descricaoTipoDocumento",
     header: "Descrição do tipo documento",
+  },
+  {
+    accessorKey: "status",
+    header: "Status da descrição do tipo documento",
   },
   {
     accessorKey: "descricaoTipoDocumento",
@@ -102,21 +107,44 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
 
             <DropdownMenuSeparator />
               
-            <DropdownMenuItem
+            {/* <DropdownMenuItem
                 onClick={async () => {
                   meta?.removeRow(dataRow.key);
                   await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}`, { status: true });
                 }}
               >
                 🔄 Ativa
+            </DropdownMenuItem> */}
+
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Ativar`, { status: true });
+                  // meta?.removeRow(dataRow.key);
+                  // Se necessário, atualize o estado local ou faça outras operações
+                  // Exemplo: atualizar uma lista de documentos ativos
+                } catch (error) {
+                  console.error("Erro ao ativar o documento:", error);
+                  // Exibir uma mensagem de erro ao usuário, se necessário
+                }
+              }}
+            >
+              🔄 Ativar
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
 
             <DropdownMenuItem
               onClick={async () => {
-                meta?.removeRow(dataRow.key);
-                await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}`, { status: false });
+                try {
+                  await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Desativar`, { status: false });
+                  // meta?.removeRow(dataRow.key);
+                  // Se necessário, atualize o estado local ou faça outras operações
+                  // Exemplo: atualizar uma lista de documentos inativos
+                } catch (error) {
+                  console.error("Erro ao desativar o documento:", error);
+                  // Exibir uma mensagem de erro ao usuário, se necessário
+                }
               }}
             >
               🛑 Desativar
