@@ -12,6 +12,7 @@ import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 // import ReceiptIcon from '@mui/icons-material/Receipt';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import SchoolIcon from '@mui/icons-material/School';
 
 const SideBar = () => {
   return (
@@ -82,6 +83,7 @@ const SideBar = () => {
             <span>Contrato Estágio</span>
           </NavLink>
         </li> */}
+
         {/* Ainda não implementado
         <li>
           <SupervisorAccountIcon
@@ -89,6 +91,7 @@ const SideBar = () => {
           />
           <span>Adiministrador</span>
         </li> */}
+
         <li>
           <NavLink to="/adm/coordenadorestagio">
             <ManageAccountsIcon
@@ -103,6 +106,14 @@ const SideBar = () => {
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Supervisor Estagio</span>
+          </NavLink>
+          </li>
+          <li>
+          <NavLink to="/adm/instituicaoensino">
+            <SchoolIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Instituicao Ensino</span>
           </NavLink>
         </li>
 
