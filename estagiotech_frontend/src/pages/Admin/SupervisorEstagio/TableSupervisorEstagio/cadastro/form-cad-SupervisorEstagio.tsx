@@ -32,12 +32,12 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   const [isEdit, setIsEdit] = useState(false);
 
   const [dataComboBoxS, setDataComboBoxS] = useState<ComboboxProps[]>([]);
-  const [valueComboBoxS, setValueComboBoxS] = useState("");
+  const [valueComboBoxS, setValueComboBoxS] = useState("true");
 
   const convertStatusParaBooleano = (status: any) => {
     // Verifica se status é definido antes de chamar toLowerCase()
-    console.log("teste"+status);
-    return status && status.toLowerCase() === "ativo";
+    console.log(valueComboBoxS);
+    return valueComboBoxS === "true";
   };
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
@@ -55,19 +55,24 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   useEffect(() => {
     (async () => {
       const supervisorestagioSelecionado = data.idSupervisor;
-      const checkIsedit = Object.keys(data).length;
-      if (checkIsedit > 0) setIsEdit(true);
-      if (supervisorestagioSelecionado) {
-        setValueComboBoxS(supervisorestagioSelecionado.toString());
+
+      //const checkIsedit = Object.keys(data).length;
+      if (supervisorestagioSelecionado == 0) {
+        setValueComboBoxS("true");
+        setIsEdit(true);
+      } else {
+        const resp: SupervisorEstagioProps[] = (await api.get(`/supervisorestagio/${supervisorestagioSelecionado}`)).data;
+        setValueComboBoxS(resp.statusSupervisor.toString());
       }
  
-      const resp: SupervisorEstagioProps[] = (await api.get("/supervisorestagio")).data;
- 
+      // const resp: SupervisorEstagioProps[] = (await api.get("/supervisorestagio")).data;
+
+      const status = [{ value: true, label: "Ativo" }, { value: false, label: "Inativo" }];
       setDataComboBoxS(
-        resp.map((item) => {
+        status.map((item) => {
           return {
-            value: item.idSupervisor.toString(),
-            label: item.statusSupervisor,
+            value: item.value.toString(),
+            label: item.label
           };
         })
       );
@@ -75,19 +80,26 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   }, [data]);
 
   async function onSubmit(values: FormCadastroProps) {
-    console.log(data.idSupervisor)
+    console.log(values);
+    const status = valueComboBoxS === "true";
+    console.log(status);
+  
     isEdit ?
       await api
-        .post("/SupervisorEstagio", values)
+        .post("/SupervisorEstagio", {idSupervisor: 0, statusSupervisor: status}) // passando o status corretamente
         .finally(() => navigate("/adm/supervisorestagio"))
       : await api
         .put("/SupervisorEstagio/" + data.idSupervisor, {
           idSupervisor: data.idSupervisor,
-          statusSupervisor: values.statusSupervisor,
+          statusSupervisor: status,
         })
         .finally(() => navigate("/adm/supervisorestagio"));
-
   }
+
+  useEffect(() => {
+    console.log(valueComboBoxS);
+    console.log(dataComboBoxS);
+  }, [valueComboBoxS]);
 
   return (
     <Card className="p-4">
@@ -116,7 +128,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
                    <Combobox
                       data={dataComboBoxS}
                       value={valueComboBoxS}
-                      setValue={setValueComboBoxS}
+                      setValue={(option) => setValueComboBoxS(option)}
                     />
 
                   </FormControl>
