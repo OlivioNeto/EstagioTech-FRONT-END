@@ -33,6 +33,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
 
   const [dataComboBoxS, setDataComboBoxS] = useState<ComboboxProps[]>([]);
   const [valueComboBoxS, setValueComboBoxS] = useState("true");
+  const [valueConcedente, setConcedente] = useState(0);
 
   const convertStatusParaBooleano = (status: any) => {
     // Verifica se status é definido antes de chamar toLowerCase()
@@ -86,7 +87,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   
     isEdit ?
       await api
-        .post("/SupervisorEstagio", {idSupervisor: 0, statusSupervisor: status}) // passando o status corretamente
+        .post("/SupervisorEstagio", {idSupervisor: 0, statusSupervisor: status,concedenteId:valueConcedente}) // passando o status corretamente
         .finally(() => navigate("/adm/supervisorestagio"))
       : await api
         .put("/SupervisorEstagio/" + data.idSupervisor, {
@@ -131,6 +132,12 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
                       setValue={(option) => setValueComboBoxS(option)}
                     />
 
+                  </FormControl>
+                  <FormControl>
+
+                    <Input type="number" onChange={(e)=> setConcedente(Number(e.target.value))}>
+
+                    </Input>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
