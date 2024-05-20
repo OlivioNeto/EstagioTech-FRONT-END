@@ -62,8 +62,7 @@ const CadastroDocumentoNecessario = () => {
   const [valueComboBoxE, setValueComboBoxE] = useState("");
 
   const [selectedTipoEstagio, setSelectedTipoEstagio] = useState<string>("");
-  const [selectedTipoDocumento, setSelectedTipoDocumento] =
-    useState<string>("");
+  const [selectedTipoDocumento, setSelectedTipoDocumento] = useState<string>("");
 
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
@@ -324,40 +323,46 @@ const CadastroDocumentoNecessario = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              key="idTipoDocumento" // Adicionando chave única aqui
-              control={form.control}
-              name="idTipoDocumento"
-              render={() => (
-                <FormItem className="mt-5">
-                  <FormLabel>Descrição do tipo documento</FormLabel>
-                  <FormControl>
-                    <Combobox
-                      data={dataComboBoxD}
-                      value={selectedTipoDocumento}
-                      setValue={handleTipoDocumentoChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div>
+              <FormField
+                key="idTipoDocumento" // Adicionando chave única aqui
+                control={form.control}
+                name="idTipoDocumento"
+                render={() => (
+                  <FormItem className="flex items-center gap-3 mt-5">
+                    <FormLabel>Descrição do tipo documento</FormLabel>
+                    <FormControl >
+                      <Combobox
+                        data={dataComboBoxD}
+                        value={selectedTipoDocumento}
+                        setValue={handleTipoDocumentoChange}
+                      />
+
+                    </FormControl >
+                    <div>
+                      <Button className="mr-4" type="submit">{isEdit ? "Salvar" : "Cadastrar"}</Button>
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        onClick={() => navigate("/adm/documentonecessario/cadastro")}
+                      >
+                        Voltar
+                      </Button>
+                    </div>
+                    <FormMessage />
+
+                  </FormItem>
+                )}
+              />
+              <CardFooter className="flex gap-4">
+
+              </CardFooter>
+            </div>
+
           </CardContent>
 
-          {/* <TableDocs data={data} /> */}
           <DataTable data={data} columns={columns} />
 
-
-          <CardFooter className="flex gap-4">
-            <Button type="submit">{isEdit ? "Salvar" : "Cadastrar"}</Button>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={() => navigate("/adm/documentonecessario")}
-            >
-              Voltar
-            </Button>
-          </CardFooter>
         </form>
       </Form>
     </Card>
