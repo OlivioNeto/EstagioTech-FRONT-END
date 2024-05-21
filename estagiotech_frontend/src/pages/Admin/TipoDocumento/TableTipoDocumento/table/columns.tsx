@@ -106,17 +106,14 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
-            
+
             <DropdownMenuItem
               onClick={async () => {
                 try {
                   await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Ativar`, { status: true });
-                  // meta?.removeRow(dataRow.key);
-                  // Se necessário, atualize o estado local ou faça outras operações
-                  // Exemplo: atualizar uma lista de documentos ativos
+                  // meta?.ActiveRow(dataRow.key);
                 } catch (error) {
                   console.error("Erro ao ativar o documento:", error);
-                  // Exibir uma mensagem de erro ao usuário, se necessário
                 }
               }}
             >
@@ -129,12 +126,9 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
               onClick={async () => {
                 try {
                   await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Desativar`, { status: false });
-                  // meta?.removeRow(dataRow.key);
-                  // Se necessário, atualize o estado local ou faça outras operações
-                  // Exemplo: atualizar uma lista de documentos inativos
+                  // meta?.DesableRow(dataRow.key);
                 } catch (error) {
                   console.error("Erro ao desativar o documento:", error);
-                  // Exibir uma mensagem de erro ao usuário, se necessário
                 }
               }}
             >
