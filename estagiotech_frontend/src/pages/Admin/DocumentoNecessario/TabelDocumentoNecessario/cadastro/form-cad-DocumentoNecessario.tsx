@@ -33,6 +33,7 @@ export type DocumentoNecessarioProps = {
   descricaoTipoEstagio: string;
   idTipoDocumento: number;
   descricaoTipoDocumento: string;
+  status: boolean;
   key: number;
 };
 
@@ -160,18 +161,24 @@ const CadastroDocumentoNecessario = () => {
           setValueComboBoxD(tipoDocumento.toString());
           setSelectedTipoDocumento(tipoDocumento.toString());
         }
-
+        
         setDataComboBoxD(
-          noRelatedTypeDocument.map((item) => {
-            return {
+          noRelatedTypeDocument
+            .filter((item) => item.status) // Adicione este filtro para excluir documentos desativados
+            .map((item) => ({
               value: item.idTipoDocumento.toString(),
               label: item.descricaoTipoDocumento,
-            };
-          })
+            }))
         );
 
         setData(
           relatedTypeDocument.map((item, idx) => ({
+            ...item,
+            key: idx,
+          }))
+        );
+        setData(
+          relatedTypeDocument.filter((item) => item.status).map((item, idx) => ({
             ...item,
             key: idx,
           }))
@@ -211,25 +218,25 @@ const CadastroDocumentoNecessario = () => {
     },
     {
       accessorKey: "idTipoDocumento",
-      header: "Código do documento necessário",
-    },
-    {
-      accessorKey: "descricaoTipoEstagio",
-      header: "Descrição do tipo estágio",
+      header: "Código do tipo documento",
     },
     {
       accessorKey: "descricaoTipoDocumento",
       header: "Descrição do tipo documento",
     },
     {
-      accessorKey: "idDocumentoNecessario",
+      accessorKey: "status",
+      header: "Status do tipo documento",
+    },
+    {
+      accessorKey: "descricaoTipoDocumento",
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Código Documento Necessario
+            Descrição do tipo documento
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -255,7 +262,9 @@ const CadastroDocumentoNecessario = () => {
               <Link to={`/adm/documentonecessario/cadastro/${dataRow.idTipoDocumento}`}>
                 <DropdownMenuItem>📝 Editar</DropdownMenuItem>
               </Link>
+
               <DropdownMenuSeparator />
+
               <DropdownMenuItem
                 onClick={async () => {
                   meta?.removeRow(dataRow.key);
@@ -264,6 +273,21 @@ const CadastroDocumentoNecessario = () => {
               >
                 🗑️ Delete
               </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Desativar`, { status: false });
+                  meta?.removeRow(dataRow.key);
+                } catch (error) {
+                  console.error("Erro ao desativar o documento:", error);
+                }
+              }}
+            >
+              🛑 Desativar
+            </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );

@@ -19,6 +19,7 @@ export type DocumentoNecessarioProps = {
     descricaoTipoEstagio: string;
     idTipoDocumento: number;
     descricaoTipoDocumento: string;
+    status: boolean;
     key: number;
 };
 

@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 export type TipoDocumentoProps = {
   idTipoDocumento: number;
   descricaoTipoDocumento: string;
-  status: boolean
+  status: boolean;
   key: number;
 };
 
@@ -106,16 +106,7 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
-              
-            {/* <DropdownMenuItem
-                onClick={async () => {
-                  meta?.removeRow(dataRow.key);
-                  await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}`, { status: true });
-                }}
-              >
-                🔄 Ativa
-            </DropdownMenuItem> */}
-
+            
             <DropdownMenuItem
               onClick={async () => {
                 try {
