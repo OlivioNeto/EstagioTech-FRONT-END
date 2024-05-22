@@ -161,7 +161,7 @@ const CadastroDocumentoNecessario = () => {
           setValueComboBoxD(tipoDocumento.toString());
           setSelectedTipoDocumento(tipoDocumento.toString());
         }
-        
+
         setDataComboBoxD(
           noRelatedTypeDocument
             .filter((item) => item.status) // Adicione este filtro para excluir documentos desativados
@@ -273,21 +273,24 @@ const CadastroDocumentoNecessario = () => {
               >
                 🗑️ Delete
               </DropdownMenuItem>
+              
+              <DropdownMenuSeparator />
 
-            <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={async () => {
+                  try {
+                    await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Desativar`, { status: false });
+                    meta?.removeRow(dataRow.key);
+                  } catch (error) {
+                    console.error("Erro ao desativar o documento:", error);
+                  }
+                }}
+              >
+                <Link to={`/adm/documentonecessario/cadastro`}>
+                  🛑 Desativar
+                </Link>
+              </DropdownMenuItem>
 
-            <DropdownMenuItem
-              onClick={async () => {
-                try {
-                  await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Desativar`, { status: false });
-                  meta?.removeRow(dataRow.key);
-                } catch (error) {
-                  console.error("Erro ao desativar o documento:", error);
-                }
-              }}
-            >
-              🛑 Desativar
-            </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -306,13 +309,13 @@ const CadastroDocumentoNecessario = () => {
           idTipoEstagio: dataTipoEstagio,
           idTipoDocumento: dataTipoDocumento,
         })
-        .finally(() => navigate("/adm/documentonecessario"))
+        .finally(() => navigate("/adm/documentonecessario/cadastro"))
       : await api
         .post("/documentonecessario", {
           idTipoEstagio: dataTipoEstagio,
           idTipoDocumento: dataTipoDocumento,
         })
-        .finally(() => navigate("/adm/documentonecessario"));
+        .finally(() => navigate("/adm/documentonecessario/cadastro"));
     setUpdate(true);
   }
 
