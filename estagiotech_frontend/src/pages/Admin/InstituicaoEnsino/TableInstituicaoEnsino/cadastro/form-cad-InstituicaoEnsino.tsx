@@ -57,7 +57,7 @@ const FormCadastroEnsinoProps = ({ data }: { data: InstituicaoEnsinoProps }) => 
         .post("/InstituicaoEnsino", values)
         .finally(() => navigate("/adm/instituicaoensino"))
       : await api
-        .put(`/InstituicaoEnsino`, {
+        .put(`/InstituicaoEnsino/${data.idInstituicaoEnsino}`, {
           idInstituicaoEnsino: data.idInstituicaoEnsino,
           nomeInstituicao: values.nomeInstituicao,
           localInstituicao: values.localInstituicao,
