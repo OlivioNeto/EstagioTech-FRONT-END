@@ -26,6 +26,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ComboboxDemo } from "@/components/ui/comboboxDN";
 
 export type DocumentoNecessarioProps = {
   idDocumentoNecessario: number;
@@ -273,7 +274,7 @@ const CadastroDocumentoNecessario = () => {
               >
                 🗑️ Delete
               </DropdownMenuItem>
-              
+
               <DropdownMenuSeparator />
 
               <DropdownMenuItem
@@ -378,9 +379,13 @@ const CadastroDocumentoNecessario = () => {
                     </div>
                     <FormMessage />
 
+
+
                   </FormItem>
                 )}
               />
+
+              <ComboboxDemo />
               <CardFooter className="flex gap-4">
 
               </CardFooter>
