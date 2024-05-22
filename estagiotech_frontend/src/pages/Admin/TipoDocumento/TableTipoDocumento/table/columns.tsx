@@ -29,7 +29,7 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value: any) =>
+        onCheckedChange={(value) =>
           table.toggleAllPageRowsSelected(!!value)
         }
         aria-label="Select all"
@@ -38,7 +38,7 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -56,6 +56,7 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
   {
     accessorKey: "status",
     header: "Status da descrição do tipo documento",
+    cell: ({ row }) => (row.original.status ? "Ativo" : "Inativo"),
   },
   {
     accessorKey: "descricaoTipoDocumento",

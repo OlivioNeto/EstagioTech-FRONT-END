@@ -15,7 +15,7 @@ import {
 
 import api from "../../../../../service/api";
 import { useEffect, useState } from "react";
-import { Combobox, ComboboxProps } from "../../../../../components/ui/combobox";
+import { ComboboxDN, ComboboxPropsDN } from "@/components/ui/comboboxDN";
 import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
 import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
 // import { TableDocs } from "@/components/table-docs";
@@ -26,7 +26,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ComboboxDemo } from "@/components/ui/comboboxDN";
+
 
 export type DocumentoNecessarioProps = {
   idDocumentoNecessario: number;
@@ -57,8 +57,8 @@ const CadastroDocumentoNecessario = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [update, setUpdate] = useState(false);
   const [data, setData] = useState<TipoDocumentoProps[]>([]);
-  const [dataComboBoxD, setDataComboBoxD] = useState<ComboboxProps[]>([]);
-  const [dataComboBoxE, setDataComboBoxE] = useState<ComboboxProps[]>([]);
+  const [dataComboBoxD, setDataComboBoxD] = useState<ComboboxPropsDN[]>([]);
+  const [dataComboBoxE, setDataComboBoxE] = useState<ComboboxPropsDN[]>([]);
 
   const [valueComboBoxD, setValueComboBoxD] = useState("");
   const [valueComboBoxE, setValueComboBoxE] = useState("");
@@ -226,10 +226,6 @@ const CadastroDocumentoNecessario = () => {
       header: "Descrição do tipo documento",
     },
     {
-      accessorKey: "status",
-      header: "Status do tipo documento",
-    },
-    {
       accessorKey: "descricaoTipoDocumento",
       header: ({ column }) => {
         return (
@@ -338,10 +334,10 @@ const CadastroDocumentoNecessario = () => {
               control={form.control}
               name="idTipoEstagio"
               render={() => (
-                <FormItem className="mt-5">
-                  <FormLabel>Descrição do tipo estágio</FormLabel>
+                <FormItem className="flex items-center gap-12 mt-5">
+                  <FormLabel>DESCRIÇÃO DO TIPO ESTÁGIO</FormLabel>
                   <FormControl>
-                    <Combobox
+                    <ComboboxDN
                       data={dataComboBoxE}
                       value={selectedTipoEstagio}
                       setValue={isEdit ? () => { } : handleTipoEstagioChange}
@@ -357,10 +353,10 @@ const CadastroDocumentoNecessario = () => {
                 control={form.control}
                 name="idTipoDocumento"
                 render={() => (
-                  <FormItem className="flex items-center gap-3 mt-5">
-                    <FormLabel>Descrição do tipo documento</FormLabel>
+                  <FormItem className="flex items-center gap-4 mt-5">
+                    <FormLabel>DESCRIÇÃO DO TIPO DOCUMENTO</FormLabel>
                     <FormControl >
-                      <Combobox
+                      <ComboboxDN
                         data={dataComboBoxD}
                         value={selectedTipoDocumento}
                         setValue={handleTipoDocumentoChange}
@@ -369,13 +365,13 @@ const CadastroDocumentoNecessario = () => {
                     </FormControl >
                     <div>
                       <Button className="mr-4" type="submit">{isEdit ? "Salvar" : "Cadastrar"}</Button>
-                      <Button
+                      {/* <Button
                         type="button"
                         variant="secondary"
                         onClick={() => navigate("/adm/documentonecessario/cadastro")}
                       >
                         Voltar
-                      </Button>
+                      </Button> */}
                     </div>
                     <FormMessage />
 
@@ -384,8 +380,6 @@ const CadastroDocumentoNecessario = () => {
                   </FormItem>
                 )}
               />
-
-              <ComboboxDemo />
               <CardFooter className="flex gap-4">
 
               </CardFooter>

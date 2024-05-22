@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
           <Input
             placeholder="Pesquisar..."
             value={
-              (table.getColumn("descricaoTipoDocumento")?.getFilterValue() as string) ?? ""
+              (table.getColumn("descricaoTipoDocumento",)?.getFilterValue() as string) ?? ""
             }
             onChange={(event) =>
               table.getColumn("descricaoTipoDocumento")?.setFilterValue(event.target.value)
@@ -156,7 +156,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  Selecione o combobox. Caso não haja, cadastre um novo atributo.
+                  Selecione o combobox. Caso não haja ou sua pesquisa não tenha foi encontrada, cadastre um novo atributo.
                 </TableCell>
               </TableRow>
             )}
