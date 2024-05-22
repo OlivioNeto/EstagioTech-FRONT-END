@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 export type CoordenadorEstagioProps = {
   idCoordenadorEstagio: number;
   dataCadastro: string;
-  StatusCoordenadorEstagio: Boolean;
+  statusCoordenadorEstagio: boolean;
   key: number;
 };
 
@@ -54,7 +54,7 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
     header: "Data de cadastro do Coordenador",
   },
   {
-    accessorKey: "StatusCoordenadorEstagio",
+    accessorKey: "statusCoordenadorEstagio",
     header: "Status de Coordenador",
   },
   {
