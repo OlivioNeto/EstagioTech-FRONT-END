@@ -15,49 +15,58 @@ import { Combobox,ComboboxProps } from "@/components/ui/combobox";
 import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { SupervisorEstagioProps } from "../table/columns";
 import { useEffect, useState } from "react";
+import { ConcendenteProps } from "@/pages/Admin/Concedente/TableConcedente/table/colums";
 
+export type SupervisorEstagioProps = {
+  idSupervisor: number;
+  statusSupervisor: boolean;
+  concedenteId: number;
+  key: number;
+}
 
 
 const formSchema = z.object({
+  idSupervisor: z.number(),
   statusSupervisor: z.boolean(),
+  concedenteId: z.number(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
 const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps }) => {
   const navigate = useNavigate();
-  // const isEdit = !!data.idSupervisor;
+
   const [isEdit, setIsEdit] = useState(false);
 
   const [dataComboBoxS, setDataComboBoxS] = useState<ComboboxProps[]>([]);
+  const [dataComboBoxC, setDataComboBoxC] = useState<ComboboxProps[]>([]);
+
+
   const [valueComboBoxS, setValueComboBoxS] = useState("true");
-  const [valueConcedente, setConcedente] = useState(0);
+  const [valueComboBoxC, setValueComboBoxC] = useState("");
 
   const convertStatusParaBooleano = (status: any) => {
-    // Verifica se status é definido antes de chamar toLowerCase()
-    console.log(valueComboBoxS);
     return valueComboBoxS === "true";
   };
+
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
       statusSupervisor: convertStatusParaBooleano(data.statusSupervisor || ''),
+      concedenteId: 0,
     },
-    // defaultValues: {
-    //   statusSupervisor: false,
-    // },
     defaultValues: {
-      statusSupervisor: convertStatusParaBooleano(data.statusSupervisor || ''), // Garante que data.statusSupervisor seja uma string
+      statusSupervisor: convertStatusParaBooleano(data.statusSupervisor || ''),
+      concedenteId: 0,
     },
   });
 
   useEffect(() => {
     (async () => {
       const supervisorestagioSelecionado = data.idSupervisor;
+      const checkIsEdit = Object.keys(data).length;
 
-      //const checkIsedit = Object.keys(data).length;
       if (supervisorestagioSelecionado == 0) {
         setValueComboBoxS("true");
         setIsEdit(true);
@@ -65,8 +74,6 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
         const resp: SupervisorEstagioProps[] = (await api.get(`/supervisorestagio/${supervisorestagioSelecionado}`)).data;
         setValueComboBoxS(resp.statusSupervisor.toString());
       }
- 
-      // const resp: SupervisorEstagioProps[] = (await api.get("/supervisorestagio")).data;
 
       const status = [{ value: true, label: "Ativo" }, { value: false, label: "Inativo" }];
       setDataComboBoxS(
@@ -80,6 +87,30 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
     })();
   }, [data]);
 
+
+  useEffect(() => {
+    (async () => {
+      const concedenteSelecionado = data.concedenteId;
+      const checkIsedit = Object.keys(data).length;
+      if (checkIsedit > 0) setIsEdit(true);
+      if (concedenteSelecionado) {
+        setValueComboBoxC(concedenteSelecionado.toString());
+      }
+ 
+      const resp: ConcendenteProps[] = (await api.get("/concedente")).data;
+ 
+      setDataComboBoxC(
+        resp.map((item) => {
+          return {
+            value: item.concedenteId.toString(),
+            label: item.razaoSocial,
+          };
+        })
+      );
+    })();
+  }, [data]);
+
+
   async function onSubmit(values: FormCadastroProps) {
     console.log(values);
     const status = valueComboBoxS === "true";
@@ -87,7 +118,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   
     isEdit ?
       await api
-        .post("/SupervisorEstagio", {idSupervisor: 0, statusSupervisor: status,concedenteId:valueConcedente}) // passando o status corretamente
+        .post("/SupervisorEstagio", {idSupervisor: 0, statusSupervisor: status,concedenteId: 0}) // passando o status corretamente
         .finally(() => navigate("/adm/supervisorestagio"))
       : await api
         .put("/SupervisorEstagio/" + data.idSupervisor, {
@@ -115,34 +146,37 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
                 <FormItem className="mt-5">
                   <FormLabel>Status do Supervisor de Estagio</FormLabel>
                   <FormControl>
-                    {/* <Input placeholder="Qual o status do coordenador" {...field} value={field.value ? 'Ativo' : 'Inativo'} /> */}
-
-                    {/* <Input
-                      placeholder="Qual o status do coordenador"
-                      {...field}
-                      value={field.value ? 'Ativo' : 'Inativo'}
-                      onChange={(e) => {
-                        // Se o valor do input for 'Ativo', define como true, senão, define como false
-                        field.onChange(e.target.value === 'Ativo');
-                      }}
-                    /> */}
-                   <Combobox
-                      data={dataComboBoxS}
-                      value={valueComboBoxS}
-                      setValue={(option) => setValueComboBoxS(option)}
-                    />
-
-                  </FormControl>
-                  <FormControl>
-
-                    <Input type="number" onChange={(e)=> setConcedente(Number(e.target.value))}>
-
-                    </Input>
+                    <Combobox
+                        data={dataComboBoxS}
+                        value={valueComboBoxS}
+                        setValue={(option) => setValueComboBoxS(option)}
+                      />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            <FormField
+              key="concedenteId" // Adicionando chave única aqui
+              control={form.control}
+              name="concedenteId"
+              render={({ field }) => (
+                <FormItem className="mt-5">
+                  <FormLabel>ID DO CONCEDENTE</FormLabel>
+                  <FormControl>
+                  <Combobox
+                        data={dataComboBoxC}
+                        value={valueComboBoxC}
+                        setValue={setValueComboBoxC}
+                      />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+
           </CardContent>
 
           <CardFooter className="flex gap-4">
