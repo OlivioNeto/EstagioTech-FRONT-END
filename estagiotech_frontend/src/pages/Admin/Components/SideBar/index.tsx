@@ -47,7 +47,7 @@ const SideBar = () => {
             <ApartmentIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
-            <span>Empresa</span>
+            <span>Concedente</span>
           </NavLink>
         </li>
         <li>
@@ -97,7 +97,7 @@ const SideBar = () => {
             <ManageAccountsIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
-            <span>Coordenador</span>
+            <span>Coordenador Estágio</span>
           </NavLink>
         </li>
         <li>
@@ -107,8 +107,8 @@ const SideBar = () => {
             />
             <span>Supervisor Estagio</span>
           </NavLink>
-          </li>
-          <li>
+        </li>
+        <li>
           <NavLink to="/adm/instituicaoensino">
             <SchoolIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}

@@ -34,7 +34,6 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
   const [valueComboBoxC, setValueComboBoxC] = useState("");
 
   const convertStatusParaBooleano = (status: any) => {
-    // Verifica se status é definido antes de chamar toLowerCase()
     console.log("teste"+status);
     return status;
   };
@@ -91,7 +90,9 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
                 <FormItem className="mt-5">
                   <FormLabel>Data do Cadastro</FormLabel>
                   <FormControl>
-                    <Input placeholder="Descreva a data do cadastro" {...field} />
+                    <Input
+                    type="date"
+                     placeholder="Descreva a data do cadastro" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

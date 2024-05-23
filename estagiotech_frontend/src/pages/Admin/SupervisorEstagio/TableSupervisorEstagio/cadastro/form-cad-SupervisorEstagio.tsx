@@ -10,8 +10,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Combobox,ComboboxProps } from "@/components/ui/combobox";
+// import { Input } from "@/components/ui/input";
+import { Combobox, ComboboxProps } from "@/components/ui/combobox";
 import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -27,7 +27,6 @@ export type SupervisorEstagioProps = {
 
 
 const formSchema = z.object({
-  idSupervisor: z.number(),
   statusSupervisor: z.boolean(),
   concedenteId: z.number(),
 });
@@ -39,54 +38,38 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
 
   const [isEdit, setIsEdit] = useState(false);
 
-  const [dataComboBoxS, setDataComboBoxS] = useState<ComboboxProps[]>([]);
+  const [dataComboBoxS, setDataComboBoxS] = useState<ComboboxProps[]>([{ value: "true", label: "Ativo" }, { value: "false", label: "Inativo" }]);
   const [dataComboBoxC, setDataComboBoxC] = useState<ComboboxProps[]>([]);
 
 
-  const [valueComboBoxS, setValueComboBoxS] = useState("true");
+  const [valueComboBoxS, setValueComboBoxS] = useState("");
   const [valueComboBoxC, setValueComboBoxC] = useState("");
 
   const convertStatusParaBooleano = (status: any) => {
-    return valueComboBoxS === "true";
+    console.log("teste" + status);
+    return status;
   };
 
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-      statusSupervisor: convertStatusParaBooleano(data.statusSupervisor || ''),
+      statusSupervisor: convertStatusParaBooleano(data.statusSupervisor || false),
       concedenteId: 0,
     },
     defaultValues: {
-      statusSupervisor: convertStatusParaBooleano(data.statusSupervisor || ''),
+      statusSupervisor: convertStatusParaBooleano(data.statusSupervisor || false),
       concedenteId: 0,
     },
   });
 
   useEffect(() => {
     (async () => {
-      const supervisorestagioSelecionado = data.idSupervisor;
-      const checkIsEdit = Object.keys(data).length;
-
-      if (supervisorestagioSelecionado == 0) {
-        setValueComboBoxS("true");
+      if (data.idSupervisor !== 0) {
+        setValueComboBoxC(data.statusSupervisor.toString());
         setIsEdit(true);
-      } else {
-        const resp: SupervisorEstagioProps[] = (await api.get(`/supervisorestagio/${supervisorestagioSelecionado}`)).data;
-        setValueComboBoxS(resp.statusSupervisor.toString());
       }
-
-      const status = [{ value: true, label: "Ativo" }, { value: false, label: "Inativo" }];
-      setDataComboBoxS(
-        status.map((item) => {
-          return {
-            value: item.value.toString(),
-            label: item.label
-          };
-        })
-      );
     })();
   }, [data]);
-
 
   useEffect(() => {
     (async () => {
@@ -96,9 +79,9 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
       if (concedenteSelecionado) {
         setValueComboBoxC(concedenteSelecionado.toString());
       }
- 
+
       const resp: ConcendenteProps[] = (await api.get("/concedente")).data;
- 
+
       setDataComboBoxC(
         resp.map((item) => {
           return {
@@ -110,18 +93,17 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
     })();
   }, [data]);
 
-
   async function onSubmit(values: FormCadastroProps) {
     console.log(values);
     const status = valueComboBoxS === "true";
     console.log(status);
-  
-    isEdit ?
+
+    !isEdit ?
       await api
-        .post("/SupervisorEstagio", {idSupervisor: 0, statusSupervisor: status,concedenteId: 0}) // passando o status corretamente
+        .post("/SupervisorEstagio", { ...values, statusSupervisor: status, concedenteId: Number(valueComboBoxC) }) // passando o status corretamente
         .finally(() => navigate("/adm/supervisorestagio"))
       : await api
-        .put("/SupervisorEstagio/" + data.idSupervisor, {
+        .put(`/SupervisorEstagio/${data.idSupervisor}`, {
           idSupervisor: data.idSupervisor,
           statusSupervisor: status,
         })
@@ -147,10 +129,10 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
                   <FormLabel>Status do Supervisor de Estagio</FormLabel>
                   <FormControl>
                     <Combobox
-                        data={dataComboBoxS}
-                        value={valueComboBoxS}
-                        setValue={(option) => setValueComboBoxS(option)}
-                      />
+                      data={dataComboBoxS}
+                      value={valueComboBoxS}
+                      setValue={setValueComboBoxS}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -165,11 +147,11 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
                 <FormItem className="mt-5">
                   <FormLabel>ID DO CONCEDENTE</FormLabel>
                   <FormControl>
-                  <Combobox
-                        data={dataComboBoxC}
-                        value={valueComboBoxC}
-                        setValue={setValueComboBoxC}
-                      />
+                    <Combobox
+                      data={dataComboBoxC}
+                      value={valueComboBoxC}
+                      setValue={setValueComboBoxC}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -181,7 +163,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {isEdit ? "Cadastrar" : "Salvar alterações"}
+              {!isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"
