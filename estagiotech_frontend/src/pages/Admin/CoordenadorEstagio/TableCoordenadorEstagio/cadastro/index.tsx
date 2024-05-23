@@ -14,9 +14,10 @@ export default function CadastroCoordenadorEstagio() {
     (async () => {
       if (id) {
         const data = (await api.get(`/coordenadorestagio/${id}`)).data;
+        console.log(data);
         setCoordenadoEstagio(data);
       } else {setCoordenadoEstagio({
-        idCoordenadorEstagio:0,dataCadastro:"",StatusCoordenadorEstagio:"",key:0
+        idCoordenadorEstagio:0,dataCadastro:"",statusCoordenadorEstagio:true,key:0
       })}
       return;
     })();

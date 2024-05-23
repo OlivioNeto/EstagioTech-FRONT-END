@@ -20,7 +20,7 @@ import { Combobox, ComboboxProps } from "@/components/ui/combobox";
 
 const formSchema = z.object({
   dataCadastro: z.string(),
-  StatusCoordenadorEstagio: z.boolean(),
+  statusCoordenadorEstagio: z.boolean(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
@@ -30,52 +30,42 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
 
   const [isEdit, setIsEdit] = useState(false);
 
-  const [dataComboBoxC, setDataComboBoxC] = useState<ComboboxProps[]>([]);
+  const [dataComboBoxC, setDataComboBoxC] = useState<ComboboxProps[]>([{value: "true", label: "Ativo"}, {value: "false", label: "Inativo"}]);
   const [valueComboBoxC, setValueComboBoxC] = useState("");
 
   const convertStatusParaBooleano = (status: any) => {
     // Verifica se status é definido antes de chamar toLowerCase()
     console.log("teste"+status);
-    return status && status.toLowerCase() === "ativo";
+    return status;
   };
 
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
       dataCadastro: data.dataCadastro,
-      StatusCoordenadorEstagio: convertStatusParaBooleano(data.StatusCoordenadorEstagio || ''),
+      statusCoordenadorEstagio: convertStatusParaBooleano(data.statusCoordenadorEstagio || false),
     },
     defaultValues: {
       dataCadastro: "",
-      StatusCoordenadorEstagio: convertStatusParaBooleano(data.StatusCoordenadorEstagio || ''),
+      statusCoordenadorEstagio: convertStatusParaBooleano(data.statusCoordenadorEstagio || false),
     },
   });
 
   useEffect(() => {
     (async () => {
-      const coordenadorestagioSelecionado = data.idCoordenadorEstagio;
-      const checkIsedit = Object.keys(data).length;
-      if (checkIsedit > 0) setIsEdit(true);
-      if (coordenadorestagioSelecionado) {
-        setValueComboBoxC(coordenadorestagioSelecionado.toString());
+      if (data.idCoordenadorEstagio !== 0) 
+      {
+        setValueComboBoxC(data.statusCoordenadorEstagio.toString());
+        setIsEdit(true);
       }
- 
-      const resp: CoordenadorEstagioProps[] = (await api.get("/coordenadorestagio")).data;
- 
-      setDataComboBoxC(
-        resp.map((item) => {
-          return {
-            value: item.idCoordenadorEstagio.toString(),
-            label: item.StatusCoordenadorEstagio,
-          };
-        })
-      );
     })();
   }, [data]);
 
   async function onSubmit(values: FormCadastroProps) {
-    console.log(isEdit)
-    isEdit ?
+    console.log(isEdit);
+    const status = valueComboBoxC;
+
+    !isEdit ?
       await api
         .post("/CoordenadorEstagio", values)
         .finally(() => navigate("/adm/coordenadorestagio"))
@@ -83,7 +73,7 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
         .put(`/CoordenadorEstagio`, {
           idCoordenadorEstagio: data.idCoordenadorEstagio,
           dataCadastro: values.dataCadastro,
-          StatusCoordenadorEstagio: values.StatusCoordenadorEstagio,
+          statusCoordenadorEstagio: valueComboBoxC === "true",
         })
         .finally(() => navigate("/adm/coordenadorestagio"));
 
@@ -110,7 +100,7 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
             <FormField
               key="idCoordenadorEstagio" // Adicionando chave única aqui
               control={form.control}
-              name="StatusCoordenadorEstagio"
+              name="statusCoordenadorEstagio"
               render={({ field }) => (
                 <FormItem className="mt-5">
                   <FormLabel>Status do Coordenador de Estagio</FormLabel>
@@ -127,7 +117,7 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {isEdit ? "Cadastrar" : "Salvar alterações"}
+              {!isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"
