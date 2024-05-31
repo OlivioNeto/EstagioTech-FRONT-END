@@ -20,6 +20,7 @@ import { Combobox, ComboboxProps } from "@/components/ui/combobox";
 
 const formSchema = z.object({
   dataCadastro: z.string(),
+  nomeCoordenador: z.string(),
   statusCoordenadorEstagio: z.boolean(),
 });
 
@@ -42,10 +43,12 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
     resolver: zodResolver(formSchema),
     values: {
       dataCadastro: data.dataCadastro,
+      nomeCoordenador: data.nomeCoordenador,
       statusCoordenadorEstagio: convertStatusParaBooleano(data.statusCoordenadorEstagio || false),
     },
     defaultValues: {
       dataCadastro: "",
+      nomeCoordenador: "",
       statusCoordenadorEstagio: convertStatusParaBooleano(data.statusCoordenadorEstagio || false),
     },
   });
@@ -72,6 +75,7 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
         .put(`/CoordenadorEstagio`, {
           idCoordenadorEstagio: data.idCoordenadorEstagio,
           dataCadastro: values.dataCadastro,
+          nomeCoordenador: values.nomeCoordenador,
           statusCoordenadorEstagio: valueComboBoxC === "true",
         })
         .finally(() => navigate("/adm/coordenadorestagio"));
@@ -93,6 +97,20 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
                     <Input
                     type="date"
                      placeholder="Descreva a data do cadastro" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="nomeCoordenador"
+              render={({ field }) => (
+                <FormItem className="mt-5">
+                  <FormLabel>Nome do Coordenador</FormLabel>
+                  <FormControl>
+                    <Input
+                     placeholder="Nome do Coordenador de Estagio" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
