@@ -156,7 +156,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  Selecione o combobox. Caso não haja ou sua pesquisa não tenha foi encontrada, cadastre um novo atributo.
+                  Selecione o combobox. Caso não haja ou sua pesquisa não foi encontrada ou cadastre um novo atributo.
                 </TableCell>
               </TableRow>
             )}

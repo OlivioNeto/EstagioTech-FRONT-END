@@ -16,9 +16,11 @@ export default function CadastroCoordenadorEstagio() {
         const data = (await api.get(`/coordenadorestagio/${id}`)).data;
         console.log(data);
         setCoordenadoEstagio(data);
-      } else {setCoordenadoEstagio({
-        idCoordenadorEstagio:0,dataCadastro:"",nomeCoordenador:"",statusCoordenadorEstagio:true,key:0
-      })}
+      } else {
+        setCoordenadoEstagio({
+          idCoordenadorEstagio: 0, dataCadastro: "", nomeCoordenador: "", status: false, key: 0
+        })
+      }
       return;
     })();
   }, []);

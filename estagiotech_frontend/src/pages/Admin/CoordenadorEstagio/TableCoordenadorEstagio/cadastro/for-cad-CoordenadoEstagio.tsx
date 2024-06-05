@@ -15,13 +15,10 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { CoordenadorEstagioProps } from "../table/columns";
-import { useEffect, useState } from "react";
-import { Combobox, ComboboxProps } from "@/components/ui/combobox";
 
 const formSchema = z.object({
   dataCadastro: z.string(),
   nomeCoordenador: z.string(),
-  statusCoordenadorEstagio: z.boolean(),
 });
 
 type FormCadastroProps = z.infer<typeof formSchema>;
@@ -29,43 +26,22 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProps }) => {
   const navigate = useNavigate();
 
-  const [isEdit, setIsEdit] = useState(false);
-
-  const [dataComboBoxC, setDataComboBoxC] = useState<ComboboxProps[]>([{value: "true", label: "Ativo"}, {value: "false", label: "Inativo"}]);
-  const [valueComboBoxC, setValueComboBoxC] = useState("");
-
-  const convertStatusParaBooleano = (status: any) => {
-    console.log("teste"+status);
-    return status;
-  };
+  // const [isEdit, setIsEdit] = useState(false);
+  const isEdit = !!data.idCoordenadorEstagio;
 
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
       dataCadastro: data.dataCadastro,
       nomeCoordenador: data.nomeCoordenador,
-      statusCoordenadorEstagio: convertStatusParaBooleano(data.statusCoordenadorEstagio || false),
     },
     defaultValues: {
       dataCadastro: "",
       nomeCoordenador: "",
-      statusCoordenadorEstagio: convertStatusParaBooleano(data.statusCoordenadorEstagio || false),
     },
   });
 
-  useEffect(() => {
-    (async () => {
-      if (data.idCoordenadorEstagio !== 0) 
-      {
-        setValueComboBoxC(data.statusCoordenadorEstagio.toString());
-        setIsEdit(true);
-      }
-    })();
-  }, [data]);
-
   async function onSubmit(values: FormCadastroProps) {
-    console.log(isEdit);
-    const status = valueComboBoxC;
 
     !isEdit ?
       await api
@@ -76,7 +52,6 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
           idCoordenadorEstagio: data.idCoordenadorEstagio,
           dataCadastro: values.dataCadastro,
           nomeCoordenador: values.nomeCoordenador,
-          statusCoordenadorEstagio: valueComboBoxC === "true",
         })
         .finally(() => navigate("/adm/coordenadorestagio"));
 
@@ -95,8 +70,8 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
                   <FormLabel>Data do Cadastro</FormLabel>
                   <FormControl>
                     <Input
-                    type="date"
-                     placeholder="Descreva a data do cadastro" {...field} />
+                      type="date"
+                      placeholder="Descreva a data do cadastro" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -110,24 +85,8 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
                   <FormLabel>Nome do Coordenador</FormLabel>
                   <FormControl>
                     <Input
-                     placeholder="Nome do Coordenador de Estagio" {...field} />
+                      placeholder="Nome do Coordenador de Estagio" {...field} />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              key="idCoordenadorEstagio" // Adicionando chave única aqui
-              control={form.control}
-              name="statusCoordenadorEstagio"
-              render={({ field }) => (
-                <FormItem className="mt-5">
-                  <FormLabel>Status do Coordenador de Estagio</FormLabel>
-                  <Combobox
-                      data={dataComboBoxC}
-                      value={valueComboBoxC}
-                      setValue={setValueComboBoxC}
-                    />
                   <FormMessage />
                 </FormItem>
               )}

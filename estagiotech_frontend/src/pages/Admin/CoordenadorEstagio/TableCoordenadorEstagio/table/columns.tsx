@@ -17,7 +17,7 @@ export type CoordenadorEstagioProps = {
   idCoordenadorEstagio: number;
   nomeCoordenador: string;
   dataCadastro: string;
-  statusCoordenadorEstagio: boolean;
+  status: boolean;
   key: number;
 };
 
@@ -59,9 +59,9 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
     header: "Nome do Coordenador",
   },
   {
-    accessorKey: "statusCoordenadorEstagio",
+    accessorKey: "status",
     header: "Status de Coordenador",
-    cell: ({ row }) => (row.original.statusCoordenadorEstagio ? "Ativo" : "Inativo"),
+    cell: ({ row }) => (row.original.status ? "Ativo" : "Inativo"),
   },
   {
     accessorKey: "idCoordenadorEstagio",
@@ -107,6 +107,35 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
             >
               🗑️ Delete
             </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+            onClick={async () => {
+              try {
+                await api.put(`/CoordenadorEstagio/${dataRow.idCoordenadorEstagio}/Ativar`, { status: true });
+                location.reload()
+              } catch (error) {
+                console.error("Erro ao ativar o documento:", error);
+              }
+            }}
+          >
+            🔄 Ativar
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem
+            onClick={async () => {
+              try {
+                await api.put(`/CoordenadorEstagio/${dataRow.idCoordenadorEstagio}/Desativar`, { status: false });
+                location.reload()
+              } catch (error) {
+                console.error("Erro ao desativar o documento:", error);
+              }
+            }}
+          >
+            🛑 Desativar
+          </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
