@@ -25,12 +25,50 @@ const SideBar = () => {
         <li className={style.navHeader}>
           <span>Geral</span>
         </li>
+
+        {/* Ainda não implementado
+        <li>
+          <SupervisorAccountIcon
+            style={{ marginRight: "8px", width: "18px", height: "18px" }}
+          />
+          <span>Adiministrador</span>
+        </li> */}
+
+
         <li>
           <NavLink to="/adm/dashboard">
             <DashboardIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Dashboard</span>
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/adm/empresa">
+            <ApartmentIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Concedente</span>
+          </NavLink>
+        </li>
+
+        {/* Ainda não implementado
+         <li>
+          <NavLink to="/adm/contratoestagio">
+            <ReceiptIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Contrato Estágio</span>
+          </NavLink>
+        </li> */}
+
+        <li>
+          <NavLink to="/adm/coordenadorestagio">
+            <ManageAccountsIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Coordenador Estágio</span>
           </NavLink>
         </li>
 
@@ -42,14 +80,25 @@ const SideBar = () => {
             <span>Documento</span>
           </NavLink>
         </li>
+
         <li>
-          <NavLink to="/adm/empresa">
-            <ApartmentIcon
+          <NavLink to="/adm/documentonecessario/cadastro">
+            <DocumentScannerIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
-            <span>Concedente</span>
+            <span>Documento Necessário</span>
           </NavLink>
         </li>
+
+        <li>
+          <NavLink to="/adm/instituicaoensino">
+            <SchoolIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Instituicao Ensino</span>
+          </NavLink>
+        </li>
+
         <li>
           <NavLink to="/adm/tipodocumento">
             <FindInPageIcon
@@ -66,54 +115,13 @@ const SideBar = () => {
             <span>Tipo Estágio</span>
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/adm/documentonecessario/cadastro">
-            <DocumentScannerIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Documento Necessário</span>
-          </NavLink>
-        </li>
-        {/*Ainda não implementado
-         <li>
-          <NavLink to="/adm/contratoestagio">
-            <ReceiptIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Contrato Estágio</span>
-          </NavLink>
-        </li> */}
 
-        {/* Ainda não implementado
-        <li>
-          <SupervisorAccountIcon
-            style={{ marginRight: "8px", width: "18px", height: "18px" }}
-          />
-          <span>Adiministrador</span>
-        </li> */}
-
-        <li>
-          <NavLink to="/adm/coordenadorestagio">
-            <ManageAccountsIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Coordenador Estágio</span>
-          </NavLink>
-        </li>
         <li>
           <NavLink to="/adm/supervisorestagio">
             <SupervisedUserCircleIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Supervisor Estagio</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/adm/instituicaoensino">
-            <SchoolIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Instituicao Ensino</span>
           </NavLink>
         </li>
 
