@@ -15,7 +15,8 @@ import { Link } from "react-router-dom";
 
 export type SupervisorEstagioProps = {
   idSupervisor: number;
-  statusSupervisor: boolean;
+  nomeSupervisor: string;
+  status: boolean;
   concedenteId: number;
   key: number;
 };
@@ -50,9 +51,13 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
     header: "Código do supervisor",
   },
   {
-    accessorKey: "statusSupervisor",
+    accessorKey: "nomeSupervisor",
+    header: "Nome do Supervisor",
+  },
+  {
+    accessorKey: "status",
     header: "Status do supervisor",
-    cell: ({ row }) => (row.original.statusSupervisor ? "Ativo" : "Inativo"),
+    cell: ({ row }) => (row.original.status ? "Ativo" : "Inativo"),
   },
   {
     accessorKey: "idSupervisor",
@@ -62,7 +67,7 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Status do supervisor
+          Código do supervisor
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -97,6 +102,36 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
               }}
             >
               🗑️ Delete
+            </DropdownMenuItem>
+            
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/SupervisorEstagio/${dataRow.idSupervisor}/Ativar`, { status: true });
+                  location.reload()
+                } catch (error) {
+                  console.error("Erro ao ativar o documento:", error);
+                }
+              }}
+            >
+              🔄 Ativar
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/SupervisorEstagio/${dataRow.idSupervisor}/Desativar`, { status: false });
+                  location.reload()
+                } catch (error) {
+                  console.error("Erro ao desativar o documento:", error);
+                }
+              }}
+            >
+              🛑 Desativar
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
