@@ -12,6 +12,7 @@ import api from "../../../../../service/api";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import { phoneApplyMask } from "@/lib/utils";
 
 export type InstituicaoEnsinoProps = {
   idInstituicaoEnsino: number;
@@ -61,6 +62,7 @@ export const columns: ColumnDef<InstituicaoEnsinoProps>[] = [
   {
     accessorKey: "telefoneInstituicao",
     header: "Telefone da Instituição",
+    cell: ({ row }) => phoneApplyMask(row.original.telefoneInstituicao),
   },
   {
     accessorKey: "nomeInstituicao",

@@ -12,6 +12,7 @@ import api from "../../../../../service/api";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import { format } from 'date-fns';
 
 export type CoordenadorEstagioProps = {
   idCoordenadorEstagio: number;
@@ -53,6 +54,10 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
   {
     accessorKey: "dataCadastro",
     header: "Data de cadastro do Coordenador",
+    cell: ({ row }) => {
+      const date = new Date(row.original.dataCadastro);
+      return format(date, 'dd/MM/yyyy');
+    },
   },
   {
     accessorKey: "nomeCoordenador",
@@ -111,31 +116,31 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
             <DropdownMenuSeparator />
 
             <DropdownMenuItem
-            onClick={async () => {
-              try {
-                await api.put(`/CoordenadorEstagio/${dataRow.idCoordenadorEstagio}/Ativar`, { status: true });
-                location.reload()
-              } catch (error) {
-                console.error("Erro ao ativar o documento:", error);
-              }
-            }}
-          >
-            🔄 Ativar
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
+              onClick={async () => {
+                try {
+                  await api.put(`/CoordenadorEstagio/${dataRow.idCoordenadorEstagio}/Ativar`, { status: true });
+                  location.reload()
+                } catch (error) {
+                  console.error("Erro ao ativar o documento:", error);
+                }
+              }}
+            >
+              🔄 Ativar
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
 
-          <DropdownMenuItem
-            onClick={async () => {
-              try {
-                await api.put(`/CoordenadorEstagio/${dataRow.idCoordenadorEstagio}/Desativar`, { status: false });
-                location.reload()
-              } catch (error) {
-                console.error("Erro ao desativar o documento:", error);
-              }
-            }}
-          >
-            🛑 Desativar
-          </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/CoordenadorEstagio/${dataRow.idCoordenadorEstagio}/Desativar`, { status: false });
+                  location.reload()
+                } catch (error) {
+                  console.error("Erro ao desativar o documento:", error);
+                }
+              }}
+            >
+              🛑 Desativar
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

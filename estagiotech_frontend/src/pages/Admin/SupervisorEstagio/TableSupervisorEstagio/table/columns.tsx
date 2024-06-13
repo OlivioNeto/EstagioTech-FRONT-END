@@ -60,7 +60,7 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
     cell: ({ row }) => (row.original.status ? "Ativo" : "Inativo"),
   },
   {
-    accessorKey: "idSupervisor",
+    accessorKey: "concedenteId",
     header: ({ column }) => {
       return (
         <Button
