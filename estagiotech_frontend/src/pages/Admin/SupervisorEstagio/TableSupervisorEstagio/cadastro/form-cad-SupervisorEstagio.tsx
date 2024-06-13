@@ -38,7 +38,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   const navigate = useNavigate();
 
   const [isEdit, setIsEdit] = useState(false);
-
+  const [nomeSupervisor, setnomeSupervisor] = useState("") 
   const [dataComboBoxC, setDataComboBoxC] = useState<ComboboxProps[]>([]);
   const [valueComboBoxC, setValueComboBoxC] = useState("");
 
@@ -58,9 +58,10 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
     (async () => {
       const concedenteSelecionado = data.concedenteId;
       const checkIsedit = Object.keys(data).length;
-      if (checkIsedit > 0) setIsEdit(true);
+      if (concedenteSelecionado > 0) setIsEdit(true);
       if (concedenteSelecionado) {
-        setValueComboBoxC(concedenteSelecionado.toString());
+        setValueComboBoxC(concedenteSelecionado.toString()),
+        setnomeSupervisor(data.nomeSupervisor);
       }
 
       const resp: ConcendenteProps[] = (await api.get("/concedente")).data;
@@ -77,15 +78,18 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   }, [data]);
 
   async function onSubmit(values: FormCadastroProps) {
-    isEdit ?
+    console.log(values)
+   ! isEdit ?
       await api
-        .post("/SupervisorEstagio", values)
+        .post("/SupervisorEstagio", {
+          concedenteId: valueComboBoxC, nomeSupervisor: nomeSupervisor
+        })
         .finally(() => navigate("/adm/supervisorestagio"))
       : await api
-        .put(`/SupervisorEstagio`, {
+        .put(`/SupervisorEstagio/${data.idSupervisor}`, {
           idSupervisor: data.idSupervisor,
-          nomeSupervisor: data.nomeSupervisor,
-          concedenteId: data.concedenteId,
+          nomeSupervisor: nomeSupervisor,
+          concedenteId: valueComboBoxC,
         })
         .finally(() => navigate("/adm/supervisorestagio"));
   }
@@ -103,7 +107,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
                 <FormItem className="mt-5">
                   <FormLabel>Nome do Supervisor</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nome do Supervisor"{...field} />
+                    <Input placeholder="Nome do Supervisor"onChange={(e)=> setnomeSupervisor(e.target.value)} value = {nomeSupervisor} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,7 +136,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
 
           <CardFooter className="flex gap-4">
             <Button type="submit">
-              {isEdit ? "Cadastrar" : "Salvar alterações"}
+              {!isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
             <Button
               type="button"
