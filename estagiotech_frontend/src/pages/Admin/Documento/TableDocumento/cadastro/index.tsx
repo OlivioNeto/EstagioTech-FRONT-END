@@ -16,7 +16,14 @@ export default function CadastroDocumento() {
         const data = (await api.get(`/documento/${id}`)).data;
         setDocumento(data);
       } else {setDocumento({
-        idDocumento:0,descricaoDocumento:"",situacaoDocumento:"",key:0
+        idDocumento:0, 
+        descricaoDocumento:"",
+        situacaoDocumento:"", 
+        idCoordenadorEstagio: 0,
+        nomeCoordenador: "",
+        idTipoDocumento: 0, 
+        descricaoTipoDocumento: "",
+        key:0
       })}
       return;
     })();

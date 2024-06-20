@@ -119,8 +119,8 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
               control={form.control}
               name="concedenteId"
               render={({ field }) => (
-                <FormItem className="mt-5">
-                  <FormLabel>ID DO CONCEDENTE</FormLabel>
+                <FormItem className="flex items-center gap-4 mt-5">
+                  <FormLabel>Nome do concedente</FormLabel>
                   <FormControl>
                     <Combobox
                       data={dataComboBoxC}

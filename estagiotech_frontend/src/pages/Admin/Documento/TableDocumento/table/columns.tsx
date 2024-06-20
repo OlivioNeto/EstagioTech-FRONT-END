@@ -17,6 +17,10 @@ export type DocumentoProps = {
   idDocumento: number;
   descricaoDocumento: string;
   situacaoDocumento: string;
+  idTipoDocumento: number;
+  descricaoTipoDocumento: string;
+  idCoordenadorEstagio: number;
+  nomeCoordenador: string;
   key: number;
 };
 
@@ -58,14 +62,22 @@ export const columns: ColumnDef<DocumentoProps>[] = [
     header: "Situação do documento",
   },
   {
-    accessorKey: "situacaoDocumento",
+    accessorKey: "nomeCoordenador",
+    header: "Nome do Coordenador",
+  },
+  {
+    accessorKey: "descricaoTipoDocumento",
+    header: "Descrição do Tipo Documento",
+  },
+  {
+    accessorKey: "idDocumento",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Descrição do documento
+          Código do documento
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

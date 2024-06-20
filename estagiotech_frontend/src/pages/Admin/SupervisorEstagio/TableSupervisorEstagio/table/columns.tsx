@@ -67,7 +67,7 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Código do supervisor
+          Código do Concedente
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -103,7 +103,7 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
             >
               🗑️ Delete
             </DropdownMenuItem>
-            
+
             <DropdownMenuSeparator />
 
             <DropdownMenuItem

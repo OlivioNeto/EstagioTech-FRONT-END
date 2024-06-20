@@ -72,6 +72,7 @@ const SideBar = () => {
           </NavLink>
         </li>
 
+        {/* Com erro, não usar na apresentação
         <li>
           <NavLink to="/adm/documento">
             <AssignmentIcon
@@ -79,7 +80,7 @@ const SideBar = () => {
             />
             <span>Documento</span>
           </NavLink>
-        </li>
+        </li> */}
 
         <li>
           <NavLink to="/adm/documentonecessario/cadastro">
