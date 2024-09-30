@@ -16,13 +16,15 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { ConcendenteProps } from "@/pages/Admin/Concedente/TableConcedente/table/colums";
+import { DocumentoVersaoProps } from "../table/columms";
 
-export type SupervisorEstagioProps = {
-  idSupervisor: number;
-  nomeSupervisor: string;
-  status: boolean;
-  concedenteId: number;
+export type DocumentoVersaoProps = {
+  idDocumentoVersao: number;
+  comentario: string;
+  anexo: number;
+  data: string;
+  situacao: string;
+  idDocumento: number;
   key: number;
 }
 
@@ -32,9 +34,9 @@ const formSchema = z.object({
   concedenteId: z.number(),
 });
 
-type FormCadastroProps = z.infer<typeof formSchema>;
+type DocumentoVersaoProps = z.infer<typeof formSchema>;
 
-const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps }) => {
+const DocumentoVersaoProps = ({ data }: { data: DocumentoVersaoProps }) => {
   const navigate = useNavigate();
 
   const [isEdit, setIsEdit] = useState(false);
@@ -42,15 +44,25 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
   const [dataComboBoxC, setDataComboBoxC] = useState<ComboboxProps[]>([]);
   const [valueComboBoxC, setValueComboBoxC] = useState("");
 
-  const form = useForm<FormCadastroProps>({
+  const form = useForm<DocumentoVersaoProps>({
     resolver: zodResolver(formSchema),
     values: {
-      nomeSupervisor: data.nomeSupervisor,
-      concedenteId: 0,
+      idDocumentoVersao: "",
+      comentario: "", 
+      anexo:""
+      data: 0,
+      situacao: "", 
+      idDocumento: 0,
+      key:0,
     },
     defaultValues: {
-      nomeSupervisor: "",
-      concedenteId: 0,
+      idDocumentoVersao: "",
+      comentario: "", 
+      anexo:"",
+      data: 0,
+      situacao: "", 
+      idDocumento: 0,
+      key:0,
     },
   });
 
