@@ -31,7 +31,7 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value: any) =>
+        onCheckedChange={(value: boolean) =>
           table.toggleAllPageRowsSelected(!!value)
         }
         aria-label="Select all"
@@ -40,7 +40,7 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: boolean) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -49,7 +49,7 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
   },
   {
     accessorKey: "idCoordenadorEstagio",
-    header: "Código do Coordenador de Estagio",
+    header: "Código do Coordenador de Estágio",
   },
   {
     accessorKey: "dataCadastro",
@@ -119,7 +119,7 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
               onClick={async () => {
                 try {
                   await api.put(`/CoordenadorEstagio/${dataRow.idCoordenadorEstagio}/Ativar`, { status: true });
-                  location.reload()
+                  location.reload();
                 } catch (error) {
                   console.error("Erro ao ativar o documento:", error);
                 }
@@ -133,7 +133,7 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
               onClick={async () => {
                 try {
                   await api.put(`/CoordenadorEstagio/${dataRow.idCoordenadorEstagio}/Desativar`, { status: false });
-                  location.reload()
+                  location.reload();
                 } catch (error) {
                   console.error("Erro ao desativar o documento:", error);
                 }

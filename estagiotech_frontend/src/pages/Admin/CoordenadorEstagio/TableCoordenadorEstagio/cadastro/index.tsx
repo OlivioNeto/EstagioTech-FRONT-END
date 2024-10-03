@@ -23,7 +23,7 @@ export default function CadastroCoordenadorEstagio() {
       }
       return;
     })();
-  }, []);
+  });
 
   return (
     <div>

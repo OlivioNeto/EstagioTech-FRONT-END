@@ -3,15 +3,7 @@ import LogoImg from "../../../../assets/images/LOGO.svg";
 import { NavLink } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-// import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import FindInPageIcon from '@mui/icons-material/FindInPage';
-import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
-// import ReceiptIcon from '@mui/icons-material/Receipt';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import SchoolIcon from '@mui/icons-material/School';
 
 const SideBar = () => {
@@ -26,15 +18,6 @@ const SideBar = () => {
           <span>Geral</span>
         </li>
 
-        {/* Ainda não implementado
-        <li>
-          <SupervisorAccountIcon
-            style={{ marginRight: "8px", width: "18px", height: "18px" }}
-          />
-          <span>Adiministrador</span>
-        </li> */}
-
-
         <li>
           <NavLink to="/adm/dashboard">
             <DashboardIcon
@@ -45,49 +28,11 @@ const SideBar = () => {
         </li>
 
         <li>
-          <NavLink to="/adm/empresa">
-            <ApartmentIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Concedente</span>
-          </NavLink>
-        </li>
-
-        {/* Ainda não implementado
-         <li>
-          <NavLink to="/adm/contratoestagio">
-            <ReceiptIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Contrato Estágio</span>
-          </NavLink>
-        </li> */}
-
-        <li>
           <NavLink to="/adm/coordenadorestagio">
             <ManageAccountsIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Coordenador Estágio</span>
-          </NavLink>
-        </li>
-
-        {/* Com erro, não usar na apresentação
-        <li>
-          <NavLink to="/adm/documento">
-            <AssignmentIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Documento</span>
-          </NavLink>
-        </li> */}
-
-        <li>
-          <NavLink to="/adm/documentonecessario/cadastro">
-            <DocumentScannerIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Documento Necessário</span>
           </NavLink>
         </li>
 
@@ -99,33 +44,6 @@ const SideBar = () => {
             <span>Instituicao Ensino</span>
           </NavLink>
         </li>
-
-        <li>
-          <NavLink to="/adm/tipodocumento">
-            <FindInPageIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Tipo Documento</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/adm/tipoestagio">
-            <AssignmentIndIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Tipo Estágio</span>
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/adm/supervisorestagio">
-            <SupervisedUserCircleIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Supervisor Estagio</span>
-          </NavLink>
-        </li>
-
       </ul>
     </nav>
   );

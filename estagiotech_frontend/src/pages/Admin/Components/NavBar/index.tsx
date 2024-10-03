@@ -1,8 +1,6 @@
 import style from "./NavBar.module.css";
 
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-
 import { Input } from "@/components/ui/input";
 import { UserNav } from "@/components/UserNav";
 
