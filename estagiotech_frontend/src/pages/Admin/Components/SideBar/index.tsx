@@ -3,7 +3,7 @@ import LogoImg from "../../../../assets/images/LOGO.svg";
 import { NavLink } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+// import AssignmentIcon from "@mui/icons-material/Assignment";
 // import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
@@ -13,6 +13,7 @@ import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import SchoolIcon from '@mui/icons-material/School';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
 
 const SideBar = () => {
   return (
@@ -90,6 +91,15 @@ const SideBar = () => {
             <span>Documento Necessário</span>
           </NavLink>
         </li>
+ 
+        <li>
+          <NavLink to="/adm/documentoversao">
+            <FilePresentIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Documento Versão</span>
+          </NavLink>
+        </li>
 
         <li>
           <NavLink to="/adm/instituicaoensino">
@@ -97,6 +107,15 @@ const SideBar = () => {
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Instituicao Ensino</span>
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/adm/supervisorestagio">
+            <SupervisedUserCircleIcon
+              style={{ marginRight: "8px", width: "18px", height: "18px" }}
+            />
+            <span>Supervisor Estagio</span>
           </NavLink>
         </li>
 
@@ -116,16 +135,6 @@ const SideBar = () => {
             <span>Tipo Estágio</span>
           </NavLink>
         </li>
-
-        <li>
-          <NavLink to="/adm/supervisorestagio">
-            <SupervisedUserCircleIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Supervisor Estagio</span>
-          </NavLink>
-        </li>
-
       </ul>
     </nav>
   );
