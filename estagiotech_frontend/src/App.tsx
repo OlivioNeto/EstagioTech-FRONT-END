@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
 import Home from './pages/Home'
-import Login from './pages/Login'
 import Admin from './pages/Admin'
 import Page404 from './pages/Page404'
+import Login from './pages/Login'
 
 import Dashboard from './pages/Admin/Dashboard'
 import TipoEstagio from './pages/Admin/TipoEstagio';
@@ -29,6 +29,7 @@ import CadastroInstituicaoEnsino from './pages/Admin/InstituicaoEnsino/TableInst
 
 
 
+
 function App() {
   function Layout() {
     return (
@@ -46,25 +47,26 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/adm' element={<Login />} />
+          <Route path='/' element={<Login />} />
+          {/* depois deixar apenas a barra e Home, quando eu criar a home */}
           <Route path='/adm/admin' element={<Admin />} />
-          <Route element={<Layout />}>
+          <Route path='/pages/Login' element={<Login />} />
 
-            {/* rotas da tela de listagem */}
+          {/* Agrupamento de rotas com o layout */}
+          <Route element={<Layout />}>
+            {/* Rotas da tela de listagem */}
             <Route path='/adm/dashboard' element={<Dashboard />} />
             <Route path='/adm/tipoestagio' element={<TipoEstagio />} />
             <Route path='/adm/tipodocumento' element={<TipoDocumento />} />
             <Route path='/adm/documento' element={<Documento />} />
             <Route path='/adm/coordenadorestagio' element={<CoordenadorEstagio />} />
-            {/* <Route path='/adm/documentonecessario' element={<DocumentoNecessario />}></Route> */}
-            <Route path='/adm/contratoestagio' element={<ContratoEstagio />}></Route>
-            <Route path='/adm/supervisorestagio' element={<SupervisorEstagio />}></Route>
-            <Route path='/adm/instituicaoensino' element={<InstituicaoEnsino />}></Route>
-            <Route path='adm/empresa' element={<Empresas />}></Route>
+            <Route path='/adm/documentonecessario' element={<DocumentoNecessario />} />
+            <Route path='/adm/contratoestagio' element={<ContratoEstagio />} />
+            <Route path='/adm/supervisorestagio' element={<SupervisorEstagio />} />
+            <Route path='/adm/instituicaoensino' element={<InstituicaoEnsino />} />
+            <Route path='/adm/empresa' element={<Empresas />} />
 
-
-            {/* rotas de cadastro */}
+            {/* Rotas de cadastro */}
             <Route path='/adm/tipodocumento/cadastro' element={<CadastroTipoDocumento />} />
             <Route path='/adm/tipoestagio/cadastro' element={<CadastroTipoEstagio />} />
             <Route path='/adm/documento/cadastro' element={<CadastroDocumento />} />
@@ -73,53 +75,27 @@ function App() {
             <Route path='/adm/empresa/cadastro' element={<CadastroEmpresa />} />
             <Route path='/adm/coordenadorestagio/cadastro' element={<CadastroCoordenadorEstagio />} />
             <Route path='/adm/supervisorestagio/cadastro' element={<CadastroSupervisorEstagio />} />
-            <Route path='/adm/instituicaoensino/cadastro' element={<CadastroInstituicaoEnsino/>}/>
-            
+            <Route path='/adm/instituicaoensino/cadastro' element={<CadastroInstituicaoEnsino />} />
 
-
-            {/* rotas de edição */}
-            <Route
-              path="/adm/tipodocumento/cadastro/:id?"
-              element={<CadastroTipoDocumento />}
-            />
-            <Route
-              path="/adm/tipoestagio/cadastro/:id?"
-              element={<CadastroTipoEstagio />}
-            />
-            <Route
-              path="/adm/documento/cadastro/:id?"
-              element={<CadastroDocumento />}
-            />
-            <Route
-              path="/adm/documentonecessario/cadastro/:id?"
-              element={<CadastroDocumentoNecessario />}
-            />
-            <Route
-              path="/adm/contratoestagio/cadastro/:id?"
-              element={<CadastroContratoEstagio />}
-            />
-            <Route
-              path="/adm/empresa/cadastro/:id?"
-              element={<CadastroEmpresa />}
-            />
-            <Route
-              path="/adm/coordenadorestagio/cadastro/:id?"
-              element={<CadastroCoordenadorEstagio />}
-            />
-            <Route
-              path="/adm/supervisorestagio/cadastro/:id?"
-              element={<CadastroSupervisorEstagio />}
-            />
-            <Route
-              path="/adm/instituicaoensino/cadastro/:id?"
-              element={<CadastroInstituicaoEnsino />}
-            />
+            {/* Rotas de edição */}
+            <Route path="/adm/tipodocumento/cadastro/:id?" element={<CadastroTipoDocumento />} />
+            <Route path="/adm/tipoestagio/cadastro/:id?" element={<CadastroTipoEstagio />} />
+            <Route path="/adm/documento/cadastro/:id?" element={<CadastroDocumento />} />
+            <Route path="/adm/documentonecessario/cadastro/:id?" element={<CadastroDocumentoNecessario />} />
+            <Route path="/adm/contratoestagio/cadastro/:id?" element={<CadastroContratoEstagio />} />
+            <Route path="/adm/empresa/cadastro/:id?" element={<CadastroEmpresa />} />
+            <Route path="/adm/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagio />} />
+            <Route path="/adm/supervisorestagio/cadastro/:id?" element={<CadastroSupervisorEstagio />} />
+            <Route path="/adm/instituicaoensino/cadastro/:id?" element={<CadastroInstituicaoEnsino />} />
           </Route>
+
+          {/* Rota para página 404 */}
           <Route path='/*' element={<Page404 />} />
 
         </Routes>
       </BrowserRouter>
     </div>
+
   )
 }
 
