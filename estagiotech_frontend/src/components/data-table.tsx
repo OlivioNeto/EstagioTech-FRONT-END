@@ -10,6 +10,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   VisibilityState,
+  TableMeta,
 } from "@tanstack/react-table";
 
 import {
@@ -35,11 +36,17 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+interface DataType {
+  key: number;
+  descricaoTipoDocumento: string;
+  // Adicione outros campos que seus dados possam ter
+}
+
+export function DataTable<TData extends DataType, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [dataTable, setDataTable] = useState<any[]>([]);
+  const [dataTable, setDataTable] = useState<TData[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -48,7 +55,12 @@ export function DataTable<TData, TValue>({
     setDataTable(data);
   }, [data]);
 
-  const table = useReactTable({
+
+  interface CustomTableMeta extends TableMeta<TData> {
+    removeRow: (keyRow: number) => void;
+  }
+  
+  const table = useReactTable<TData>({
     data: dataTable,
     columns,
     enableRowSelection: true,
@@ -68,8 +80,9 @@ export function DataTable<TData, TValue>({
       removeRow: (keyRow: number) => {
         setDataTable(dataTable.filter((datat) => datat.key !== keyRow));
       },
-    },
+    } as CustomTableMeta, // Casting para garantir que o tipo esteja correto
   });
+  
 
   return (
     <>
