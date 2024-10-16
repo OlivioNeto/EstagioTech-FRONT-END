@@ -17,7 +17,7 @@ export type DocumentoVersaoProps = {
     idDocumentoVersao: number;
     idDocumento: number;
     comentario: string;
-    anexo: number;
+    anexo: string;
     data: string;
     situacao: string;
     key: number;

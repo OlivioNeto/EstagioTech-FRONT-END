@@ -7,7 +7,7 @@ import api from "@/service/api";
 interface DocumentoVersaoProps {
   idDocumentoVersao: number;
   comentario: string;
-  anexo: number;
+  anexo: string;
   data: string;
   situacao: string;
   idDocumento: number;
@@ -30,7 +30,7 @@ export default function CadastroDocumentoVersao() {
         setDocumentoVersao({
           idDocumentoVersao: 0,
           comentario: "",
-          anexo: 0,
+          anexo: "",
           data: "",
           situacao: "",
           idDocumento: 0,

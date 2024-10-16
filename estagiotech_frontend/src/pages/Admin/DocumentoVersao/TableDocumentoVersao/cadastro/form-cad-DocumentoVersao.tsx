@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 export type DocumentoVersaoProps = {
   idDocumentoVersao: number;
   comentario: string;
-  anexo: number;
+  anexo: string;
   data: string;
   situacao: string;
   idDocumento: number;
@@ -31,7 +31,7 @@ export type DocumentoVersaoProps = {
 // Esquema de validação usando Zod para o formulário
 const formSchema = z.object({
   comentario: z.string(),
-  anexo: z.number(),
+  anexo: z.string(),
   data: z.string(),
   situacao: z.string(),
   idDocumento: z.number(),
@@ -61,7 +61,7 @@ const FormCadastroDocumentoVersao = ({ data }: { data: DocumentoVersaoProps }) =
     },
     defaultValues: {
       comentario: "",
-      anexo: 0,
+      anexo: "",
       data: "",
       situacao: "",
       idDocumento: 0,
@@ -75,10 +75,6 @@ const FormCadastroDocumentoVersao = ({ data }: { data: DocumentoVersaoProps }) =
       if (documentoSelecionado > 0) setIsEdit(true);
       if (documentoSelecionado) {
         setValueComboBoxD(documentoSelecionado.toString());
-        setComentario(data.comentario);
-        setAnexo(data.anexo);
-        setDataDocumento(data.data);
-        setSituacao(data.situacao);
       }
 
       const resp = (await api.get("/documento")).data;
