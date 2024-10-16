@@ -51,15 +51,32 @@ export function DataTable<TData extends DataType, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
-  useEffect(() => {
-    setDataTable(data);
-  }, [data]);
+  const [searchColumn, setSearchColumn] = useState<string>("descricaoTipoDocumento"); // Coluna padrão
+  const [searchValue, setSearchValue] = useState<string>("");
 
+  // Função de filtro global
+  const globalFilter = (rows: TData[], filterValue: string) => {
+    return rows.filter((row) => {
+      return Object.values(row).some((value) =>
+        String(value).toLowerCase().includes(filterValue.toLowerCase())
+      );
+    });
+  };
+
+  // Atualizar dataTable com o filtro
+  useEffect(() => {
+    if (searchValue) {
+      const filteredData = globalFilter(data, searchValue);
+      setDataTable(filteredData);
+    } else {
+      setDataTable(data); // Reseta a tabela se o filtro estiver vazio
+    }
+  }, [searchValue, data]);
 
   interface CustomTableMeta extends TableMeta<TData> {
     removeRow: (keyRow: number) => void;
   }
-  
+
   const table = useReactTable<TData>({
     data: dataTable,
     columns,
@@ -82,7 +99,6 @@ export function DataTable<TData extends DataType, TValue>({
       },
     } as CustomTableMeta, // Casting para garantir que o tipo esteja correto
   });
-  
 
   return (
     <>
@@ -90,12 +106,10 @@ export function DataTable<TData extends DataType, TValue>({
         <div className="flex items-center py-4">
           <Input
             placeholder="Pesquisar..."
-            value={
-              (table.getColumn("descricaoTipoDocumento",)?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              table.getColumn("descricaoTipoDocumento")?.setFilterValue(event.target.value)
-            }
+            value={searchValue}
+            onChange={(event) => {
+              setSearchValue(event.target.value);
+            }}
             className="max-w-sm"
           />
         </div>
@@ -137,9 +151,9 @@ export function DataTable<TData extends DataType, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
