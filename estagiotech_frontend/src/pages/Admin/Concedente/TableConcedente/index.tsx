@@ -50,7 +50,7 @@ export default function Empresas() {
           <PrinterIcon /> Imprimir
         </Button>
       </div>
-      <DataTable columns={columns as ColumnDef<any>[]} data={data} />
+      <DataTable columns={columns as ColumnDef<ConcendenteProps>[]} data={data} />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
@@ -33,7 +32,7 @@ export const columns: ColumnDef<ConcendenteProps>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value: any) =>
+        onCheckedChange={(value: boolean) =>
           table.toggleAllPageRowsSelected(!!value)
         }
         aria-label="Select all"
@@ -42,7 +41,7 @@ export const columns: ColumnDef<ConcendenteProps>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: boolean) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -98,7 +97,7 @@ export const columns: ColumnDef<ConcendenteProps>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () => {
-                toast("Empresa Exluido com Sucesso. ✅");
+                toast("Empresa Excluída com Sucesso. ✅");
                 meta?.removeRow(dataRow.key);
                 await api.delete(`/concedente/${dataRow.concedenteId}`);
               }}
