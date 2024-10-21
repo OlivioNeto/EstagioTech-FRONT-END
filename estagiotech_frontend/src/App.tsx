@@ -21,7 +21,7 @@ import DocumentoVersao from './pages/Admin/DocumentoVersao'
 import CadastroTipoDocumento from "./pages/Admin/TipoDocumento/TableTipoDocumento/cadastro";
 import CadastroTipoEstagio from "./pages/Admin/TipoEstagio/TableTipoEstagio/cadastro";
 import CadastroDocumento from "./pages/Admin/Documento/TableDocumento/cadastro";
-import CadastroDocumentoNecessario from './pages/Admin/DocumentoNecessario/TabelDocumentoNecessario/cadastro';
+import CadastroDocumentoNecessario from './pages/Admin/DocumentoNecessario/TableDocumentoNecessario/cadastro';
 import CadastroContratoEstagio from './pages/Admin/ContratoEstagio/TableContratoEstagio/cadastro';
 import CadastroEmpresa from './pages/Admin/Concedente/TableConcedente/cadastro'
 import CadastroCoordenadorEstagio from './pages/Admin/CoordenadorEstagio/TableCoordenadorEstagio/cadastro'
