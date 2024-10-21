@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-// import { columns } from "./table/colums"; // Removi o import desnecessário de ConcendenteProps
+import { columns } from "./table/colums";
 import { DataTable } from "@/components/data-table";
 import api from "@/service/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { cnpjApplyMask } from "@/lib/utils";
+import { ColumnDef } from "@tanstack/react-table";
 
-// Tipo corrigido com a propriedade 'key'
 type ConcendenteProps = {
   concedenteId: number;
   razaoSocial: string;
   responsavelEstagio: string;
   cnpj: string;
   localidade: string;
-  descricaoTipoDocumento: string; // Propriedade adicionada
-  key: number; // Certifique-se de que 'key' está incluído
+  descricaoTipoDocumento: string; 
+  key: number; 
 };
 
 export default function Empresas() {
@@ -27,7 +27,6 @@ export default function Empresas() {
         await api.get("/concedente")
       ).data;
 
-      // Certifique-se de que a propriedade 'key' é adicionada aos itens
       const includeKeyData = data.map((item, idx) => {
         return { ...item, cnpj: cnpjApplyMask(item.cnpj), key: idx };
       });
@@ -51,8 +50,7 @@ export default function Empresas() {
           <PrinterIcon /> Imprimir
         </Button>
       </div>
-      {/* Certifique-se de passar os dados com 'key' */}
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns as ColumnDef<any>[]} data={data} />
     </div>
   );
 }
