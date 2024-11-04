@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import {
   Form,
   FormControl,
@@ -26,14 +27,13 @@ type FormCadastroProps = z.infer<typeof formSchema>;
 const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProps }) => {
   const navigate = useNavigate();
 
-  // const [isEdit, setIsEdit] = useState(false);
   const isEdit = !!data.idCoordenadorEstagio;
 
   const form = useForm<FormCadastroProps>({
     resolver: zodResolver(formSchema),
     values: {
-      dataCadastro: data.dataCadastro,
-      nomeCoordenador: data.nomeCoordenador,
+      dataCadastro: data.dataCadastro || "",
+      nomeCoordenador: data.nomeCoordenador || "",
     },
     defaultValues: {
       dataCadastro: "",
@@ -41,20 +41,24 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
     },
   });
 
+  useEffect(() => {
+    if (!isEdit) {
+      form.setValue("dataCadastro", new Date().toISOString().split("T")[0]);
+    }
+  }, [form, isEdit]);
+
   async function onSubmit(values: FormCadastroProps) {
-
-    !isEdit ?
-      await api
-        .post("/CoordenadorEstagio", values)
-        .finally(() => navigate("/adm/coordenadorestagio"))
+    !isEdit
+      ? await api
+          .post("/CoordenadorEstagio", values)
+          .finally(() => navigate("/adm/coordenadorestagio"))
       : await api
-        .put(`/CoordenadorEstagio`, {
-          idCoordenadorEstagio: data.idCoordenadorEstagio,
-          dataCadastro: values.dataCadastro,
-          nomeCoordenador: values.nomeCoordenador,
-        })
-        .finally(() => navigate("/adm/coordenadorestagio"));
-
+          .put(`/CoordenadorEstagio`, {
+            idCoordenadorEstagio: data.idCoordenadorEstagio,
+            dataCadastro: values.dataCadastro,
+            nomeCoordenador: values.nomeCoordenador,
+          })
+          .finally(() => navigate("/adm/coordenadorestagio"));
   }
 
   return (
@@ -85,7 +89,7 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
                   <FormLabel>Nome do Coordenador</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Nome do Coordenador de Estagio" {...field} />
+                      placeholder="Nome do Coordenador de Estágio" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
