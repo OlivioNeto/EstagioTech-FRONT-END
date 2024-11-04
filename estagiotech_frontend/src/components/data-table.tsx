@@ -34,24 +34,24 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  searchColumnKey: keyof TData; // Adiciona a propriedade para coluna de pesquisa dinâmica
 }
 
 interface DataType {
   key: number;
-  descricaoTipoDocumento: string;
   // Adicione outros campos que seus dados possam ter
 }
 
 export function DataTable<TData extends DataType, TValue>({
   columns,
   data,
+  searchColumnKey, // Recebe a coluna de pesquisa como uma propriedade
 }: DataTableProps<TData, TValue>) {
   const [dataTable, setDataTable] = useState<TData[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
-  const [searchColumn, setSearchColumn] = useState<string>("descricaoTipoDocumento"); // Coluna padrão
   const [searchValue, setSearchValue] = useState<string>("");
 
   // Função de filtro global
@@ -109,6 +109,7 @@ export function DataTable<TData extends DataType, TValue>({
             value={searchValue}
             onChange={(event) => {
               setSearchValue(event.target.value);
+              table.getColumn(searchColumnKey as string)?.setFilterValue(event.target.value); // Filtra a coluna dinâmica
             }}
             className="max-w-sm"
           />

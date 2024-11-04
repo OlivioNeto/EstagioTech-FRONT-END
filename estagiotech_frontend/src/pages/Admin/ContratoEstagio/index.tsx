@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-// import { columns } from "./table/colums"; // Importando colunas
+import { columns } from "./TableContratoEstagio/table/columns";
 import { DataTable } from "@/components/data-table";
 import api from "@/service/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { ColumnDef } from "@tanstack/react-table";
 
 // Tipo para Contrato de Estágio com a propriedade 'key'
 export type ContratoEstagioProps = {
@@ -28,7 +29,7 @@ export default function ContratosEstagio() {
   useEffect(() => {
     (async () => {
       const data: ContratoEstagioProps[] = await (
-        await api.get("/contratos-estagio")
+        await api.get("/ContratoEstagio")
       ).data;
 
       // Certifique-se de adicionar a propriedade 'key' aos itens
@@ -56,7 +57,7 @@ export default function ContratosEstagio() {
         </Button>
       </div>
       {/* Usando 'ContratoEstagioProps' para tipagem correta */}
-      <DataTable columns={columns as ColumnDef<ContratoEstagioProps>[]} data={data} />
+      <DataTable columns={columns as ColumnDef<ContratoEstagioProps>[]} data={data} searchColumnKey={"key"} />
     </div>
   );
 }
