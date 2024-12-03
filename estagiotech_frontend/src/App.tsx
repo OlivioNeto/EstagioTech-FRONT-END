@@ -1,11 +1,15 @@
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { useEffect, useState, ReactNode } from 'react';
 
-import api from './service/api';
 
+//  ROTAS GENÉCIAS
+import api from './service/api';
 import Admin from './pages/Admin';
+import Aluno from './pages/Aluno';
 import Page404 from './pages/Page404';
 import Login from './pages/Login';
+
+// ROTAS DE ADMINISTRADOR
 
 import Dashboard from './pages/Admin/Dashboard';
 import TipoEstagio from './pages/Admin/TipoEstagio';
@@ -31,6 +35,26 @@ import CadastroCoordenadorEstagio from './pages/Admin/CoordenadorEstagio/TableCo
 import CadastroSupervisorEstagio from './pages/Admin/SupervisorEstagio/TableSupervisorEstagio/cadastro';
 import CadastroInstituicaoEnsino from './pages/Admin/InstituicaoEnsino/TableInstituicaoEnsino/cadastro';
 import CadastroDocumentoVersao from './pages/Admin/DocumentoVersao/TableDocumentoVersao/cadastro';
+
+
+// ROTAS DE ALUNO
+import DashboardA from './pages/Aluno/Dashboard';
+import CoordenadorEstagioA from './pages/Aluno/CoordenadorEstagio';
+import DocumentoA from './pages/Aluno/Documento';
+import DocumentoNecessarioA from './pages/Aluno/DocumentoNecessario';
+import TipoDocumentoA from './pages/Aluno/TipoDocumento';
+import TipoEstagioA from './pages/Admin/TipoEstagio';
+
+import CadastroCoordenadorEstagioA from './pages/Aluno/CoordenadorEstagio/TableCoordenadorEstagio/cadastro';
+import CadastroDocumentoA from './pages/Aluno/Documento/TableDocumento/cadastro';
+import CadastroDocumentoNecessarioA from './pages/Aluno/DocumentoNecessario/TableDocumentoNecessario/cadastro';
+import CadastroTipoDocumentoA from './pages/Aluno/TipoDocumento/TableTipoDocumento/cadastro';
+import CadastroTipoEstagioA from './pages/Aluno/TipoEstagio/TableTipoEstagio/cadastro';
+
+
+
+
+// FUNÇÃO PARA IMPLEMENTAR A LÓGICA DE ACESSO AOS USUÁRIOS DO SISTEMA
 
 // Tipagem para as propriedades do ProtectedRoute
 interface ProtectedRouteProps {
@@ -163,6 +187,8 @@ function App() {
   };
 
 
+
+  // DEFINIÇÃO DAS ROTAS
   return (
     <div>
       <BrowserRouter>
@@ -170,6 +196,7 @@ function App() {
           <Route path='/' element={<Login />} />
           {/* depois deixar apenas a barra e Home, quando eu criar a home */}
           <Route path='/adm/admin' element={<Admin />} />
+          <Route path='/aluno/aluno' element={<Aluno />} />
           <Route path='/pages/Login' element={<Login />} />
 
           {/* Agrupamento de rotas com o layout */}
@@ -222,7 +249,26 @@ function App() {
             <Route path="*" element={
               <ProtectedRoute requiredAccess={[2]}>
                 {/* Rotas da tela de listagem */}
-                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/dashboard' element={<DashboardA />} />
+                <Route path='/tipoestagio' element={<TipoEstagioA />} />
+                <Route path='/tipodocumento' element={<TipoDocumentoA />} />
+                <Route path='/documento' element={<DocumentoA />} />
+                <Route path='/coordenadorestagio' element={<CoordenadorEstagioA />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessarioA />} />
+
+                {/* Rotas de cadastro */}
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoA />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumentoA />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioA />} />
+                <Route path="/coordenadorestagio/cadastro" element={<CadastroCoordenadorEstagioA />} />
+                <Route path='/tipoestagio' element={<TipoEstagioA />} />
+
+                {/* Rotas de edição */}
+                <Route path="/tipodocumento/cadastro/:id?" element={<CadastroTipoDocumentoA />} />
+                <Route path="/documento/cadastro/:id?" element={<CadastroDocumentoA />} />
+                <Route path="/documentonecessario/cadastro/:id?" element={<CadastroDocumentoNecessarioA />} />
+                <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagioA />} />
+                <Route path="/tipoestagio/cadastro/:id?" element={<CadastroTipoEstagioA />} />
               </ProtectedRoute>
             } />
           </Route>

@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 25px;
+    background-color: white;
+    height: 7vh;
+    width: 100%;
+    box-shadow: 0px 0px 10px #CACACA;
+    justify-content: space-between;
+}
+
+.nav {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #414141;
+}
