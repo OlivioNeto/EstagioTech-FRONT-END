@@ -10,6 +10,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import api from './service/api';
 
 export function UserNav() {
   return (
@@ -51,7 +52,13 @@ export function UserNav() {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={<DropdownMenuItem onClick={async () => {
+  await api.put('/Sessao/Close', { token: localStorage.getItem("authToken") }, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  localStorage.clear(); // Limpa todos os itens do localStorage
+}}>
+}>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
