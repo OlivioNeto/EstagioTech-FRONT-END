@@ -10,9 +10,12 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import api from './service/api';
+import api from '../../service/api';
+import { useNavigate } from 'react-router-dom';
 
 export function UserNav() {
+  const navigate = useNavigate();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -52,13 +55,13 @@ export function UserNav() {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={<DropdownMenuItem onClick={async () => {
-  await api.put('/Sessao/Close', { token: localStorage.getItem("authToken") }, {
-    headers: { 'Content-Type': 'application/json' },
-  });
-  localStorage.clear(); // Limpa todos os itens do localStorage
-}}>
-}>
+        <DropdownMenuItem onClick={async () => {
+          await api.put('/Sessao/Close', { token: localStorage.getItem("authToken") }, {
+            headers: { 'Content-Type': 'application/json' },
+          });
+          localStorage.removeItem("authToken");
+          navigate("/"); // Redireciona para a página inicial
+        }}>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
