@@ -30,7 +30,7 @@ export default function SupervisorEstagio() {
         <span className="font-bold text-3xl">Supervisores cadastrados</span>
       </div>
       <div className="flex gap-2">
-        <NavLink to="/adm/supervisorestagio/cadastro">
+        <NavLink to="/supervisor/supervisorestagio/cadastro">
           <Button variant="secondary" className="gap-2">
             <PlusCircleIcon /> Novo Supervisor
           </Button>

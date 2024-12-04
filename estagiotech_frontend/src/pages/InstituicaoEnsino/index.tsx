@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Admin = () => {
+const InstituicaoEnsino = () => {
   return (
-    <div>Admin</div>
+    <div>Instituicao Ensino</div>
   )
 }
 
-export default Admin
+export default InstituicaoEnsino

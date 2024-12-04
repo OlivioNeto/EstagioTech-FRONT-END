@@ -67,7 +67,7 @@ const CadastroContratoEstagio = ({ data }: { data: ContratoEstagioProps }) => {
         !isEdit ?
             await api
                 .post("/ContratoEstagio", values)
-                .finally(() => navigate("/adm/contratoestagio"))
+                .finally(() => navigate("/instituicao/contratoestagio"))
             : await api
                 .put(`/ContratoEstagio`, {
                     contratoestagioId: data.contratoestagioId,
@@ -82,7 +82,7 @@ const CadastroContratoEstagio = ({ data }: { data: ContratoEstagioProps }) => {
                     cargaSemanal: data.cargaSemanal,
                     cargaTotal: data.cargaTotal,
                 })
-                .finally(() => navigate("/adm/contratoestagio"));
+                .finally(() => navigate("/instituicao/contratoestagio"));
 
     }
 
@@ -217,7 +217,7 @@ const CadastroContratoEstagio = ({ data }: { data: ContratoEstagioProps }) => {
                         <Button
                             type="button"
                             variant="secondary"
-                            onClick={() => navigate("/adm/contratoestagio")}
+                            onClick={() => navigate("/instituicao/contratoestagio")}
                         >
                             Voltar
                         </Button>

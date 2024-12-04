@@ -16,7 +16,7 @@ export type CoordenadorEstagioProps = {
   key: number;
 };
 
-export default function CoordenadorEstagio() {
+export default function CoordenadorEstagioCE() {
   const [data, setData] = useState<CoordenadorEstagioProps[]>([]);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function CoordenadorEstagio() {
         <span className="font-bold text-3xl">Coordenadores cadastrados</span>
       </div>
       <div className="flex gap-2">
-        <NavLink to="/adm/coordenadorestagio/cadastro">
+        <NavLink to="/coordenador/coordenadorestagio/cadastro">
           <Button variant="secondary" className="gap-2">
             <PlusCircleIcon /> Novo Coordenador de Estágio
           </Button>

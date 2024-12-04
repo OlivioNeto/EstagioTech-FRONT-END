@@ -101,7 +101,7 @@ const FormCadastroDocumentoVersao = ({ data }: { data: DocumentoVersaoProps }) =
             situacao: situacao,
             idDocumento: valueComboBoxD,
           })
-          .finally(() => navigate("/adm/documentoversao"))
+          .finally(() => navigate("/supervisor/documentoversao"))
       : await api
           .put(`/DocumentoVersao/${data.idDocumentoVersao}`, {
             idDocumentoVersao: data.idDocumentoVersao,
@@ -111,7 +111,7 @@ const FormCadastroDocumentoVersao = ({ data }: { data: DocumentoVersaoProps }) =
             situacao: situacao,
             idDocumento: valueComboBoxD,
           })
-          .finally(() => navigate("/adm/documentoversao"));
+          .finally(() => navigate("/supervisor/documentoversao"));
   }
 
   return (
@@ -223,7 +223,7 @@ const FormCadastroDocumentoVersao = ({ data }: { data: DocumentoVersaoProps }) =
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/adm/documentoversao")}
+              onClick={() => navigate("/supervisor/documentoversao")}
             >
               Voltar
             </Button>

@@ -41,13 +41,13 @@ const FormCadastroTipoEstagio = ({ data }: { data: TipoEstagioProps }) => {
     !isEdit ?
       await api
         .post("/TipoEstagio", values.descricaoTipoEstagio, { headers: { "Content-Type": "application/json" } })
-        .finally(() => navigate("/adm/tipoestagio"))
+        .finally(() => navigate("/coordenador/tipoestagio"))
       : await api
         .put(`/TipoEstagio/${data.idTipoEstagio}`, {
           ...values,
           idTipoEstagio: data.idTipoEstagio,
         })
-        .finally(() => navigate("/adm/tipoestagio"));
+        .finally(() => navigate("/coordenador/tipoestagio"));
   }
 
   return (
@@ -77,7 +77,7 @@ const FormCadastroTipoEstagio = ({ data }: { data: TipoEstagioProps }) => {
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/adm/tipoestagio")}
+              onClick={() => navigate("/coordenador/tipoestagio")}
             >
               Voltar
             </Button>

@@ -18,8 +18,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { DocumentoProps } from "../table/columns";
 import { useEffect, useState } from "react";
 import { Combobox, ComboboxProps } from "@/components/ui/combobox";
-import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
-import { CoordenadorEstagioProps } from "@/pages/Admin/CoordenadorEstagio/TableCoordenadorEstagio/table/columns";
+import { TipoDocumentoProps } from "@/pages/SupervisorEstagio/TipoDocumento/TableTipoDocumento/table/columns";
+import { CoordenadorEstagioProps } from "@/pages/SupervisorEstagio/CoordenadorEstagio/TableCoordenadorEstagio/table/columns";
 
 const formSchema = z.object({
   descricaoDocumento: z.string(),
@@ -104,7 +104,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
           idCoordenadorEstagio: valueComboBoxCE,
           idTipoDocumento: valueComboBoxTD
         })
-        .finally(() => navigate("/adm/documento"))
+        .finally(() => navigate("/supervisor/documento"))
       : await api
         .put(`/Documento`, {
           idDocumento: data.idDocumento,
@@ -113,7 +113,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
           idCoordenadorEstagio: valueComboBoxCE,
           idTipoDocumento: valueComboBoxTD
         })
-        .finally(() => navigate("/adm/documento"));
+        .finally(() => navigate("/supervisor/documento"));
 
   }
 
@@ -193,7 +193,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/adm/documento")}
+              onClick={() => navigate("/supervisor/documento")}
             >
               Voltar
             </Button>

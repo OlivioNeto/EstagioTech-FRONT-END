@@ -128,7 +128,7 @@ export const columns: ColumnDef<ContratoEstagioProps>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <Link to={`/adm/contratoestagio/cadastro/${dataRow.contratoestagioId}`}>
+                        <Link to={`/instituicao/contratoestagio/cadastro/${dataRow.contratoestagioId}`}>
                             <DropdownMenuItem>📝 Editar</DropdownMenuItem>
                         </Link>
                         <DropdownMenuSeparator />

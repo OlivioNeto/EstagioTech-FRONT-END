@@ -43,7 +43,7 @@ export default function Documento() {
         <span className="font-bold text-3xl">Documentos cadastrados</span>
       </div>
       <div className="flex gap-2">
-        <NavLink to="/adm/documento/cadastro">
+        <NavLink to="/instituicao/documento/cadastro">
           <Button variant="secondary" className="gap-2">
             <PlusCircleIcon /> Novo Documento
           </Button>

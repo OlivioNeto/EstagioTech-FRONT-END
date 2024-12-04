@@ -100,7 +100,7 @@ export const columns: ColumnDef<CoordenadorEstagioProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/adm/coordenadorestagio/cadastro/${dataRow.idCoordenadorEstagio}`}>
+            <Link to={`/instituicao/coordenadorestagio/cadastro/${dataRow.idCoordenadorEstagio}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />

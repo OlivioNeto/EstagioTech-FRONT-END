@@ -96,7 +96,7 @@ export const columns: ColumnDef<DocumentoProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/adm/documento/cadastro/${dataRow.idDocumento}`}>
+            <Link to={`/instituicao/documento/cadastro/${dataRow.idDocumento}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />

@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { ConcendenteProps } from "@/pages/Admin/Concedente/TableConcedente/table/colums";
+import { ConcendenteProps } from "@/pages/InstituicaoEnsino/Concedente/TableConcedente/table/colums";
 
 export type SupervisorEstagioProps = {
   idSupervisor: number;
@@ -84,14 +84,14 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
         .post("/SupervisorEstagio", {
           concedenteId: valueComboBoxC, nomeSupervisor: nomeSupervisor
         })
-        .finally(() => navigate("/adm/supervisorestagio"))
+        .finally(() => navigate("/instituicao/supervisorestagio"))
       : await api
         .put(`/SupervisorEstagio/${data.idSupervisor}`, {
           idSupervisor: data.idSupervisor,
           nomeSupervisor: nomeSupervisor,
           concedenteId: valueComboBoxC,
         })
-        .finally(() => navigate("/adm/supervisorestagio"));
+        .finally(() => navigate("/instituicao/supervisorestagio"));
   }
 
   return (
@@ -141,7 +141,7 @@ const FormCadastroSupervisorEstagio = ({ data }: { data: SupervisorEstagioProps 
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/adm/supervisorestagio")}
+              onClick={() => navigate("/instituicao/supervisorestagio")}
             >
               Voltar
             </Button>

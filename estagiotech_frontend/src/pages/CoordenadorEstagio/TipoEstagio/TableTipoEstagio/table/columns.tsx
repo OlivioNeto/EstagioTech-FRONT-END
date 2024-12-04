@@ -84,7 +84,7 @@ export const columns: ColumnDef<TipoEstagioProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/adm/tipoestagio/cadastro/${dataRow.idTipoEstagio}`}>
+            <Link to={`/coordenador/tipoestagio/cadastro/${dataRow.idTipoEstagio}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />

@@ -51,14 +51,14 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
     !isEdit
       ? await api
           .post("/CoordenadorEstagio", values)
-          .finally(() => navigate("/adm/coordenadorestagio"))
+          .finally(() => navigate("/coordenador/coordenadorestagio"))
       : await api
           .put(`/CoordenadorEstagio`, {
             idCoordenadorEstagio: data.idCoordenadorEstagio,
             dataCadastro: values.dataCadastro,
             nomeCoordenador: values.nomeCoordenador,
           })
-          .finally(() => navigate("/adm/coordenadorestagio"));
+          .finally(() => navigate("/coordenador/coordenadorestagio"));
   }
 
   return (
@@ -104,7 +104,7 @@ const FormCadastroCoordenadorEstagio = ({ data }: { data: CoordenadorEstagioProp
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/adm/coordenadorestagio")}
+              onClick={() => navigate("/coordenador/coordenadorestagio")}
             >
               Voltar
             </Button>

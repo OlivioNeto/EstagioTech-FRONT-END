@@ -91,7 +91,7 @@ export const columns: ColumnDef<SupervisorEstagioProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/adm/supervisorestagio/cadastro/${dataRow.idSupervisor}`}>
+            <Link to={`/instituicao/supervisorestagio/cadastro/${dataRow.idSupervisor}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />

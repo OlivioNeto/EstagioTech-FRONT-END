@@ -51,7 +51,7 @@ export default function DocumentoNecessario() {
                 <span className="font-bold text-3xl">Documentos necessários cadastrados</span>
             </div>
             <div className="flex gap-2">
-                <NavLink to="/adm/documentonecessario/cadastro">
+                <NavLink to="/supervisor/documentonecessario/cadastro">
                     <Button variant="secondary" className="gap-2">
                         <PlusCircleIcon /> Novo Documento Necessário
                     </Button>

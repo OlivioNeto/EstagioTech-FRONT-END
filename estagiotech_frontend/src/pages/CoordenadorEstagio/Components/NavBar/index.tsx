@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { UserNav } from "@/components/UserNav";
 
-const Navbar = () => {
+const NavbarCE = () => {
   return (
     <div className={style.container}>
       <div className={style.nav}>
@@ -24,4 +24,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarCE;

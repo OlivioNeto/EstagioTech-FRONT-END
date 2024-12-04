@@ -16,8 +16,8 @@ import {
 import api from "../../../../../service/api";
 import { useEffect, useState } from "react";
 import { ComboboxDN, ComboboxPropsDN } from "@/components/ui/comboboxDN";
-import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
-import { TipoEstagioProps } from "@/pages/Admin/TipoEstagio/TableTipoEstagio/table/columns";
+import { TipoDocumentoProps } from "@/pages/InstituicaoEnsino/TipoDocumento/TableTipoDocumento/table/columns";
+import { TipoEstagioProps } from "@/pages/InstituicaoEnsino/TipoEstagio/TableTipoEstagio/table/columns";
 // import { TableDocs } from "@/components/table-docs";
 
 import { useParams } from "react-router-dom";
@@ -256,7 +256,7 @@ const CadastroDocumentoNecessario = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <Link to={`/adm/documentonecessario/cadastro/${dataRow.idTipoDocumento}`}>
+              <Link to={`/instituicao/documentonecessario/cadastro/${dataRow.idTipoDocumento}`}>
                 <DropdownMenuItem>📝 Editar</DropdownMenuItem>
               </Link>
 
@@ -283,7 +283,7 @@ const CadastroDocumentoNecessario = () => {
                   }
                 }}
               >
-                <Link to={`/adm/documentonecessario/cadastro`}>
+                <Link to={`/instituicao/documentonecessario/cadastro`}>
                   🛑 Desativar
                 </Link>
               </DropdownMenuItem>
@@ -306,13 +306,13 @@ const CadastroDocumentoNecessario = () => {
           idTipoEstagio: dataTipoEstagio,
           idTipoDocumento: dataTipoDocumento,
         })
-        .finally(() => navigate("/adm/documentonecessario/cadastro"))
+        .finally(() => navigate("/instituicao/documentonecessario/cadastro"))
       : await api
         .post("/documentonecessario", {
           idTipoEstagio: dataTipoEstagio,
           idTipoDocumento: dataTipoDocumento,
         })
-        .finally(() => navigate("/adm/documentonecessario/cadastro"));
+        .finally(() => navigate("/instituicao/documentonecessario/cadastro"));
     setUpdate(true);
   }
 
@@ -368,7 +368,7 @@ const CadastroDocumentoNecessario = () => {
                       {/* <Button
                         type="button"
                         variant="secondary"
-                        onClick={() => navigate("/adm/documentonecessario/cadastro")}
+                        onClick={() => navigate("/instituicao/documentonecessario/cadastro")}
                       >
                         Voltar
                       </Button> */}

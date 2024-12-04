@@ -13,7 +13,7 @@ export default function CadastroDocumento() {
   useEffect(() => {
     (async () => {
       if (id) {
-        const data = (await api.get(`/documento/${id}`)).data;
+        const data = (await api.get(`/Documento/${id}`)).data;
         setDocumento(data);
       } else {setDocumento({
         idDocumento:0, 

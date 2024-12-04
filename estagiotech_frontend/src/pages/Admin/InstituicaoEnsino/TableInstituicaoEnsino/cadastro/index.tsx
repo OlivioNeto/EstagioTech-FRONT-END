@@ -4,7 +4,7 @@ import FormCadastroInstituicaoEnsino from "./form-cad-InstituicaoEnsino";
 import { InstituicaoEnsinoProps} from "../table/columns";
 import api from "@/service/api";
 
-export default function CadastroInstituicaoEnsino() {
+export default function CadastroInstituicaoEnsinoADM() {
   const [instituicaoEnsino, setInstituicaoEnsino] = useState<InstituicaoEnsinoProps>(
     {} as InstituicaoEnsinoProps
   );

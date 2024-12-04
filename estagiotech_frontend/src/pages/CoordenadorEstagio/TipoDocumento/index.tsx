@@ -29,7 +29,7 @@ export default function TipoDocumentos() {
         <span className="font-bold text-3xl">Tipo documentos cadastrados</span>
       </div>
       <div className="flex gap-2">
-        <NavLink to="/adm/tipodocumento/cadastro">
+        <NavLink to="/coordenador/tipodocumento/cadastro">
           <Button variant="secondary" className="gap-2">
             <PlusCircleIcon /> Novo Tipo Documento
           </Button>

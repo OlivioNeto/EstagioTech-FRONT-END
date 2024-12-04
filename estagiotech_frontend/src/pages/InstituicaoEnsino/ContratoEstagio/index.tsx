@@ -47,7 +47,7 @@ export default function ContratosEstagio() {
         <span className="font-bold text-3xl">Contratos de Estágio</span>
       </div>
       <div className="flex gap-2">
-        <NavLink to="/adm/contrato-estagio/cadastro">
+        <NavLink to="/instituicao/contrato-estagio/cadastro">
           <Button variant="secondary" className="gap-2">
             <PlusCircleIcon /> Novo Contrato
           </Button>

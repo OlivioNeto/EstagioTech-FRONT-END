@@ -12,7 +12,7 @@ import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 // import ReceiptIcon from '@mui/icons-material/Receipt';
 // import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 
-const SideBar = () => {
+const SideBarAL = () => {
   return (
     <nav className={style.container}>
       <div className={style.image}>
@@ -100,4 +100,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default SideBarAL;

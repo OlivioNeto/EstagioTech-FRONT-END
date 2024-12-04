@@ -29,7 +29,7 @@ export default function DocumentoVersao() {
         <span className="font-bold text-3xl">Versões de Documentos cadastrados</span>
       </div>
       <div className="flex gap-2">
-        <NavLink to="/adm/documentoversao/cadastro">
+        <NavLink to="/instituicao/documentoversao/cadastro">
           <Button variant="secondary" className="gap-2">
             <PlusCircleIcon /> Nova Versão de Documento
           </Button>

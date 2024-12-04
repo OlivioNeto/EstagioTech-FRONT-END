@@ -2,10 +2,15 @@ import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom
 import { useEffect, useState, ReactNode } from 'react';
 
 
-//  ROTAS GENÉCIAS
 import api from './service/api';
+
+//  ROTAS DOS USUÁRIOS
 import Admin from './pages/Admin';
 import Aluno from './pages/Aluno';
+import CoordenadorEstagio from './pages/CoordenadorEstagio';
+import InstituicaoEnsino from './pages/InstituicaoEnsino';
+import SupervisorEstagio from './pages/SupervisorEstagio';
+
 import Page404 from './pages/Page404';
 import Login from './pages/Login';
 
@@ -14,26 +19,26 @@ import Login from './pages/Login';
 import Dashboard from './pages/Admin/Dashboard';
 import TipoEstagio from './pages/Admin/TipoEstagio';
 import Documento from './pages/Admin/Documento';
-import CoordenadorEstagio from './pages/Admin/CoordenadorEstagio';
+import CoordenadorEstagioADM from './pages/Admin/CoordenadorEstagio';
 import SideBar from './pages/Admin/Components/SideBar';
 import Navbar from './pages/Admin/Components/NavBar';
 import TipoDocumento from './pages/Admin/TipoDocumento';
 import DocumentoNecessario from './pages/Admin/DocumentoNecessario';
 import ContratoEstagio from './pages/Admin/ContratoEstagio';
 import Empresas from './pages/Admin/Concedente/TableConcedente';
-import SupervisorEstagio from './pages/Admin/SupervisorEstagio/TableSupervisorEstagio';
-import InstituicaoEnsino from './pages/Admin/InstituicaoEnsino/TableInstituicaoEnsino';
+import SupervisorEstagioADM from './pages/Admin/SupervisorEstagio/TableSupervisorEstagio';
+import InstituicaoEnsinoADM from './pages/Admin/InstituicaoEnsino/TableInstituicaoEnsino';
 import DocumentoVersao from './pages/Admin/DocumentoVersao';
 
 import CadastroTipoDocumento from './pages/Admin/TipoDocumento/TableTipoDocumento/cadastro';
 import CadastroTipoEstagio from './pages/Admin/TipoEstagio/TableTipoEstagio/cadastro';
 import CadastroDocumento from './pages/Admin/Documento/TableDocumento/cadastro';
 import CadastroDocumentoNecessario from './pages/Admin/DocumentoNecessario/TableDocumentoNecessario/cadastro';
-import CadastroContratoEstagio from './pages/Admin/ContratoEstagio/TableContratoEstagio/cadastro';
+import CadastroContratoEstagioADM from './pages/Admin/ContratoEstagio/TableContratoEstagio/cadastro';
 import CadastroEmpresa from './pages/Admin/Concedente/TableConcedente/cadastro';
 import CadastroCoordenadorEstagio from './pages/Admin/CoordenadorEstagio/TableCoordenadorEstagio/cadastro';
-import CadastroSupervisorEstagio from './pages/Admin/SupervisorEstagio/TableSupervisorEstagio/cadastro';
-import CadastroInstituicaoEnsino from './pages/Admin/InstituicaoEnsino/TableInstituicaoEnsino/cadastro';
+import CadastroSupervisorEstagioADM from './pages/Admin/SupervisorEstagio/TableSupervisorEstagio/cadastro';
+import CadastroInstituicaoEnsinoADM from './pages/Admin/InstituicaoEnsino/TableInstituicaoEnsino/cadastro';
 import CadastroDocumentoVersao from './pages/Admin/DocumentoVersao/TableDocumentoVersao/cadastro';
 
 
@@ -197,6 +202,9 @@ function App() {
           {/* depois deixar apenas a barra e Home, quando eu criar a home */}
           <Route path='/adm/admin' element={<Admin />} />
           <Route path='/aluno/aluno' element={<Aluno />} />
+          <Route path='/aluno/aluno' element={<Aluno />} />
+          <Route path='/aluno/aluno' element={<Aluno />} />
+
           <Route path='/pages/Login' element={<Login />} />
 
           {/* Agrupamento de rotas com o layout */}
@@ -209,11 +217,11 @@ function App() {
                 <Route path='/tipoestagio' element={<TipoEstagio />} />
                 <Route path='/tipodocumento' element={<TipoDocumento />} />
                 <Route path='/documento' element={<Documento />} />
-                <Route path='/coordenadorestagio' element={<CoordenadorEstagio />} />
+                <Route path='/coordenadorestagio' element={<CoordenadorEstagioADM />} />
                 <Route path='/documentonecessario' element={<DocumentoNecessario />} />
                 <Route path='/contratoestagio' element={<ContratoEstagio />} />
-                <Route path='/supervisorestagio' element={<SupervisorEstagio />} />
-                <Route path='/instituicaoensino' element={<InstituicaoEnsino />} />
+                <Route path='/supervisorestagio' element={<SupervisorEstagioADM />} />
+                <Route path='/instituicaoensino' element={<InstituicaoEnsinoADM />} />
                 <Route path='/empresa' element={<Empresas />} />
                 <Route path='/documentoversao' element={<DocumentoVersao />} />
 
@@ -223,11 +231,11 @@ function App() {
                 <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagio />} />
                 <Route path='/documento/cadastro' element={<CadastroDocumento />} />
                 <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessario />} />
-                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagio />} />
+                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioADM />} />
                 <Route path='/empresa/cadastro' element={<CadastroEmpresa />} />
                 <Route path='/coordenadorestagio/cadastro' element={<CadastroCoordenadorEstagio />} />
-                <Route path='/supervisorestagio/cadastro' element={<CadastroSupervisorEstagio />} />
-                <Route path='/instituicaoensino/cadastro' element={<CadastroInstituicaoEnsino />} />
+                <Route path='/supervisorestagio/cadastro' element={<CadastroSupervisorEstagioADM />} />
+                <Route path='/instituicaoensino/cadastro' element={<CadastroInstituicaoEnsinoADM />} />
                 <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersao />} />
 
                 {/* Rotas de edição */}
@@ -235,11 +243,11 @@ function App() {
                 <Route path="/tipoestagio/cadastro/:id?" element={<CadastroTipoEstagio />} />
                 <Route path="/documento/cadastro/:id?" element={<CadastroDocumento />} />
                 <Route path="/documentonecessario/cadastro/:id?" element={<CadastroDocumentoNecessario />} />
-                <Route path="/contratoestagio/cadastro/:id?" element={<CadastroContratoEstagio />} />
+                <Route path="/contratoestagio/cadastro/:id?" element={<CadastroContratoEstagioADM />} />
                 <Route path="/empresa/cadastro/:id?" element={<CadastroEmpresa />} />
                 <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagio />} />
-                <Route path="/supervisorestagio/cadastro/:id?" element={<CadastroSupervisorEstagio />} />
-                <Route path="/instituicaoensino/cadastro/:id?" element={<CadastroInstituicaoEnsino />} />
+                <Route path="/supervisorestagio/cadastro/:id?" element={<CadastroSupervisorEstagioADM />} />
+                <Route path="/instituicaoensino/cadastro/:id?" element={<CadastroInstituicaoEnsinoADM />} />
                 <Route path="/documentoversao/cadastro/:id?" element={<CadastroDocumentoVersao />} />
               </ProtectedRoute>
             } />

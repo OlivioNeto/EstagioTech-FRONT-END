@@ -15,7 +15,7 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import SchoolIcon from '@mui/icons-material/School';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 
-const SideBar = () => {
+const SideBarADM = () => {
   return (
     <nav className={style.container}>
       <div className={style.image}>
@@ -136,7 +136,7 @@ const SideBar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/aluno/tipoestagio">
+          <NavLink to="/adm/tipoestagio">
             <AssignmentIndIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -148,4 +148,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default SideBarADM;

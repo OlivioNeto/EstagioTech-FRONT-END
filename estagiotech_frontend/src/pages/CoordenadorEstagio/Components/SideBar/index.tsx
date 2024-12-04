@@ -15,7 +15,7 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import SchoolIcon from '@mui/icons-material/School';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 
-const SideBar = () => {
+const SideBarCE = () => {
   return (
     <nav className={style.container}>
       <div className={style.image}>
@@ -148,4 +148,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default SideBarCE;

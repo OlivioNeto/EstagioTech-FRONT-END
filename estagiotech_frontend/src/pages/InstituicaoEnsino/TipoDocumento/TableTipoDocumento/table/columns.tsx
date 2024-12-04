@@ -91,7 +91,7 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
 
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <Link to={`/adm/tipodocumento/cadastro/${dataRow.idTipoDocumento}`}>
+            <Link to={`/instituicao/tipodocumento/cadastro/${dataRow.idTipoDocumento}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
 

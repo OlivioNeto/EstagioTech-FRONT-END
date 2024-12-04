@@ -40,13 +40,13 @@ const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
     !isEdit ?
       await api
         .post("/TipoDocumento", values.descricaoTipoDocumento, { headers: { "Content-Type": "application/json" } })
-        .finally(() => navigate("/adm/tipodocumento"))
+        .finally(() => navigate("/instituicao/tipodocumento"))
       : await api
         .put(`/TipoDocumento/${data.idTipoDocumento}`, {
           ...values,
           idTipoDocumento: data.idTipoDocumento,
         })
-        .finally(() => navigate("/adm/tipodocumento"));
+        .finally(() => navigate("/instituicao/tipodocumento"));
 
   }
 
@@ -77,7 +77,7 @@ const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/adm/tipodocumento")}
+              onClick={() => navigate("/instituicao/tipodocumento")}
             >
               Voltar
             </Button>

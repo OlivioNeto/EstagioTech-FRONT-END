@@ -29,7 +29,7 @@ export default function TipoEstagioA() {
         <span className="font-bold text-3xl">Tipos de estágio cadastrados</span>
       </div>
       <div className="flex gap-2">
-        <NavLink to="/adm/tipoestagio/cadastro">
+        <NavLink to="/instituicao/tipoestagio/cadastro">
           <Button variant="secondary" className="gap-2">
             <PlusCircleIcon /> Novo Tipo Estagio
           </Button>
