@@ -31,7 +31,7 @@ const formSchema = z.object({
 
 type FormCadastroProps = z.infer<typeof formSchema>;
 
-const CadastroContratoEstagio = ({ data }: { data: ContratoEstagioProps }) => {
+const CadastroContratoEstagioCE = ({ data }: { data: ContratoEstagioProps }) => {
     const navigate = useNavigate();
     const isEdit = !!data.contratoestagioId;
     const form = useForm<FormCadastroProps>({
@@ -228,4 +228,4 @@ const CadastroContratoEstagio = ({ data }: { data: ContratoEstagioProps }) => {
     );
 };
 
-export default CadastroContratoEstagio;
+export default CadastroContratoEstagioCE;

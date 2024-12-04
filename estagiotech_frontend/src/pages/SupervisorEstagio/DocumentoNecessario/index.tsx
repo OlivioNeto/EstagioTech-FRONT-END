@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 import { TipoEstagioProps } from "../TipoEstagio/TableTipoEstagio/table/columns";
 import { TipoDocumentoProps } from "../TipoDocumento/TableTipoDocumento/table/columns";
 
-export default function DocumentoNecessario() {
+export default function DocumentoNecessarioSE() {
     const [data, setData] = useState<DocumentoNecessarioProps[]>([]);
 
     useEffect(() => {

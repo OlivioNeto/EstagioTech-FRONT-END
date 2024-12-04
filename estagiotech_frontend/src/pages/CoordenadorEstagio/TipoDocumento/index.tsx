@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-export default function TipoDocumentos() {
+export default function TipoDocumentoCE() {
   const [data, setData] = useState<TipoDocumentoProps[]>([]);
 
   useEffect(() => {

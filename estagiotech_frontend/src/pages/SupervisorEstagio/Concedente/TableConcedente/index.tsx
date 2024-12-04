@@ -18,7 +18,7 @@ type ConcendenteProps = {
   key: number; 
 };
 
-export default function Empresas() {
+export default function EmpresaSE() {
   const [data, setData] = useState<ConcendenteProps[]>([]);
 
   useEffect(() => {

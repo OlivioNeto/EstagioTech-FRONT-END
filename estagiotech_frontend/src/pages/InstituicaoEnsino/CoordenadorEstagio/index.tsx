@@ -16,7 +16,7 @@ export type CoordenadorEstagioProps = {
   key: number;
 };
 
-export default function CoordenadorEstagio() {
+export default function CoordenadorEstagioIE() {
   const [data, setData] = useState<CoordenadorEstagioProps[]>([]);
 
   useEffect(() => {

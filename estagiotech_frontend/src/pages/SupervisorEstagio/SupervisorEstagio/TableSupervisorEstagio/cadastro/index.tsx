@@ -4,7 +4,7 @@ import FormCadastroSupervisorEstagio from "./form-cad-SupervisorEstagio";
 import { SupervisorEstagioProps } from "../table/columns";
 import api from "@/service/api";
 
-export default function CadastroSupervisorEstagio() {
+export default function CadastroSupervisorEstagioSE() {
   const [supervisorEstagio, setSupervisorEstagio] = useState<SupervisorEstagioProps>(
     {} as SupervisorEstagioProps
   );

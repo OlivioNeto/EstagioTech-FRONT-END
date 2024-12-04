@@ -5,7 +5,7 @@ import { TipoDocumentoProps } from "../table/columns";
 import api from "@/service/api";
 import { boolean } from "zod";
 
-export default function CadastroTipoDocumento() {
+export default function CadastroTipoDocumentoCE() {
   const [tipoDocumento, setTipoDocumento] = useState<TipoDocumentoProps>(
     {} as TipoDocumentoProps
   );

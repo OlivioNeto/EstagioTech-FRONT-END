@@ -4,7 +4,7 @@ import FormCadastroCoordenadorEstagio from "./for-cad-CoordenadoEstagio";
 import { CoordenadorEstagioProps } from "../table/columns";
 import api from "@/service/api";
 
-export default function CadastroCoordenadorEstagio() {
+export default function CadastroCoordenadorEstagioCE() {
   const [coordenadoEstagio, setCoordenadoEstagio] = useState<CoordenadorEstagioProps>(
     {} as CoordenadorEstagioProps
   );

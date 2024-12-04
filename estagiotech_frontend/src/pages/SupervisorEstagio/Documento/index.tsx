@@ -19,7 +19,7 @@ export type DocumentoProps = {
   key: number;
 };
 
-export default function Documento() {
+export default function DocumentoSE() {
   const [data, setData] = useState<DocumentoProps[]>([]);
 
   useEffect(() => {

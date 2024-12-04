@@ -4,7 +4,7 @@ import FormCadastroTipoEstagio from "./form-cad-TipoEstagio";
 import { TipoEstagioProps } from "../table/columns";
 import api from "@/service/api";
 
-export default function CadastroTipoEstagio() {
+export default function CadastroTipoEstagioIE() {
   const [tipoEstagio, setTipoEstagio] = useState<TipoEstagioProps>(
     {} as TipoEstagioProps
   );

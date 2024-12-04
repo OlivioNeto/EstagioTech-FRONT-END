@@ -4,7 +4,7 @@ import CadastroDocumentoNecessario from "./form-cad-DocumentoNecessario";
 import { DocumentoNecessarioProps } from "../table/columns";
 import api from "@/service/api";
 
-export default function CadDocumentoNecessario() {
+export default function CadDocumentoNecessarioSE() {
     const [documentoNecessario, setdocumentoNecessario] = useState<DocumentoNecessarioProps>({idDocumentoNecessario: 0, idTipoDocumento: 0, descricaoTipoEstagio: "", idTipoEstagio: 0, descricaoTipoDocumento: "", key: 0});
     const { id } = useParams();
     useEffect(() => {

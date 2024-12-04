@@ -4,7 +4,7 @@ import CadastroContratoEstagio from "./form-cad-ContratoEstagio";
 import { ContratoEstagioProps } from "../table/columns";
 import api from "@/service/api";
 
-export default function CadContratoEstagio() {
+export default function CadastroContratoEstagioCE() {
     const [contratoEstagio, setcontratoEstagio] = useState<ContratoEstagioProps>(
         {} as ContratoEstagioProps
     );

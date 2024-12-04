@@ -15,13 +15,13 @@ import Page404 from './pages/Page404';
 import Login from './pages/Login';
 
 // ROTAS DE ADMINISTRADOR
+import SideBar from './pages/Admin/Components/SideBar';
+import Navbar from './pages/Admin/Components/NavBar';
 
 import Dashboard from './pages/Admin/Dashboard';
 import TipoEstagio from './pages/Admin/TipoEstagio';
 import Documento from './pages/Admin/Documento';
 import CoordenadorEstagioADM from './pages/Admin/CoordenadorEstagio';
-import SideBar from './pages/Admin/Components/SideBar';
-import Navbar from './pages/Admin/Components/NavBar';
 import TipoDocumento from './pages/Admin/TipoDocumento';
 import DocumentoNecessario from './pages/Admin/DocumentoNecessario';
 import ContratoEstagio from './pages/Admin/ContratoEstagio';
@@ -43,6 +43,9 @@ import CadastroDocumentoVersao from './pages/Admin/DocumentoVersao/TableDocument
 
 
 // ROTAS DE ALUNO
+import SideBarA from './pages/Aluno/Components/SideBar';
+import NavbarA from './pages/Aluno/Components/NavBar';
+
 import DashboardA from './pages/Aluno/Dashboard';
 import CoordenadorEstagioA from './pages/Aluno/CoordenadorEstagio';
 import DocumentoA from './pages/Aluno/Documento';
@@ -56,8 +59,75 @@ import CadastroDocumentoNecessarioA from './pages/Aluno/DocumentoNecessario/Tabl
 import CadastroTipoDocumentoA from './pages/Aluno/TipoDocumento/TableTipoDocumento/cadastro';
 import CadastroTipoEstagioA from './pages/Aluno/TipoEstagio/TableTipoEstagio/cadastro';
 
+// ROTAS DE COORDENADOR DE ESTÁGIO
+import SideBarCE from './pages/CoordenadorEstagio/Components/SideBar';
+import NavbarCE from './pages/CoordenadorEstagio/Components/NavBar';
+
+import DashboardCE from './pages/CoordenadorEstagio/Dashboard';
+import ContratoEstagioCE from './pages/CoordenadorEstagio/ContratoEstagio';
+import CoordenadorEstagioCE from './pages/CoordenadorEstagio/CoordenadorEstagio';
+import DocumentoCE from './pages/CoordenadorEstagio/Documento'
+import DocumentoNecessarioCE from './pages/CoordenadorEstagio/DocumentoNecessario'
+import DocumentoVersaoCE from './pages/CoordenadorEstagio/DocumentoVersao';
+import TipoDocumentoCE from './pages/CoordenadorEstagio/TipoDocumento';
+import TipoEstagioCE from './pages/CoordenadorEstagio/TipoEstagio';
+
+import CadastroContratoEstagioCE from './pages/CoordenadorEstagio/ContratoEstagio/TableContratoEstagio/cadastro';
+import CadastroCoordenadorEstagioCE from './pages/Aluno/CoordenadorEstagio/TableCoordenadorEstagio/cadastro';
+import CadastroDocumentoCE from './pages/CoordenadorEstagio/Documento/TableDocumento/cadastro';
+import CadastroDocumentoNecessarioCE from './pages/CoordenadorEstagio/DocumentoNecessario/TableDocumentoNecessario/cadastro';
+import CadastroDocumentoVersaoCE from './pages/CoordenadorEstagio/DocumentoVersao/TableDocumentoVersao/cadastro';
+import CadastroTipoDocumentoCE from './pages/CoordenadorEstagio/TipoDocumento/TableTipoDocumento/cadastro';
+import CadastroTipoEstagioCE from './pages/CoordenadorEstagio/TipoEstagio/TableTipoEstagio/cadastro';
+
+// ROTAS DE INSTITUIÇÃO DE ENSINO
+import SideBarIE from './pages/InstituicaoEnsino/Components/SideBar';
+import NavbarIE from './pages/InstituicaoEnsino/Components/NavBar';
+
+import DashboardIE from './pages/InstituicaoEnsino/Dashboard';
+import EmpresaIE from './pages/InstituicaoEnsino/Concedente/TableConcedente';
+import ContratoEstagioIE from './pages/InstituicaoEnsino/ContratoEstagio';
+import CoordenadorEstagioIE from './pages/InstituicaoEnsino/CoordenadorEstagio';
+import DocumentoIE from './pages/InstituicaoEnsino/Documento';
+import DocumentoNecessarioIE from './pages/InstituicaoEnsino/DocumentoNecessario';
+import DocumentoVersaoIE from './pages/InstituicaoEnsino/DocumentoVersao';
+import TipoDocumentoIE from './pages/InstituicaoEnsino/TipoDocumento';
+import TipoEstagioIE from './pages/InstituicaoEnsino/TipoEstagio';
+
+import CadastroEmpresaIE from './pages/InstituicaoEnsino/Concedente/TableConcedente/cadastro';
+import CadastroContratoEstagioIE from './pages/InstituicaoEnsino/ContratoEstagio/TableContratoEstagio/cadastro';
+import CadastroCoordenadorEstagioIE from './pages/InstituicaoEnsino/CoordenadorEstagio/TableCoordenadorEstagio/cadastro';
+import CadastroDocumentoIE from './pages/InstituicaoEnsino/Documento/TableDocumento/cadastro';
+import CadastroDocumentoNecessarioIE from './pages/InstituicaoEnsino/DocumentoNecessario/TableDocumentoNecessario/cadastro';
+import CadastroDocumemtoVersaoIE from './pages/InstituicaoEnsino/DocumentoVersao/TableDocumentoVersao/cadastro'
+import CadastroTipoDocumentoIE from './pages/InstituicaoEnsino/TipoDocumento/TableTipoDocumento/cadastro';
+import CadastroTipoEstagioIE from './pages/InstituicaoEnsino/TipoEstagio/TableTipoEstagio/cadastro';
 
 
+// ROTAS DE SUPERVISOR DE ENSINO
+import SideBarSE from './pages/SupervisorEstagio/Components/SideBar';
+import NavbarSE from './pages/SupervisorEstagio/Components/NavBar';
+
+import DashboardSE from './pages/SupervisorEstagio/Dashboard';
+import EmpresaSE from './pages/SupervisorEstagio/Concedente/TableConcedente';
+import ContratoEstagioSE from './pages//SupervisorEstagio/ContratoEstagio';
+import DocumentoSE from './pages/SupervisorEstagio/Documento';
+import DocumentoNecessarioSE from './pages//SupervisorEstagio/DocumentoNecessario';
+import DocumentoVersaoSE from './pages/SupervisorEstagio/DocumentoVersao';
+import SupervisorEstagioSE from './pages/SupervisorEstagio/SupervisorEstagio/TableSupervisorEstagio';
+import TipoDocumentoSE from './pages/SupervisorEstagio/TipoDocumento';
+import TipoEstagioSE from './pages/SupervisorEstagio/TipoEstagio';
+
+import CadastroEmpresaSE from './pages/SupervisorEstagio/Concedente/TableConcedente/cadastro';
+import CadastroContratoEstagioSE from './pages/SupervisorEstagio/ContratoEstagio/TableContratoEstagio/cadastro';
+
+import CadastroDocumentoSE from './pages/SupervisorEstagio/Documento/TableDocumento/cadastro';
+import CadastroDocumentoNecessarioSE from './pages/SupervisorEstagio/DocumentoNecessario/TableDocumentoNecessario/cadastro';
+import CadastroDocumentoVersaoSE from './pages/SupervisorEstagio/DocumentoVersao/TableDocumentoVersao/cadastro';
+import CadastroSupervisorEstagioSE from './pages/SupervisorEstagio/SupervisorEstagio/TableSupervisorEstagio/cadastro';
+import CadastroTipoDocumentoSE from './pages/SupervisorEstagio/TipoDocumento/TableTipoDocumento/cadastro';
+import CadastroTipoEstagioSE from './pages/SupervisorEstagio/TipoEstagio/TableTipoEstagio/cadastro';
+import { Layout } from 'lucide-react';
 
 // FUNÇÃO PARA IMPLEMENTAR A LÓGICA DE ACESSO AOS USUÁRIOS DO SISTEMA
 
@@ -202,9 +272,9 @@ function App() {
           {/* depois deixar apenas a barra e Home, quando eu criar a home */}
           <Route path='/adm/admin' element={<Admin />} />
           <Route path='/aluno/aluno' element={<Aluno />} />
-          <Route path='/aluno/aluno' element={<Aluno />} />
-          <Route path='/aluno/aluno' element={<Aluno />} />
-
+          <Route path='/coordenador/coordenador' element={<CoordenadorEstagio />} />
+          <Route path='/instituicao/instituicao' element={<InstituicaoEnsino />} />
+          <Route path='/supervisor/supervisor' element={<SupervisorEstagio />} />
           <Route path='/pages/Login' element={<Login />} />
 
           {/* Agrupamento de rotas com o layout */}
@@ -277,6 +347,114 @@ function App() {
                 <Route path="/documentonecessario/cadastro/:id?" element={<CadastroDocumentoNecessarioA />} />
                 <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagioA />} />
                 <Route path="/tipoestagio/cadastro/:id?" element={<CadastroTipoEstagioA />} />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+          <Route path="/coordenador/*" element={<Auth><Layout /></Auth>}>
+            <Route path="*" element={
+              <ProtectedRoute requiredAccess={[3]}>
+                {/* Rotas da tela de listagem */}
+                <Route path='/dashboard' element={<DashboardCE />} />
+                <Route path='/contratoestagio' element={<ContratoEstagioCE />} />
+                <Route path='/coordenadorestagio' element={<CoordenadorEstagioCE />} />
+                <Route path='/documento' element={<DocumentoCE />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessarioCE />} />
+                <Route path='/documentoversao' element={<DocumentoVersaoCE />} />
+                <Route path='/tipodocumento' element={<TipoDocumentoCE />} />
+                <Route path='/tipoestagio' element={<TipoEstagioCE />} />
+
+                {/* Rotas de cadastro */}
+                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioCE />} />
+                <Route path="/coordenadorestagio/cadastro" element={<CadastroCoordenadorEstagioCE />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumentoCE />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioCE />} />
+                <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersaoCE />} />
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoCE />} />
+                <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioCE />} />
+
+                {/* Rotas de edição */}
+                <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioCE />} />
+                <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagioCE />} />
+                <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoCE />} />
+                <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioCE />} />
+                <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumentoVersaoCE />} />
+                <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoCE />} />
+                <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioCE />} />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+          <Route path="/supervisor/*" element={<Auth><Layout /></Auth>}>
+            <Route path="*" element={
+              <ProtectedRoute requiredAccess={[5]}>
+                {/* Rotas da tela de listagem */}
+                <Route path='/dashboard' element={<DashboardSE />} />
+                <Route path='/concedente' element={<EmpresaSE />} />
+                <Route path='/contratoestagio' element={<ContratoEstagioSE />} />
+                <Route path='/documento' element={<DocumentoSE />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessarioSE />} />
+                <Route path='/documentoversao' element={<DocumentoVersaoSE />} />
+                <Route path='/supervisorestagio' element={<SupervisorEstagioSE />} />
+                <Route path='/tipodocumento' element={<TipoDocumentoSE />} />
+                <Route path='/tipoestagio' element={<TipoEstagioSE />} />
+
+                {/* Rotas de cadastro */}
+                <Route path='/concedente/cadastro' element={<CadastroEmpresaSE />} />
+                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioSE />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumentoSE />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioSE />} />
+                <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersaoSE />} />
+                <Route path='/supervisorestagio/cadastro' element={<CadastroSupervisorEstagioSE />} />
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoSE />} />
+                <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioSE />} />
+
+                {/* Rotas de edição */}
+                <Route path='/concedente/cadastro/:id?' element={<CadastroEmpresaSE />} />
+                <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioSE />} />
+                <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoSE />} />
+                <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioSE />} />
+                <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumentoVersaoSE />} />
+                <Route path='/supervisorestagio/cadastro/:id?' element={<CadastroSupervisorEstagioSE />} />
+                <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoSE />} />
+                <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioSE />} />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+          <Route path="/instituicao/*" element={<Auth><Layout /></Auth>}>
+            <Route path="*" element={
+              <ProtectedRoute requiredAccess={[6]}>
+                {/* Rotas da tela de listagem */}
+                <Route path='/dashboard' element={<DashboardIE />} />
+                <Route path='/empresa' element={<EmpresaIE />} />
+                <Route path='/contratoestagio' element={<ContratoEstagioIE />} />
+                <Route path='/coordenadorestagio' element={<CoordenadorEstagioIE />} />
+                <Route path='/documento' element={<DocumentoIE />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessarioIE />} />
+                <Route path='/documentoversao' element={<DocumentoVersaoIE />} />
+                <Route path='/tipodocumento' element={<TipoDocumentoIE />} />
+                <Route path='/tipoestagio' element={<TipoEstagioIE />} />
+
+                {/* Rotas de cadastro */}
+                <Route path='/empresa/cadastro' element={<CadastroEmpresaIE />} />
+                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioIE />} />
+                <Route path='/coordenadorestagio/cadastro' element={<CadastroCoordenadorEstagioIE />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumentoIE />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioIE />} />
+                <Route path='/documentoversao/cadastro' element={<CadastroDocumemtoVersaoIE />} />
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoIE />} />
+                <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioIE />} />
+
+                {/* Rotas de edição */}
+                <Route path='/empresa/cadastro/:id?' element={<CadastroEmpresaIE />} />
+                <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioIE />} />
+                <Route path='/coordenadorestagio/cadastro/:id?' element={<CadastroCoordenadorEstagioIE />} />
+                <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoIE />} />
+                <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioIE />} />
+                <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumemtoVersaoIE />} />
+                <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoIE />} />
+                <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioIE />} />
               </ProtectedRoute>
             } />
           </Route>

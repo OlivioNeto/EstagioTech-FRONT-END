@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-export default function SupervisorEstagio() {
+export default function SupervisorEstagioSE() {
   const [data, setData] = useState<SupervisorEstagioProps[]>([]);
 
   useEffect(() => {

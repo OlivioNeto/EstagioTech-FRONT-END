@@ -5,7 +5,7 @@ import api from "@/service/api";
 import { FormCadastroEmpresa } from "./form-cad-Empresa";
 
 
-export default function CadastroEmpresa() {
+export default function CadastroEmpresaSE() {
   const [empresa, setEmpresa] = useState<ConcendenteProps>(
     {} as ConcendenteProps
   );

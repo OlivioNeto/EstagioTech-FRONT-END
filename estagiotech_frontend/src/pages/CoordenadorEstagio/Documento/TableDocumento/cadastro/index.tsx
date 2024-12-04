@@ -4,7 +4,7 @@ import FormCadastroDocumento from "./for-cad-Documento";
 import { DocumentoProps } from "../table/columns";
 import api from "@/service/api";
 
-export default function CadastroDocumento() {
+export default function CadastroDocumentoCE() {
   const [documento, setDocumento] = useState<DocumentoProps>(
     {} as DocumentoProps
   );

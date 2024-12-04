@@ -23,7 +23,7 @@ export type ContratoEstagioProps = {
     key: number;
 };
 
-export default function ContratosEstagio() {
+export default function ContratoEstagioCE() {
   const [data, setData] = useState<ContratoEstagioProps[]>([]);
 
   useEffect(() => {

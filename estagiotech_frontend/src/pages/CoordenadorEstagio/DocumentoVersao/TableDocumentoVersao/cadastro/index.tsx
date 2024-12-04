@@ -14,7 +14,7 @@ interface DocumentoVersaoProps {
   key: number;
 }
 
-export default function CadastroDocumentoVersao() {
+export default function CadastroDocumentoVersaoCE() {
   const [documentoVersao, setDocumentoVersao] = useState<DocumentoVersaoProps>(
     {} as DocumentoVersaoProps
   );
