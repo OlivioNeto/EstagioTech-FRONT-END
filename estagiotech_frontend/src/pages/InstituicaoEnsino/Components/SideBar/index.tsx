@@ -3,16 +3,14 @@ import LogoImg from "../../../../assets/images/LOGO.svg";
 import { NavLink } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
-// import AssignmentIcon from "@mui/icons-material/Assignment";
-// import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
-// import ReceiptIcon from '@mui/icons-material/Receipt';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import SchoolIcon from '@mui/icons-material/School';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 
 const SideBarIE = () => {
@@ -27,17 +25,8 @@ const SideBarIE = () => {
           <span>Geral</span>
         </li>
 
-        {/* Ainda não implementado
         <li>
-          <SupervisorAccountIcon
-            style={{ marginRight: "8px", width: "18px", height: "18px" }}
-          />
-          <span>Adiministrador</span>
-        </li> */}
-
-
-        <li>
-          <NavLink to="/adm/dashboard">
+          <NavLink to="/instituicao/dashboard">
             <DashboardIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -46,7 +35,7 @@ const SideBarIE = () => {
         </li>
 
         <li>
-          <NavLink to="/adm/empresa">
+          <NavLink to="/instituicao/empresa">
             <ApartmentIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -54,18 +43,17 @@ const SideBarIE = () => {
           </NavLink>
         </li>
 
-        {/* Ainda não implementado
          <li>
-          <NavLink to="/adm/contratoestagio">
+          <NavLink to="/instituicao/contratoestagio">
             <ReceiptIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Contrato Estágio</span>
           </NavLink>
-        </li> */}
+        </li>
 
         <li>
-          <NavLink to="/adm/coordenadorestagio">
+          <NavLink to="/instituicao/coordenadorestagio">
             <ManageAccountsIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -73,15 +61,14 @@ const SideBarIE = () => {
           </NavLink>
         </li>
 
-        {/* Com erro, não usar na apresentação
         <li>
-          <NavLink to="/adm/documento">
+          <NavLink to="/instituicao/documento">
             <AssignmentIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Documento</span>
           </NavLink>
-        </li> */}
+        </li>
 
         <li>
           <NavLink to="/adm/documentonecessario/cadastro">
@@ -93,7 +80,7 @@ const SideBarIE = () => {
         </li>
  
         <li>
-          <NavLink to="/adm/documentoversao">
+          <NavLink to="/instituicao/documentoversao">
             <FilePresentIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -102,16 +89,7 @@ const SideBarIE = () => {
         </li>
 
         <li>
-          <NavLink to="/adm/instituicaoensino">
-            <SchoolIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Instituicao Ensino</span>
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/adm/supervisorestagio">
+          <NavLink to="/instituicao/supervisorestagio">
             <SupervisedUserCircleIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -120,7 +98,7 @@ const SideBarIE = () => {
         </li>
 
         <li>
-          <NavLink to="/adm/tipodocumento">
+          <NavLink to="/instituicao/tipodocumento">
             <FindInPageIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
@@ -128,15 +106,7 @@ const SideBarIE = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/adm/tipoestagio">
-            <AssignmentIndIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Tipo Estágio</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/aluno/tipoestagio">
+          <NavLink to="/instituicao/tipoestagio">
             <AssignmentIndIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />

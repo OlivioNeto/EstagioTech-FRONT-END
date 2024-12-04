@@ -33,16 +33,6 @@ const SideBarAL = () => {
           </NavLink>
         </li>
 
-        {/* Ainda não implementado
-         <li>
-          <NavLink to="/aluno/contratoestagio">
-            <ReceiptIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Contrato Estágio</span>
-          </NavLink>
-        </li> */}
-
         <li>
           <NavLink to="/aluno/coordenadorestagio">
             <ManageAccountsIcon
@@ -69,15 +59,6 @@ const SideBarAL = () => {
             <span>Documento Necessário</span>
           </NavLink>
         </li>
-
-        {/* <li>
-          <NavLink to="/adm/supervisorestagio">
-            <SupervisedUserCircleIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Supervisor Estagio</span>
-          </NavLink>
-        </li> */}
 
         <li>
           <NavLink to="/aluno/tipodocumento">
