@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet, Navigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, ReactNode } from 'react';
 
 
@@ -18,6 +18,8 @@ import Login from './pages/Login';
 import SideBar from './pages/Admin/Components/SideBar';
 import Navbar from './pages/Admin/Components/NavBar';
 
+import MontandoDocumento from "./pages/Admin/MontandoDocumento"
+
 import Dashboard from './pages/Admin/Dashboard';
 import TipoEstagio from './pages/Admin/TipoEstagio';
 import Documento from './pages/Admin/Documento';
@@ -32,7 +34,7 @@ import DocumentoVersao from './pages/Admin/DocumentoVersao';
 
 import CadastroTipoDocumento from './pages/Admin/TipoDocumento/TableTipoDocumento/cadastro';
 import CadastroTipoEstagio from './pages/Admin/TipoEstagio/TableTipoEstagio/cadastro';
-import CadastroDocumento from './pages/Admin/Documento/TableDocumentp/cadastro';
+import CadastroDocumento from './pages/Admin/Documento/TableDocumento/cadastro';
 import CadastroDocumentoNecessario from './pages/Admin/DocumentoNecessario/TableDocumentoNecessario/cadastro';
 import CadastroContratoEstagioADM from './pages/Admin/ContratoEstagio/TableContratoEstagio/cadastro';
 import CadastroEmpresa from './pages/Admin/Concedente/TableConcedente/cadastro';
@@ -154,11 +156,52 @@ type RouteType = {
 
 function App() {
   function Layout() {
+    const location = useLocation();
+
+    // Determinar o prefixo da URL para selecionar a barra lateral correta
+    const pathSegment = location.pathname.split("/")[1];
+
+    // Função para renderizar a barra lateral correta
+    const renderSideBar = () => {
+      switch (pathSegment) {
+        case "adm":
+          return <SideBar />;
+        case "aluno":
+          return <SideBarA />;
+        case "empresa":
+          return <SideBarCE />;
+        case "supervisor":
+          return <SideBarSE />;
+        case "instituicao":
+          return <SideBarIE />;
+        default:
+          return null; // Ou uma barra lateral padrão
+      }
+    };
+
+    // Função para renderizar o Navbar correto
+    const renderNavbar = () => {
+      switch (pathSegment) {
+        case "adm":
+          return <Navbar />;
+        case "aluno":
+          return <NavbarA />;
+        case "empresa":
+          return <NavbarCE />;
+        case "supervisor":
+          return <NavbarSE />;
+        case "instituicao":
+          return <NavbarIE />;
+        default:
+          return null; // Ou um navbar padrão
+      }
+    };
+
     return (
       <div className="flex min-h-screen">
-        <SideBar />
+        {renderSideBar()}
         <div className="flex flex-col w-full">
-          <Navbar />
+          {renderNavbar()}
           <Outlet />
         </div>
       </div>
@@ -167,11 +210,11 @@ function App() {
 
   // Definir o tipo do estado como um array de RouteType
   const [routesType,] = useState<RouteType[]>([
-    { code: 1, type: "adm" }, 
-    { code: 2, type: "aluno" }, 
-    { code: 3, type: "coordenador"}, 
+    { code: 1, type: "adm" },
+    { code: 2, type: "aluno" },
+    { code: 3, type: "coordenador" },
     { code: 5, type: "supervisor" },
-    { code: 6, type: "instituicao"}
+    { code: 6, type: "instituicao" }
   ]);
 
   // Função para obter o usuário pelo token
@@ -259,225 +302,227 @@ function App() {
     console.log("User Type:", userType);
     console.log("Required Access:", requiredAccess);
     console.log("Routes Type:", routesType);
-    
+
     if (!userType) {
       return <Navigate to={`/`} replace />;
     }
-    
+
     if (!requiredAccess.includes(userType)) {
       const userRoute = routesType.find(r => r.code === userType);
       console.log("User Route:", userRoute);
       return <Navigate to={`/${userRoute?.type}/dashboard`} replace />;
     }
-    
+
     return <Routes>{children}</Routes>
   };
 
 
 
-    // DEFINIÇÃO DAS ROTAS
-    return (
-      <div>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Login />} />
-            {/* depois deixar apenas a barra e Home, quando eu criar a home */}
-            <Route path='/adm/admin' element={<Admin />} />
-            <Route path='/aluno/aluno' element={<Aluno />} />
-            <Route path='/coordenador/coordenador' element={<CoordenadorEstagio />} />
-            <Route path='/instituicao/instituicao' element={<InstituicaoEnsino />} />
-            <Route path='/supervisor/supervisor' element={<SupervisorEstagio />} />
-            <Route path='/pages/Login' element={<Login />} />
+  // DEFINIÇÃO DAS ROTAS
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Login />} />
+          {/* depois deixar apenas a barra e Home, quando eu criar a home */}
+          <Route path='/adm/admin' element={<Admin />} />
+          <Route path='/aluno/aluno' element={<Aluno />} />
+          <Route path='/coordenador/coordenador' element={<CoordenadorEstagio />} />
+          <Route path='/instituicao/instituicao' element={<InstituicaoEnsino />} />
+          <Route path='/supervisor/supervisor' element={<SupervisorEstagio />} />
+          <Route path='/pages/Login' element={<Login />} />
 
-            {/* Agrupamento de rotas com o layout */}
+          {/* Agrupamento de rotas com o layout */}
 
-            <Route path="/adm/*" element={<Auth><Layout /></Auth>}>
-              <Route path="*" element={
-                <ProtectedRoute requiredAccess={[1]}>
-                  {/* Rotas da tela de listagem */}
-                  <Route path='/dashboard' element={<Dashboard />} />
-                  <Route path='/tipoestagio' element={<TipoEstagio />} />
-                  <Route path='/tipodocumento' element={<TipoDocumento />} />
-                  <Route path='/documento' element={<Documento />} />
-                  <Route path='/coordenadorestagio' element={<CoordenadorEstagioADM />} />
-                  <Route path='/documentonecessario' element={<DocumentoNecessario />} />
-                  <Route path='/contratoestagio' element={<ContratoEstagio />} />
-                  <Route path='/supervisorestagio' element={<SupervisorEstagioADM />} />
-                  <Route path='/instituicaoensino' element={<InstituicaoEnsinoADM />} />
-                  <Route path='/empresa' element={<Empresas />} />
-                  <Route path='/documentoversao' element={<DocumentoVersao />} />
-
-
-                  {/* Rotas de cadastro */}
-                  <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumento />} />
-                  <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagio />} />
-                  <Route path='/documento/cadastro' element={<CadastroDocumento />} />
-                  <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessario />} />
-                  <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioADM />} />
-                  <Route path='/empresa/cadastro' element={<CadastroEmpresa />} />
-                  <Route path='/coordenadorestagio/cadastro' element={<CadastroCoordenadorEstagio />} />
-                  <Route path='/supervisorestagio/cadastro' element={<CadastroSupervisorEstagioADM />} />
-                  <Route path='/instituicaoensino/cadastro' element={<CadastroInstituicaoEnsinoADM />} />
-                  <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersao />} />
-
-                  {/* Rotas de edição */}
-                  <Route path="/tipodocumento/cadastro/:id?" element={<CadastroTipoDocumento />} />
-                  <Route path="/tipoestagio/cadastro/:id?" element={<CadastroTipoEstagio />} />
-                  <Route path="/documento/cadastro/:id?" element={<CadastroDocumento />} />
-                  <Route path="/documentonecessario/cadastro/:id?" element={<CadastroDocumentoNecessario />} />
-                  <Route path="/contratoestagio/cadastro/:id?" element={<CadastroContratoEstagioADM />} />
-                  <Route path="/empresa/cadastro/:id?" element={<CadastroEmpresa />} />
-                  <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagio />} />
-                  <Route path="/supervisorestagio/cadastro/:id?" element={<CadastroSupervisorEstagioADM />} />
-                  <Route path="/instituicaoensino/cadastro/:id?" element={<CadastroInstituicaoEnsinoADM />} />
-                  <Route path="/documentoversao/cadastro/:id?" element={<CadastroDocumentoVersao />} />
-                </ProtectedRoute>
-              } />
-            </Route>
-
-            <Route path="/aluno/*" element={<Auth><Layout /></Auth>}>
-              <Route path="*" element={
-                <ProtectedRoute requiredAccess={[2]}>
-                  {/* Rotas da tela de listagem */}
-                  <Route path='/dashboard' element={<DashboardA />} />
-                  <Route path='/tipoestagio' element={<TipoEstagioA />} />
-                  <Route path='/tipodocumento' element={<TipoDocumentoA />} />
-                  <Route path='/documento' element={<DocumentoA />} />
-                  <Route path='/coordenadorestagio' element={<CoordenadorEstagioA />} />
-                  <Route path='/documentonecessario' element={<DocumentoNecessarioA />} />
-
-                  {/* Rotas de cadastro */}
-                  <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoA />} />
-                  <Route path='/documento/cadastro' element={<CadastroDocumentoA />} />
-                  <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioA />} />
-                  <Route path="/coordenadorestagio/cadastro" element={<CadastroCoordenadorEstagioA />} />
-                  <Route path='/tipoestagio' element={<TipoEstagioA />} />
-
-                  {/* Rotas de edição */}
-                  <Route path="/tipodocumento/cadastro/:id?" element={<CadastroTipoDocumentoA />} />
-                  <Route path="/documento/cadastro/:id?" element={<CadastroDocumentoA />} />
-                  <Route path="/documentonecessario/cadastro/:id?" element={<CadastroDocumentoNecessarioA />} />
-                  <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagioA />} />
-                  <Route path="/tipoestagio/cadastro/:id?" element={<CadastroTipoEstagioA />} />
-                </ProtectedRoute>
-              } />
-            </Route>
-
-            <Route path="/coordenador/*" element={<Auth><Layout /></Auth>}>
-              <Route path="*" element={
-                <ProtectedRoute requiredAccess={[3]}>
-                  {/* Rotas da tela de listagem */}
-                  <Route path='/dashboard' element={<DashboardCE />} />
-                  <Route path='/contratoestagio' element={<ContratoEstagioCE />} />
-                  <Route path='/coordenadorestagio' element={<CoordenadorEstagioCE />} />
-                  <Route path='/documento' element={<DocumentoCE />} />
-                  <Route path='/documentonecessario' element={<DocumentoNecessarioCE />} />
-                  <Route path='/documentoversao' element={<DocumentoVersaoCE />} />
-                  <Route path='/tipodocumento' element={<TipoDocumentoCE />} />
-                  <Route path='/tipoestagio' element={<TipoEstagioCE />} />
-
-                  {/* Rotas de cadastro */}
-                  <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioCE />} />
-                  <Route path="/coordenadorestagio/cadastro" element={<CadastroCoordenadorEstagioCE />} />
-                  <Route path='/documento/cadastro' element={<CadastroDocumentoCE />} />
-                  <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioCE />} />
-                  <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersaoCE />} />
-                  <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoCE />} />
-                  <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioCE />} />
-
-                  {/* Rotas de edição */}
-                  <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioCE />} />
-                  <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagioCE />} />
-                  <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoCE />} />
-                  <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioCE />} />
-                  <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumentoVersaoCE />} />
-                  <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoCE />} />
-                  <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioCE />} />
-                </ProtectedRoute>
-              } />
-            </Route>
-
-            <Route path="/supervisor/*" element={<Auth><Layout /></Auth>}>
-              <Route path="*" element={
-                <ProtectedRoute requiredAccess={[5]}>
-                  {/* Rotas da tela de listagem */}
-                  <Route path='/dashboard' element={<DashboardSE />} />
-                  <Route path='/concedente' element={<EmpresaSE />} />
-                  <Route path='/contratoestagio' element={<ContratoEstagioSE />} />
-                  <Route path='/documento' element={<DocumentoSE />} />
-                  <Route path='/documentonecessario' element={<DocumentoNecessarioSE />} />
-                  <Route path='/documentoversao' element={<DocumentoVersaoSE />} />
-                  <Route path='/supervisorestagio' element={<SupervisorEstagioSE />} />
-                  <Route path='/tipodocumento' element={<TipoDocumentoSE />} />
-                  <Route path='/tipoestagio' element={<TipoEstagioSE />} />
-
-                  {/* Rotas de cadastro */}
-                  <Route path='/concedente/cadastro' element={<CadastroEmpresaSE />} />
-                  <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioSE />} />
-                  <Route path='/documento/cadastro' element={<CadastroDocumentoSE />} />
-                  <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioSE />} />
-                  <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersaoSE />} />
-                  <Route path='/supervisorestagio/cadastro' element={<CadastroSupervisorEstagioSE />} />
-                  <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoSE />} />
-                  <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioSE />} />
-
-                  {/* Rotas de edição */}
-                  <Route path='/concedente/cadastro/:id?' element={<CadastroEmpresaSE />} />
-                  <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioSE />} />
-                  <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoSE />} />
-                  <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioSE />} />
-                  <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumentoVersaoSE />} />
-                  <Route path='/supervisorestagio/cadastro/:id?' element={<CadastroSupervisorEstagioSE />} />
-                  <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoSE />} />
-                  <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioSE />} />
-                </ProtectedRoute>
-              } />
-            </Route>
-
-            <Route path="/instituicao/*" element={<Auth><Layout /></Auth>}>
-              <Route path="*" element={
-                <ProtectedRoute requiredAccess={[6]}>
-                  {/* Rotas da tela de listagem */}
-                  <Route path='/dashboard' element={<DashboardIE />} />
-                  <Route path='/empresa' element={<EmpresaIE />} />
-                  <Route path='/contratoestagio' element={<ContratoEstagioIE />} />
-                  <Route path='/coordenadorestagio' element={<CoordenadorEstagioIE />} />
-                  <Route path='/documento' element={<DocumentoIE />} />
-                  <Route path='/documentonecessario' element={<DocumentoNecessarioIE />} />
-                  <Route path='/documentoversao' element={<DocumentoVersaoIE />} />
-                  <Route path='/tipodocumento' element={<TipoDocumentoIE />} />
-                  <Route path='/tipoestagio' element={<TipoEstagioIE />} />
-
-                  {/* Rotas de cadastro */}
-                  <Route path='/empresa/cadastro' element={<CadastroEmpresaIE />} />
-                  <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioIE />} />
-                  <Route path='/coordenadorestagio/cadastro' element={<CadastroCoordenadorEstagioIE />} />
-                  <Route path='/documento/cadastro' element={<CadastroDocumentoIE />} />
-                  <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioIE />} />
-                  <Route path='/documentoversao/cadastro' element={<CadastroDocumemtoVersaoIE />} />
-                  <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoIE />} />
-                  <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioIE />} />
-
-                  {/* Rotas de edição */}
-                  <Route path='/empresa/cadastro/:id?' element={<CadastroEmpresaIE />} />
-                  <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioIE />} />
-                  <Route path='/coordenadorestagio/cadastro/:id?' element={<CadastroCoordenadorEstagioIE />} />
-                  <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoIE />} />
-                  <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioIE />} />
-                  <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumemtoVersaoIE />} />
-                  <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoIE />} />
-                  <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioIE />} />
-                </ProtectedRoute>
-              } />
-            </Route>
+          <Route path="/adm/*" element={<Auth><Layout /></Auth>}>
+            <Route path="*" element={
+              <ProtectedRoute requiredAccess={[1]}>
+                {/* Rotas da tela de listagem */}
+                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/tipoestagio' element={<TipoEstagio />} />
+                <Route path='/tipodocumento' element={<TipoDocumento />} />
+                <Route path='/documento' element={<Documento />} />
+                <Route path='/coordenadorestagio' element={<CoordenadorEstagioADM />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessario />} />
+                <Route path='/contratoestagio' element={<ContratoEstagio />} />
+                <Route path='/supervisorestagio' element={<SupervisorEstagioADM />} />
+                <Route path='/instituicaoensino' element={<InstituicaoEnsinoADM />} />
+                <Route path='/empresa' element={<Empresas />} />
+                <Route path='/documentoversao' element={<DocumentoVersao />} />
+                <Route path='/documentoversao' element={<DocumentoVersao />} />
 
 
-            <Route path='/*' element={<Page404 />} />
-          </Routes>
-        </BrowserRouter>
-      </div >
 
-    )
-  }
+                {/* Rotas de cadastro */}
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumento />} />
+                <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagio />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumento />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessario />} />
+                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioADM />} />
+                <Route path='/empresa/cadastro' element={<CadastroEmpresa />} />
+                <Route path='/coordenadorestagio/cadastro' element={<CadastroCoordenadorEstagio />} />
+                <Route path='/supervisorestagio/cadastro' element={<CadastroSupervisorEstagioADM />} />
+                <Route path='/instituicaoensino/cadastro' element={<CadastroInstituicaoEnsinoADM />} />
+                <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersao />} />
 
-  export default App
+                {/* Rotas de edição */}
+                <Route path="/tipodocumento/cadastro/:id?" element={<CadastroTipoDocumento />} />
+                <Route path="/tipoestagio/cadastro/:id?" element={<CadastroTipoEstagio />} />
+                <Route path="/documento/cadastro/:id?" element={<CadastroDocumento />} />
+                <Route path="/documentonecessario/cadastro/:id?" element={<CadastroDocumentoNecessario />} />
+                <Route path="/contratoestagio/cadastro/:id?" element={<CadastroContratoEstagioADM />} />
+                <Route path="/empresa/cadastro/:id?" element={<CadastroEmpresa />} />
+                <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagio />} />
+                <Route path="/supervisorestagio/cadastro/:id?" element={<CadastroSupervisorEstagioADM />} />
+                <Route path="/instituicaoensino/cadastro/:id?" element={<CadastroInstituicaoEnsinoADM />} />
+                <Route path="/documentoversao/cadastro/:id?" element={<CadastroDocumentoVersao />} />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+          <Route path="/aluno/*" element={<Auth><Layout /></Auth>}>
+            <Route path="*" element={
+              <ProtectedRoute requiredAccess={[2]}>
+                {/* Rotas da tela de listagem */}
+                <Route path='/dashboard' element={<DashboardA />} />
+                <Route path='/tipoestagio' element={<TipoEstagioA />} />
+                <Route path='/tipodocumento' element={<TipoDocumentoA />} />
+                <Route path='/documento' element={<DocumentoA />} />
+                <Route path='/coordenadorestagio' element={<CoordenadorEstagioA />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessarioA />} />
+
+                {/* Rotas de cadastro */}
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoA />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumentoA />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioA />} />
+                <Route path="/coordenadorestagio/cadastro" element={<CadastroCoordenadorEstagioA />} />
+                <Route path='/tipoestagio' element={<TipoEstagioA />} />
+
+                {/* Rotas de edição */}
+                <Route path="/tipodocumento/cadastro/:id?" element={<CadastroTipoDocumentoA />} />
+                <Route path="/documento/cadastro/:id?" element={<CadastroDocumentoA />} />
+                <Route path="/documentonecessario/cadastro/:id?" element={<CadastroDocumentoNecessarioA />} />
+                <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagioA />} />
+                <Route path="/tipoestagio/cadastro/:id?" element={<CadastroTipoEstagioA />} />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+          <Route path="/coordenador/*" element={<Auth><Layout /></Auth>}>
+            <Route path="*" element={
+              <ProtectedRoute requiredAccess={[3]}>
+                {/* Rotas da tela de listagem */}
+                <Route path='/dashboard' element={<DashboardCE />} />
+                <Route path='/contratoestagio' element={<ContratoEstagioCE />} />
+                <Route path='/coordenadorestagio' element={<CoordenadorEstagioCE />} />
+                <Route path='/documento' element={<DocumentoCE />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessarioCE />} />
+                <Route path='/documentoversao' element={<DocumentoVersaoCE />} />
+                <Route path='/tipodocumento' element={<TipoDocumentoCE />} />
+                <Route path='/tipoestagio' element={<TipoEstagioCE />} />
+
+                {/* Rotas de cadastro */}
+                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioCE />} />
+                <Route path="/coordenadorestagio/cadastro" element={<CadastroCoordenadorEstagioCE />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumentoCE />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioCE />} />
+                <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersaoCE />} />
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoCE />} />
+                <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioCE />} />
+
+                {/* Rotas de edição */}
+                <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioCE />} />
+                <Route path="/coordenadorestagio/cadastro/:id?" element={<CadastroCoordenadorEstagioCE />} />
+                <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoCE />} />
+                <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioCE />} />
+                <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumentoVersaoCE />} />
+                <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoCE />} />
+                <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioCE />} />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+          <Route path="/supervisor/*" element={<Auth><Layout /></Auth>}>
+            <Route path="*" element={
+              <ProtectedRoute requiredAccess={[5]}>
+                {/* Rotas da tela de listagem */}
+                <Route path='/dashboard' element={<DashboardSE />} />
+                <Route path='/concedente' element={<EmpresaSE />} />
+                <Route path='/contratoestagio' element={<ContratoEstagioSE />} />
+                <Route path='/documento' element={<DocumentoSE />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessarioSE />} />
+                <Route path='/documentoversao' element={<DocumentoVersaoSE />} />
+                <Route path='/supervisorestagio' element={<SupervisorEstagioSE />} />
+                <Route path='/tipodocumento' element={<TipoDocumentoSE />} />
+                <Route path='/tipoestagio' element={<TipoEstagioSE />} />
+
+                {/* Rotas de cadastro */}
+                <Route path='/concedente/cadastro' element={<CadastroEmpresaSE />} />
+                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioSE />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumentoSE />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioSE />} />
+                <Route path='/documentoversao/cadastro' element={<CadastroDocumentoVersaoSE />} />
+                <Route path='/supervisorestagio/cadastro' element={<CadastroSupervisorEstagioSE />} />
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoSE />} />
+                <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioSE />} />
+
+                {/* Rotas de edição */}
+                <Route path='/concedente/cadastro/:id?' element={<CadastroEmpresaSE />} />
+                <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioSE />} />
+                <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoSE />} />
+                <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioSE />} />
+                <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumentoVersaoSE />} />
+                <Route path='/supervisorestagio/cadastro/:id?' element={<CadastroSupervisorEstagioSE />} />
+                <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoSE />} />
+                <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioSE />} />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+          <Route path="/instituicao/*" element={<Auth><Layout /></Auth>}>
+            <Route path="*" element={
+              <ProtectedRoute requiredAccess={[6]}>
+                {/* Rotas da tela de listagem */}
+                <Route path='/dashboard' element={<DashboardIE />} />
+                <Route path='/empresa' element={<EmpresaIE />} />
+                <Route path='/contratoestagio' element={<ContratoEstagioIE />} />
+                <Route path='/coordenadorestagio' element={<CoordenadorEstagioIE />} />
+                <Route path='/documento' element={<DocumentoIE />} />
+                <Route path='/documentonecessario' element={<DocumentoNecessarioIE />} />
+                <Route path='/documentoversao' element={<DocumentoVersaoIE />} />
+                <Route path='/tipodocumento' element={<TipoDocumentoIE />} />
+                <Route path='/tipoestagio' element={<TipoEstagioIE />} />
+
+                {/* Rotas de cadastro */}
+                <Route path='/empresa/cadastro' element={<CadastroEmpresaIE />} />
+                <Route path='/contratoestagio/cadastro' element={<CadastroContratoEstagioIE />} />
+                <Route path='/coordenadorestagio/cadastro' element={<CadastroCoordenadorEstagioIE />} />
+                <Route path='/documento/cadastro' element={<CadastroDocumentoIE />} />
+                <Route path='/documentonecessario/cadastro' element={<CadastroDocumentoNecessarioIE />} />
+                <Route path='/documentoversao/cadastro' element={<CadastroDocumemtoVersaoIE />} />
+                <Route path='/tipodocumento/cadastro' element={<CadastroTipoDocumentoIE />} />
+                <Route path='/tipoestagio/cadastro' element={<CadastroTipoEstagioIE />} />
+
+                {/* Rotas de edição */}
+                <Route path='/empresa/cadastro/:id?' element={<CadastroEmpresaIE />} />
+                <Route path='/contratoestagio/cadastro/:id?' element={<CadastroContratoEstagioIE />} />
+                <Route path='/coordenadorestagio/cadastro/:id?' element={<CadastroCoordenadorEstagioIE />} />
+                <Route path='/documento/cadastro/:id?' element={<CadastroDocumentoIE />} />
+                <Route path='/documentonecessario/cadastro/:id?' element={<CadastroDocumentoNecessarioIE />} />
+                <Route path='/documentoversao/cadastro/:id?' element={<CadastroDocumemtoVersaoIE />} />
+                <Route path='/tipodocumento/cadastro/:id?' element={<CadastroTipoDocumentoIE />} />
+                <Route path='/tipoestagio/cadastro/:id?' element={<CadastroTipoEstagioIE />} />
+              </ProtectedRoute>
+            } />
+          </Route>
+
+
+          <Route path='/*' element={<Page404 />} />
+        </Routes>
+      </BrowserRouter>
+    </div >
+
+  )
+}
+
+export default App

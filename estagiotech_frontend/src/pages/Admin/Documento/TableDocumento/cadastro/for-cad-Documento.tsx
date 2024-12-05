@@ -16,8 +16,8 @@ import { Button } from "@/components/ui/button";
 import api from "../../../../../service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { TipoDocumentoProps } from "@/pages/CoordenadorEstagio/TipoDocumento/TableTipoDocumento/table/columns";
-import { CoordenadorEstagioProps } from "@/pages/CoordenadorEstagio/CoordenadorEstagio/TableCoordenadorEstagio/table/columns";
+import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
+import { CoordenadorEstagioProps } from "@/pages/Admin/CoordenadorEstagio";
 
 export type DocumentoProps = {
   idDocumento: number;
@@ -97,7 +97,6 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
           label: item.nomeCoordenador,
         }))
       );
-
       setDataComboBoxTD(
         respTipoDocumento.map((item) => ({
           value: item.idTipoDocumento.toString(),
@@ -118,27 +117,28 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
           descricaoDocumento: descricaoDocumento,
           situacaoDocumento: situacaoDocumento,
         })
-        .finally(() => navigate("/coordenador/documento"))
-        : await api
-  .put(`/Documento/${data.idDocumento}`, {
-    idCoordenadorEstagio: valueComboBoxCE,
-    idDocumento: data.idDocumento,
-    idTipoDocumento: valueComboBoxTD,
-    descricaoDocumento: descricaoDocumento,
-    situacaoDocumento: situacaoDocumento,
-  })
-  .finally(() => navigate("/coordenador/documento"))};
-
-
-        console.log({
+        .finally(() => navigate("/aluno/documento"))
+      : await api
+        .put(`/Documento/${data.idDocumento}`, {
           idCoordenadorEstagio: valueComboBoxCE,
           idDocumento: data.idDocumento,
           idTipoDocumento: valueComboBoxTD,
           descricaoDocumento: descricaoDocumento,
           situacaoDocumento: situacaoDocumento,
-        });
-        
-      
+        })
+        .finally(() => navigate("/aluno/documento"))
+  };
+
+
+  console.log({
+    idCoordenadorEstagio: valueComboBoxCE,
+    idDocumento: data.idDocumento,
+    idTipoDocumento: valueComboBoxTD,
+    descricaoDocumento: descricaoDocumento,
+    situacaoDocumento: situacaoDocumento,
+  });
+
+
 
   return (
     <Card className="p-4">
@@ -221,7 +221,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
             <Button
               type="button"
               variant="secondary"
-              onClick={() => navigate("/coordenador/documento")}
+              onClick={() => navigate("/adm/documento")}
             >
               Voltar
             </Button>

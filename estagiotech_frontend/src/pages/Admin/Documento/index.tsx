@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DataTable } from "@/components/data-table";
-import { DocumentoProps, columns} from "./TableDocumentp/table/columns"
+import { DocumentoProps, columns} from "./TableDocumento/table/columns"
 import api from "@/service/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";

@@ -21,6 +21,7 @@ export type DocumentoProps = {
   descricaoTipoDocumento: string;
   idCoordenadorEstagio: number;
   nomeCoordenador: string;
+  status: boolean;
   key: number;
 };
 
@@ -71,12 +72,17 @@ export const columns: ColumnDef<DocumentoProps>[] = [
     accessorKey: "situacaoDocumento",
     header: "Situação do documento",
   },
+  // {
+  //   accessorKey: "status",
+  //   header: "Status do Documento",
+  //   cell: ({ row }) => (row.original.status ? "Ativo" : "Inativo"),
+  // },
   {
-    accessorKey: "nomeCoordenador",
+    accessorKey: "idCoordenadorEstagio",
     header: "Nome do Coordenador",
   },
   {
-    accessorKey: "descricaoTipoDocumento",
+    accessorKey: "idTipoDocumento",
     header: "Descrição do Tipo Documento",
   },
   {
@@ -108,6 +114,36 @@ export const columns: ColumnDef<DocumentoProps>[] = [
             >
               🗑️ Delete
             </DropdownMenuItem>
+            {/* <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/Documento/${dataRow.idDocumento}/Ativar`, {
+                    status: true,
+                  });
+                  location.reload();
+                } catch (error) {
+                  console.error("Erro ao ativar o documento:", error);
+                }
+              }}
+            >
+              🔄 Ativar
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/Documento/${dataRow.idDocumento}/Desativar`, {
+                    status: false,
+                  });
+                  location.reload();
+                } catch (error) {
+                  console.error("Erro ao desativar o documento:", error);
+                }
+              }}
+            >
+              🛑 Desativar
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );

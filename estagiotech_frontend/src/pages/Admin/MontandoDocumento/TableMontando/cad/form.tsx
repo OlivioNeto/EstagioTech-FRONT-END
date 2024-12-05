@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Combobox, ComboboxProps } from "@/components/ui/combobox";
 import { Button } from "@/components/ui/button";
-import api from "../../../../../service/api";
+import api from "@/service/api";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { TipoDocumentoProps } from "@/pages/Admin/TipoDocumento/TableTipoDocumento/table/columns";
@@ -97,7 +97,6 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
           label: item.nomeCoordenador,
         }))
       );
-
       setDataComboBoxTD(
         respTipoDocumento.map((item) => ({
           value: item.idTipoDocumento.toString(),
@@ -118,27 +117,28 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
           descricaoDocumento: descricaoDocumento,
           situacaoDocumento: situacaoDocumento,
         })
-        .finally(() => navigate("/adm/documento"))
-        : await api
-  .put(`/Documento/${data.idDocumento}`, {
-    idCoordenadorEstagio: valueComboBoxCE,
-    idDocumento: data.idDocumento,
-    idTipoDocumento: valueComboBoxTD,
-    descricaoDocumento: descricaoDocumento,
-    situacaoDocumento: situacaoDocumento,
-  })
-  .finally(() => navigate("/adm/documento"))};
-
-
-        console.log({
+        .finally(() => navigate("/aluno/documento"))
+      : await api
+        .put(`/Documento/${data.idDocumento}`, {
           idCoordenadorEstagio: valueComboBoxCE,
           idDocumento: data.idDocumento,
           idTipoDocumento: valueComboBoxTD,
           descricaoDocumento: descricaoDocumento,
           situacaoDocumento: situacaoDocumento,
-        });
-        
-      
+        })
+        .finally(() => navigate("/aluno/documento"))
+  };
+
+
+  console.log({
+    idCoordenadorEstagio: valueComboBoxCE,
+    idDocumento: data.idDocumento,
+    idTipoDocumento: valueComboBoxTD,
+    descricaoDocumento: descricaoDocumento,
+    situacaoDocumento: situacaoDocumento,
+  });
+
+
 
   return (
     <Card className="p-4">
@@ -154,21 +154,6 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
                   <FormLabel>Descrição do Documento</FormLabel>
                   <FormControl>
                     <Input placeholder="Descreva o documento" onChange={(e) => setdescricaoDocumento(e.target.value)} value={descricaoDocumento} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              key="situacaoDocumento" // Adicionando chave única aqui
-              control={form.control}
-              name="situacaoDocumento"
-              render={({ field }) => (
-                <FormItem className="mt-5">
-                  <FormLabel>Situação do Documento</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Situção do documento" onChange={(e) => setsituacaoDocumento(e.target.value)} value={situacaoDocumento} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -214,7 +199,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
             />
           </CardContent>
 
-          <CardFooter className="flex gap-4">
+          {/* <CardFooter className="flex gap-4">
             <Button type="submit">
               {!isEdit ? "Cadastrar" : "Salvar alterações"}
             </Button>
@@ -225,7 +210,7 @@ const FormCadastroDocumento = ({ data }: { data: DocumentoProps }) => {
             >
               Voltar
             </Button>
-          </CardFooter>
+          </CardFooter> */}
         </form>
       </Form>
     </Card>
