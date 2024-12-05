@@ -91,10 +91,10 @@ export const columns: ColumnDef<DocumentoNecessarioProps>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <Link to={`/adm/documentonecessario/cadastro/${dataRow.idDocumentoNecessario}`}>
+                        {/* <Link to={`/adm/documentonecessario/cadastro/${dataRow.idDocumentoNecessario}`}>
                             <DropdownMenuItem>📝 Editar</DropdownMenuItem>
                         </Link>
-                        <DropdownMenuSeparator />
+                        <DropdownMenuSeparator /> */}
                         <DropdownMenuItem
                             onClick={async () => {
                                 meta?.removeRow(dataRow.key);

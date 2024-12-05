@@ -256,11 +256,11 @@ const CadastroDocumentoNecessario = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <Link to={`/adm/documentonecessario/cadastro/${dataRow.idTipoDocumento}`}>
+              {/* <Link to={`/adm/documentonecessario/cadastro/${dataRow.idTipoDocumento}`}>
                 <DropdownMenuItem>📝 Editar</DropdownMenuItem>
               </Link>
 
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator /> */}
 
               <DropdownMenuItem
                 onClick={async () => {

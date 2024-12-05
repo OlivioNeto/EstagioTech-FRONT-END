@@ -3,7 +3,7 @@ import LogoImg from "../../../../assets/images/LOGO.svg";
 import { NavLink } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
-// import AssignmentIcon from "@mui/icons-material/Assignment";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 // import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
@@ -73,7 +73,6 @@ const SideBarADM = () => {
           </NavLink>
         </li>
 
-        {/* Com erro, não usar na apresentação
         <li>
           <NavLink to="/adm/documento">
             <AssignmentIcon
@@ -81,7 +80,7 @@ const SideBarADM = () => {
             />
             <span>Documento</span>
           </NavLink>
-        </li> */}
+        </li>
 
         <li>
           <NavLink to="/adm/documentonecessario/cadastro">
@@ -92,14 +91,14 @@ const SideBarADM = () => {
           </NavLink>
         </li>
  
-        <li>
+        {/* <li>
           <NavLink to="/adm/documentoversao">
             <FilePresentIcon
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Documento Versão</span>
           </NavLink>
-        </li>
+        </li> */}
 
         <li>
           <NavLink to="/adm/instituicaoensino">
@@ -125,14 +124,6 @@ const SideBarADM = () => {
               style={{ marginRight: "8px", width: "18px", height: "18px" }}
             />
             <span>Tipo Documento</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/adm/tipoestagio">
-            <AssignmentIndIcon
-              style={{ marginRight: "8px", width: "18px", height: "18px" }}
-            />
-            <span>Tipo Estágio</span>
           </NavLink>
         </li>
         <li>

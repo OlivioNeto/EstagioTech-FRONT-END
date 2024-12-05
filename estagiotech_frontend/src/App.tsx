@@ -32,7 +32,7 @@ import DocumentoVersao from './pages/Admin/DocumentoVersao';
 
 import CadastroTipoDocumento from './pages/Admin/TipoDocumento/TableTipoDocumento/cadastro';
 import CadastroTipoEstagio from './pages/Admin/TipoEstagio/TableTipoEstagio/cadastro';
-import CadastroDocumento from './pages/Admin/Documento/TableDocumento/cadastro';
+import CadastroDocumento from './pages/Admin/Documento/TableDocumentp/cadastro';
 import CadastroDocumentoNecessario from './pages/Admin/DocumentoNecessario/TableDocumentoNecessario/cadastro';
 import CadastroContratoEstagioADM from './pages/Admin/ContratoEstagio/TableContratoEstagio/cadastro';
 import CadastroEmpresa from './pages/Admin/Concedente/TableConcedente/cadastro';
