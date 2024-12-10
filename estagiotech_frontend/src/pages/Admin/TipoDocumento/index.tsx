@@ -5,6 +5,7 @@ import api from "@/service/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { ColumnDef } from "@tanstack/react-table";
 
 export default function TipoDocumentos() {
   const [data, setData] = useState<TipoDocumentoProps[]>([]);
@@ -38,7 +39,7 @@ export default function TipoDocumentos() {
           <PrinterIcon /> Imprimir
         </Button>
       </div>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns as ColumnDef<TipoDocumentoProps>[]} data={data} searchColumnKey={"key"} />
     </div>
   );
 }

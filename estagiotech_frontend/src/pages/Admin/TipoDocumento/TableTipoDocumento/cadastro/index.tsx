@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import FormCadastroTipoDocumento from "./form-cad-TipoDocumento";
 import { TipoDocumentoProps } from "../table/columns";
 import api from "@/service/api";
+import { boolean } from "zod";
 
 export default function CadastroTipoDocumento() {
   const [tipoDocumento, setTipoDocumento] = useState<TipoDocumentoProps>(
@@ -15,9 +16,11 @@ export default function CadastroTipoDocumento() {
       if (id) {
         const data = (await api.get(`/TipoDocumento/${id}`)).data;
         setTipoDocumento(data);
-      } else {setTipoDocumento({
-        idTipoDocumento:0,descricaoTipoDocumento:"",key:0
-      })}
+      } else {
+        setTipoDocumento({
+          idTipoDocumento: 0, descricaoTipoDocumento: "", status: false, key: 0
+        })
+      }
       return;
     })();
   }, []);

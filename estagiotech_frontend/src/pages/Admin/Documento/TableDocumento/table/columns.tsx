@@ -17,6 +17,11 @@ export type DocumentoProps = {
   idDocumento: number;
   descricaoDocumento: string;
   situacaoDocumento: string;
+  idTipoDocumento: number;
+  descricaoTipoDocumento: string;
+  idCoordenadorEstagio: number;
+  nomeCoordenador: string;
+  status: boolean;
   key: number;
 };
 
@@ -47,7 +52,17 @@ export const columns: ColumnDef<DocumentoProps>[] = [
   },
   {
     accessorKey: "idDocumento",
-    header: "Código do documento",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Código do documento
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "descricaoDocumento",
@@ -57,21 +72,19 @@ export const columns: ColumnDef<DocumentoProps>[] = [
     accessorKey: "situacaoDocumento",
     header: "Situação do documento",
   },
+  // {
+  //   accessorKey: "status",
+  //   header: "Status do Documento",
+  //   cell: ({ row }) => (row.original.status ? "Ativo" : "Inativo"),
+  // },
   {
-    accessorKey: "situacaoDocumento",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Descrição do documento
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    accessorKey: "idCoordenadorEstagio",
+    header: "Nome do Coordenador",
   },
-
+  {
+    accessorKey: "idTipoDocumento",
+    header: "Descrição do Tipo Documento",
+  },
   {
     id: "actions",
     header: "Ação",
@@ -99,8 +112,38 @@ export const columns: ColumnDef<DocumentoProps>[] = [
                 await api.delete(`/Documento/${dataRow.idDocumento}`);
               }}
             >
-              🗑️ delete
+              🗑️ Delete
             </DropdownMenuItem>
+            {/* <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/Documento/${dataRow.idDocumento}/Ativar`, {
+                    status: true,
+                  });
+                  location.reload();
+                } catch (error) {
+                  console.error("Erro ao ativar o documento:", error);
+                }
+              }}
+            >
+              🔄 Ativar
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/Documento/${dataRow.idDocumento}/Desativar`, {
+                    status: false,
+                  });
+                  location.reload();
+                } catch (error) {
+                  console.error("Erro ao desativar o documento:", error);
+                }
+              }}
+            >
+              🛑 Desativar
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );

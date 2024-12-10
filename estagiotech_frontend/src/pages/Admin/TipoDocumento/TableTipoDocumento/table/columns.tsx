@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 export type TipoDocumentoProps = {
   idTipoDocumento: number;
   descricaoTipoDocumento: string;
+  status: boolean;
   key: number;
 };
 
@@ -28,7 +29,7 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value: any) =>
+        onCheckedChange={(value) =>
           table.toggleAllPageRowsSelected(!!value)
         }
         aria-label="Select all"
@@ -37,7 +38,7 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -51,6 +52,11 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
   {
     accessorKey: "descricaoTipoDocumento",
     header: "Descrição do tipo documento",
+  },
+  {
+    accessorKey: "status",
+    header: "Status da descrição do tipo documento",
+    cell: ({ row }) => (row.original.status ? "Ativo" : "Inativo"),
   },
   {
     accessorKey: "descricaoTipoDocumento",
@@ -82,20 +88,54 @@ export const columns: ColumnDef<TipoDocumentoProps>[] = [
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <Link to={`/adm/tipodocumento/cadastro/${dataRow.idTipoDocumento}`}>
               <DropdownMenuItem>📝 Editar</DropdownMenuItem>
             </Link>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuItem
               onClick={async () => {
                 meta?.removeRow(dataRow.key);
                 await api.delete(`/TipoDocumento/${dataRow.idTipoDocumento}`);
               }}
             >
-              🗑️ delete
+              🗑️ Delete
             </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Ativar`, { status: true });
+                  location.reload()
+                } catch (error) {
+                  console.error("Erro ao ativar o documento:", error);
+                }
+              }}
+            >
+                🔄 Ativar
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await api.put(`/TipoDocumento/${dataRow.idTipoDocumento}/Desativar`, { status: false });
+                  location.reload()
+                } catch (error) {
+                  console.error("Erro ao desativar o documento:", error);
+                }
+              }}
+            >
+                🛑 Desativar
+            </DropdownMenuItem>
+
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -39,7 +39,7 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[350px] justify-between" //tamanho do combobox
         >
           {value
             ? data.find((item) => item.value === value)?.label
@@ -47,11 +47,11 @@ export function Combobox({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[350px] p-0"> {/* tamanho da abertura do combobox */}
         <Command>
           <CommandInput placeholder="Pesquisar..." />
-          {/* <CommandList> */}
-          <CommandEmpty>Ops! Não localizado</CommandEmpty>
+          {/* <CommandList> 
+          <CommandEmpty>Ops! Não localizado</CommandEmpty>*/}
           <CommandGroup>
             <div className="flex flex-col">
               {data.length && data.map((item) => (

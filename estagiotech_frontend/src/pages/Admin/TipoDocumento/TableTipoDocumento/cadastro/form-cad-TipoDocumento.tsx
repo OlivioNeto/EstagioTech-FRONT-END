@@ -36,7 +36,6 @@ const FormCadastroTipoDocumento = ({ data }: { data: TipoDocumentoProps }) => {
   });
 
   async function onSubmit(values: FormCadastroProps) {
-    console.log(isEdit)
     !isEdit ?
       await api
         .post("/TipoDocumento", values.descricaoTipoDocumento, { headers: { "Content-Type": "application/json" } })

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { DocumentoProps, columns } from "./TableDocumento/table/columns";
-import { DataTable } from "../../../components/data-table";
+import { DataTable } from "@/components/data-table";
+import { DocumentoProps, columns} from "./TableDocumento/table/columns"
 import api from "@/service/api";
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon, PrinterIcon } from "lucide-react";
@@ -11,11 +11,11 @@ export default function Documento() {
 
   useEffect(() => {
     (async () => {
-      const dataDocumento: DocumentoProps[] = await (
+      const data: DocumentoProps[] = await (
         await api.get("/Documento")
       ).data;
 
-      const includeKeyData = dataDocumento.map((item) => {
+      const includeKeyData = data.map((item) => {
         return { ...item, key: item.idDocumento };
       });
       console.log(includeKeyData)

@@ -10,6 +10,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   VisibilityState,
+  TableMeta,
 } from "@tanstack/react-table";
 
 import {
@@ -33,22 +34,50 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  searchColumnKey: keyof TData; // Adiciona a propriedade para coluna de pesquisa dinâmica
 }
 
-export function DataTable<TData, TValue>({
+interface DataType {
+  key: number;
+  // Adicione outros campos que seus dados possam ter
+}
+
+export function DataTable<TData extends DataType, TValue>({
   columns,
   data,
+  searchColumnKey, // Recebe a coluna de pesquisa como uma propriedade
 }: DataTableProps<TData, TValue>) {
-  const [dataTable, setDataTable] = useState<any[]>([]);
+  const [dataTable, setDataTable] = useState<TData[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
-  useEffect(() => {
-    setDataTable(data);
-  }, [data]);
+  const [searchValue, setSearchValue] = useState<string>("");
 
-  const table = useReactTable({
+  // Função de filtro global
+  const globalFilter = (rows: TData[], filterValue: string) => {
+    return rows.filter((row) => {
+      return Object.values(row).some((value) =>
+        String(value).toLowerCase().includes(filterValue.toLowerCase())
+      );
+    });
+  };
+
+  // Atualizar dataTable com o filtro
+  useEffect(() => {
+    if (searchValue) {
+      const filteredData = globalFilter(data, searchValue);
+      setDataTable(filteredData);
+    } else {
+      setDataTable(data); // Reseta a tabela se o filtro estiver vazio
+    }
+  }, [searchValue, data]);
+
+  interface CustomTableMeta extends TableMeta<TData> {
+    removeRow: (keyRow: number) => void;
+  }
+
+  const table = useReactTable<TData>({
     data: dataTable,
     columns,
     enableRowSelection: true,
@@ -68,7 +97,7 @@ export function DataTable<TData, TValue>({
       removeRow: (keyRow: number) => {
         setDataTable(dataTable.filter((datat) => datat.key !== keyRow));
       },
-    },
+    } as CustomTableMeta, // Casting para garantir que o tipo esteja correto
   });
 
   return (
@@ -77,19 +106,18 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center py-4">
           <Input
             placeholder="Pesquisar..."
-            value={
-              (table.getColumn("descricaoTipoDocumento")?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              table.getColumn("descricaoTipoDocumento")?.setFilterValue(event.target.value)
-            }
+            value={searchValue}
+            onChange={(event) => {
+              setSearchValue(event.target.value);
+              table.getColumn(searchColumnKey as string)?.setFilterValue(event.target.value); // Filtra a coluna dinâmica
+            }}
             className="max-w-sm"
           />
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Views
+              O que deseja ver?
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -124,9 +152,9 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
@@ -156,7 +184,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  vazia
+                  Selecione o combobox. Caso não haja ou sua pesquisa não foi encontrada ou cadastre um novo atributo.
                 </TableCell>
               </TableRow>
             )}
